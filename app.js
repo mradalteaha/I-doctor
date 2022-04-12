@@ -13,6 +13,9 @@ app.get('/',function(req,res){
 app.post('/Sign-Up.html',function(req,res){
     console.log(req.body);
 });
+app.post('/',function(req,res){
+    console.log(req.body);
+});
 
 
 app.listen(3000,function(){
