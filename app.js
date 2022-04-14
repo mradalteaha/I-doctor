@@ -2,7 +2,10 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+var passwordValidator = require('password-validator');
 const {TextDecoder, TextEncoder} = require("util");
+const flash = require("connect-flash");
+const session = require("express-session");
 
 
 
@@ -60,6 +63,7 @@ const User = mongoose.model("User",regSchema);
 const app=express();
 app.use(express.static('views'));
 app.use(bodyParser.urlencoded({extended:true}));
+app.use(flash());
 
 
 app.set("view engine","ejs");
