@@ -6,6 +6,7 @@ var passwordValidator = require('password-validator');
 const {TextDecoder, TextEncoder} = require("util");
 const flash = require("connect-flash");
 const session = require("express-session");
+const { strictEqual } = require('assert');
 
 
 
@@ -18,47 +19,15 @@ catch(error => handleError(error));
 
 
 const regSchema = new mongoose.Schema({ role: String,
-FName:  {
-    type:String,
-    required:true
-}, 
-Lname:{
-    type:String,
-    required:true
-} ,
-role:{
-    type:String,
-    required:true
-} ,
-id: {
-    type:Number,
-    length:9
-},
-password: {
-    type:String,
-    required:true,
-    min: 7,
-    max: 15,
-    uppercase:function(){return this.uppercase >=2;},
-    digits: function(){return this.digits >=2;}
-    
-},
-pasword:  {
-    type:String,
-    required:true,
-    min: 7,
-    max: 15,
-    uppercase:function(){return this.uppercase >=2;},
-    digits: function(){return this.digits >=2;},
-    
-},
-email: {
-    type:String,
-    required:true
-}});
+FName: String, 
+Lname:String,
+role:String,
+id: Number,
+password:String,
+pasword: String,
+email: String});
 
 const User = mongoose.model("User",regSchema);
-
 
 const app=express();
 app.use(express.static('views'));
@@ -70,51 +39,75 @@ app.set("view engine","ejs");
 app.get('/',function(req,res){
     res.render('Home',{style:'Home.css'});
 });
+
+var passwordschema = new passwordValidator();
+
+passwordschema
+  .is().max(15)
+  .is().min(7)
+  .has().uppercase() 
+  .has().not().spaces()
+  .has().digits(2) ;
+
+
 app.post('/Sign-Up.html',async(req,res)=>{
 
     try{
  
-   var role = req.body.role;
-    var fname = req.body.Fname;
-    var lname = req.body.Lname;
-    var id1 = req.body.id;
-    var password = req.body.password;
-    var repassword = req.body.pasword;
-    var email = req.body.email;
 
-    let user = new User( {
-        Fname : fname,
-        Lname : lname,
-        role : role,
-        id : id1,
-        password :password,
-        email:email
+
+    let users = new User( {
+        Fname : req.body.Fname,
+        Lname : req.body.Lname,
+        role : req.body.role,
+        id : req.body.id,
+        password :req.body.password,
+        email:req.body.email
 
     });
-    User.findOne({id : id1},function(err, user) {
+
+
+
+    
+    User.findOne({
+        id: req.body.id,
+  
+      }, function(err, user) {
         if (err) {
+
           res.json({
             error: err
           })
         }
         if (!user) {
-              
-                User.save(function(err) {
+
+          if (passwordschema.validate(req.body.password)) {
+
+                users.save(function(err) {
                   if (!err) {
-                    res.redirect("/log-in.html");
+                    console.log("success user registeration");
+
+                    return res.redirect("/index.html");
                   }
                 });
-              
+             
+            
+  
+          } else {
+            return res.redirect("/Sign-Up.html");
+          };
+  
         } else {
-          req.flash("message", "the user is already exist!");
-          res.redirect("/Sign-Up.html");
+           console.log("the user is already exist!");
+          return res.redirect("/Sign-Up.html");
         }
       });
-
+  
+  
+    } catch {
+        return res.redirect("/Sign-Up.html");
     }
-   catch{console.log(req.body.role);}
-    
-});
+  });
 
 
 
