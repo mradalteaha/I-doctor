@@ -11,11 +11,12 @@ pipeline {
                 sh 'npm install'
             }
         }
-    stage('Test') {
+     stage('Test') {
         steps {
-            sh './jenkins/test.sh'
+            script {
+                sh 'npm run test'
         }
-    }
+      }
         stage('Deliver') { 
             steps {
                 sh './jenkins/scripts/deliver.sh' 
