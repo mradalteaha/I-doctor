@@ -7,12 +7,17 @@ const {TextDecoder, TextEncoder} = require("util");
 const flash = require("connect-flash");
 const session = require("express-session");
 const { strictEqual } = require('assert');
+const dotenv = require('dotenv').config()
+
+
+
+var passport = require("passport");
+var engines = require('consolidate');
 
 
 
 //data base connection :
-mongoose.connect('mongodb://127.0.0.1:27017/usersDB',{useNewUrlParser: true});
-//catch(error => handleError(error));
+mongoose.connect('mongodb://127.0.0.1:27017/usersDB',{useNewUrlParser: true}).catch(error => handleError(error));
 
 
 
@@ -31,15 +36,36 @@ const User = mongoose.model("User",regSchema);
 
 const app=express();
 app.use(express.static('views'));
+app.set('views', __dirname + '/views');
+app.engine('html', engines.mustache);
+app.set('view engine', 'html');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(flash());
+
+
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(passport.initialize());
+app.use(passport.session());
 
 
 app.set("view engine","ejs");
 app.get('/',function(req,res){
     res.render('Home',{style:'Home.css'});
 });
-
+app.get('/Sign-Up',function(req,res){
+  res.render('/Sign-Up.html', {
+    message: req.flash("message")
+  });
+});
+app.get('/Log-in',function(req,res){
+  res.render('Log-in.html', {
+    message: req.flash("message")
+  });
+});
 var passwordschema = new passwordValidator();
 
 passwordschema
@@ -50,9 +76,9 @@ passwordschema
   .has().digits(2) ;
 
 
-app.post('/Sign-Up.html',async(req,res)=>{
+app.post('/Sign-Up.html',function(req,res){
 
-    try{
+    
  
 
 
@@ -85,9 +111,9 @@ app.post('/Sign-Up.html',async(req,res)=>{
 
                 users.save(function(err) {
                   if (!err) {
-                    console.log("success user registeration");
+                    console.log(process.env.SESSION_SECRET);
 
-                    return res.render("/index.html");
+                    return res.redirect("/Log-In");
                   }
                 });
              
@@ -99,14 +125,12 @@ app.post('/Sign-Up.html',async(req,res)=>{
   
         } else {
            console.log("the user is already exist!");
-          return res.render("/Sign-Up.html");
+          return res.redirect("/Sign-Up");
         }
       });
   
   
-    } catch {
-        return res.render("/Sign-Up.html");
-    }
+    
   });
 
 

@@ -1,7 +1,7 @@
 {
   "name": "i-doctor1",
   "version": "1.0.0",
-  "description": "",
+  "description": "doctor",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -11,13 +11,26 @@
   "dependencies": {
     "body-parser": "^1.20.0",
     "connect-flash": "^0.1.1",
+    "consolidate": "^0.16.0",
+    "dotenv": "^16.0.0",
     "ejs": "^3.0.2",
     "express": "^4.17.3",
     "express-session": "^1.17.2",
     "flash": "^1.1.0",
     "mongodb": "^4.5.0",
     "mongoose": "^6.2.10",
+    "mustache": "^4.2.0",
     "nodemon": "^2.0.15",
+    "passport": "^0.5.2",
     "password-validator": "^5.2.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Project-Management-SCE/PM2022_TEAM_18.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Project-Management-SCE/PM2022_TEAM_18/issues"
+  },
+  "homepage": "https://github.com/Project-Management-SCE/PM2022_TEAM_18#readme"
 }
