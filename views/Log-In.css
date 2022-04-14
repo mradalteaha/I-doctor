@@ -95,3 +95,13 @@
     width: 340px;
   }
 }
+.ForgotPW{
+  position: static;
+  margin-left: 160px;
+
+}
+.ResetPW{
+  position: static;
+  margin-left:50%;
+  font-size: 10px;
+}

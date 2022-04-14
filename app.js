@@ -11,8 +11,8 @@ const { strictEqual } = require('assert');
 
 
 //data base connection :
-mongoose.connect('mongodb://127.0.0.1:27017/usersDB',{useNewUrlParser: true}).
-catch(error => handleError(error));
+mongoose.connect('mongodb://127.0.0.1:27017/usersDB',{useNewUrlParser: true});
+//catch(error => handleError(error));
 
 
 
