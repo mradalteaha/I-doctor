@@ -87,25 +87,25 @@ app.post('/Sign-Up.html',async(req,res)=>{
                   if (!err) {
                     console.log("success user registeration");
 
-                    return res.redirect("/index.html");
+                    return res.render("/index.html");
                   }
                 });
              
             
   
           } else {
-            return res.redirect("/Sign-Up.html");
+            return res.render("/Sign-Up.html");
           };
   
         } else {
            console.log("the user is already exist!");
-          return res.redirect("/Sign-Up.html");
+          return res.render("/Sign-Up.html");
         }
       });
   
   
     } catch {
-        return res.redirect("/Sign-Up.html");
+        return res.render("/Sign-Up.html");
     }
   });
 
