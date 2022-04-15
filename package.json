@@ -22,9 +22,9 @@
     "mustache": "^4.2.0",
     "nodemon": "^2.0.15",
     "passport": "^0.5.2",
-    "password-validator": "^5.2.1"
+    "password-validator": "^5.2.1",
+    "path": "^0.12.7"
   },
-  "devDependencies": {},
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Project-Management-SCE/PM2022_TEAM_18.git"

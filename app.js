@@ -1,6 +1,7 @@
 //jshint esversion:6
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path');
 const mongoose = require('mongoose');
 var passwordValidator = require('password-validator');
 const {TextDecoder, TextEncoder} = require("util");
@@ -57,7 +58,7 @@ app.get('/',function(req,res){
     res.render('Home',{style:'Home.css'});
 });
 app.get('/Sign-Up',function(req,res){
-  res.render('/Sign-Up.html', {
+  res.render('Sign-Up.html', {
     message: req.flash("message")
   });
 });
@@ -76,7 +77,7 @@ passwordschema
   .has().digits(2) ;
 
 
-app.post('/Sign-Up.html',function(req,res){
+app.post('/Sign-Up',function(req,res){
 
     
  
@@ -113,9 +114,8 @@ app.post('/Sign-Up.html',function(req,res){
                   if (!err) {
                     console.log(process.env.SESSION_SECRET);
 
-                    res.render('Log-In.html', {
-                      message: req.flash("message")
-                    });
+                    return res.redirect('/Log-In');
+                    window.location.href ="/Log-In";
                   }
                 });
              
