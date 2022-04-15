@@ -62,7 +62,7 @@ app.get('/Sign-Up',function(req,res){
   });
 });
 app.get('/Log-in',function(req,res){
-  res.render('Log-in.html', {
+  res.render('Log-In.html', {
     message: req.flash("message")
   });
 });
@@ -113,7 +113,9 @@ app.post('/Sign-Up.html',function(req,res){
                   if (!err) {
                     console.log(process.env.SESSION_SECRET);
 
-                    return res.redirect("/Log-In");
+                    res.render('Log-In.html', {
+                      message: req.flash("message")
+                    });
                   }
                 });
              
