@@ -11,22 +11,22 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'npm install'
+                bash sh 'npm install'
             }
         }
         stage('test') {
             steps{
                 nodejs(nodeJSInstallaionName:'nodejs'){
-                    sh 'npm install --only=dev'
-                    sh 'npm test'
+                   bash sh 'npm install --only=dev'
+                   bash sh 'npm test'
                 }
             }
         }
         stage('Deliver') {
             steps {
-                sh './jenkins/scripts/deliver.sh'
+                bash sh './jenkins/scripts/deliver.sh'
                 input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                sh './jenkins/scripts/kill.sh'
+                bash sh './jenkins/scripts/kill.sh'
             }
         }
     }
