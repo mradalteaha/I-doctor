@@ -14,7 +14,7 @@ pipeline {
                 sh 'npm install'
             }
         }
-        stage('Test') {
+        stage('test') {
             nodejs(nodeJSInstallaionName:'nodejs'){
                 sh 'npm install --only=dev'
                 sh 'npm test'
