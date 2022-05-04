@@ -1,33 +1,22 @@
 pipeline {
-    agent {
-        docker {
-            image 'node:lts-buster-slim'
-            args '-p 3000:3000'
-        }
-    }
-    environment {
-        CI = 'true'
-    }
+    agent any
     stages {
         stage('Build') {
             steps {
-                sh 'npm install'
+                sh './gradlew build'
             }
         }
-        stage('test') {
-            steps{
-                nodejs(nodeJSInstallaionName:'nodejs'){
-                sh 'npm install --only=dev'
-                sh 'npm test'
-                }
-            }
-        }
-        stage('Deliver') {
+        stage('Test') {
             steps {
-                sh './jenkins/scripts/deliver.sh'
-                input message: 'Finished using the web site? (Click "Proceed" to continue)'
-                sh './jenkins/scripts/kill.sh'
+                sh './gradlew check'
             }
+        }
+    }
+
+    post {
+        always {
+            archiveArtifacts artifacts: 'build/libs/**/*.jar', fingerprint: true
+            junit 'build/reports/**/*.xml'
         }
     }
 }
