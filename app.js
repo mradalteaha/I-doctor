@@ -14,6 +14,7 @@ const dotenv = require('dotenv').config()
 
 var passport = require("passport");
 var engines = require('consolidate');
+const { connect } = require('http2');
 
 
 
@@ -108,21 +109,20 @@ app.post('/Sign-Up',function(req,res){
         }
         if (!user) {
 
-          if (passwordschema.validate(req.body.password)) {
+          if (passwordschema.validate(req.body.password) && (req.body.password === req.body.pasword)) {
 
                 users.save(function(err) {
                   if (!err) {
-                    console.log(process.env.SESSION_SECRET);
+                    
 
                     return res.redirect('/Log-In');
-                    window.location.href ="/Log-In";
                   }
                 });
              
             
   
           } else {
-            return res.render("/Sign-Up.html");
+            return res.redirect("/Sign-Up");
           };
   
         } else {
@@ -134,6 +134,43 @@ app.post('/Sign-Up',function(req,res){
   
     
   });
+
+
+
+  app.post('/Log-In', function(req, res) {
+    var  password = req.body.Password;
+    User.findOne({
+      id: req.body.id,
+  
+    }, function(err, user) {
+      if (err) { // user doesn't exist
+        res.json({
+          error: err
+        })
+      }
+      if (user) { //user exist
+
+        console.log(user);
+
+        if (req.body.Password === user.password) {
+  
+          if (user.role === "Doctor") {
+            console.log("doctor login");
+            return res.redirect("/Doctor");
+          } else if (user.role === "Examinator") {
+            return res.redirect("/Examinator");
+          } else {
+            return res.redirect("/Patient");
+          }
+        } else {
+         return  res.redirect("/Log-In");
+        }
+      } else {
+        return res.redirect("/Log-In");
+      }
+    });
+  });
+
 
 
 
