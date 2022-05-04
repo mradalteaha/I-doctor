@@ -15,11 +15,10 @@ pipeline {
             }
         }
         stage('test') {
-            
+            steps{
                 nodejs(nodeJSInstallaionName:'nodejs'){
-                    steps{
-                   sh 'npm install --only=dev'
-                   sh 'npm test'
+                sh 'npm install --only=dev'
+                sh 'npm test'
                 }
             }
         }
