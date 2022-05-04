@@ -4,7 +4,7 @@
   "description": "doctor",
   "main": "app.js",
   "scripts": {
-    "test": "node test.js"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "abed",
   "license": "ISC",
@@ -23,8 +23,7 @@
     "nodemon": "^2.0.15",
     "passport": "^0.5.2",
     "password-validator": "^5.2.1",
-    "path": "^0.12.7",
-    "test": "^0.6.0"
+    "path": "^0.12.7"
   },
   "repository": {
     "type": "git",
