@@ -149,6 +149,9 @@ app.post('/Sign-Up',function(req,res){
         })
       }
       if (user) { //user exist
+
+        console.log(user);
+
         if (req.body.Password === user.password) {
   
           if (user.role === "Doctor") {
