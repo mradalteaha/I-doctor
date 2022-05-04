@@ -15,8 +15,9 @@ pipeline {
             }
         }
         stage('Test') {
-            steps {
-                sh './jenkins/scripts/test.sh'
+            nodejs(nodeJSInstallaionName:'nodejs'){
+                sh 'npm install --only=dev'
+                sh 'npm test'
             }
         }
         stage('Deliver') {
