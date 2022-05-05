@@ -152,6 +152,7 @@ app.post('/Sign-Up',function(req,res){
         console.log(user);
 
         if (req.body.Password === user.password) {
+          console.log(user);
   
           if (user.role === "Doctor") {
             console.log("doctor login");
