@@ -67,6 +67,14 @@ app.get('/Log-in',function(req,res){
     message: req.flash("message")
   });
 });
+
+app.get('/ForgotPW',function(req,res){
+  res.render('ForgotPW.html', {
+    message: req.flash("message")
+  });
+});
+
+
 var passwordschema = new passwordValidator();
 
 passwordschema
@@ -166,6 +174,57 @@ app.post('/Sign-Up',function(req,res){
         }
       } else {
         return res.redirect("/Log-In");
+      }
+    });
+  });
+
+
+  app.post('/ForgotPW', function(req, res) {
+    var  password = req.body.Password;
+
+    User.findOne({
+      id: req.body.id,
+  
+    }, function(err, user) {
+      if (err) { // user doesn't exist
+        res.json({
+          error: err
+        })
+      }
+      if (user) { //user exist
+
+        console.log(user);
+
+        if (req.body.id == user.id && req.body.email == user.email ) {
+
+          if(req.body.newpass === req.body.confnewpass){
+
+            User.updateOne({ id: user.id }, { password: req.body.newpass }, function(err, reas) {
+              if(err){
+                console.log("couldn't change password");
+              }
+              else{
+                console.log("password changed successfully");
+                return  res.redirect("/Log-In"); 
+              }
+            });
+
+
+          }
+          else{
+            console.log("passwords doesn't match");
+          }
+
+
+          
+         
+        } else {
+          console.log("email and password doesn't match ");
+         return  res.redirect("/ForgotPW");
+        }
+      } else {
+        console.log("user doesn't exist");
+        return res.redirect("/ForgotPW");
       }
     });
   });
