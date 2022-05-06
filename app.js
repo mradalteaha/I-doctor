@@ -22,15 +22,12 @@ mongoose.connect('mongodb+srv://moradte:Mrad_1999@idoctor.1lmf0.mongodb.net/myFi
 
 
 
-
-
-const regSchema = new mongoose.Schema({ role: String,
-FName: String, 
-Lname:String,
-role:String,
+const regSchema = new mongoose.Schema({
+role: String,
+FirstName: String, 
+LastName:String,
 id: Number,
 password:String,
-pasword: String,
 email: String});
 
 const User = mongoose.model("User",regSchema);
@@ -55,10 +52,15 @@ app.use(passport.session());
 
 app.set("view engine","ejs");
 app.get('/',function(req,res){
-    res.render('Home',{style:'Home.css'});
+    res.render('Home.html',{style:'Home.css'});
 });
 app.get('/Sign-Up',function(req,res){
   res.render('Sign-Up.html', {
+    message: req.flash("message")
+  });
+});
+app.get('/Home',function(req,res){
+  res.render('Home.html', {
     message: req.flash("message")
   });
 });
@@ -92,21 +94,25 @@ app.post('/Sign-Up',function(req,res){
 
 
     let users = new User( {
-        Fname : req.body.Fname,
-        Lname : req.body.Lname,
         role : req.body.role,
+        FirstName : req.body.Fname,
+        LastName : req.body.Lname,
         id : req.body.id,
         password :req.body.password,
         email:req.body.email
 
     });
 
-
-
+    console.log(req.body.Fname);
+    console.log(req.body.Lname);
+    console.log(req.body.role);
+    console.log(req.body.id);
+    console.log(req.body.password);
+    console.log(req.body.email);
     
     User.findOne({
         id: req.body.id,
-  
+
       }, function(err, user) {
         if (err) {
 
@@ -121,7 +127,7 @@ app.post('/Sign-Up',function(req,res){
                 users.save(function(err) {
                   if (!err) {
                     
-
+                    console.log(user);
                     return res.redirect('/Log-In');
                   }
                 });
