@@ -11,6 +11,10 @@ body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
 body {font-size:16px;}
 .w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
 .w3-half img:hover{opacity:1}
+#map {
+    height: 400px; 
+    width: 100%; 
+}
 </style>
 </head>
 <body>
@@ -90,6 +94,14 @@ body {font-size:16px;}
       <button type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Send Message</button>
     </form>  
   </div>
+
 </div>
+<script async defer
+src="https://maps.googleapis.com/maps/api/js?key=_____&callback=initMap">
+</script>
+
+
+<h3>My Google Maps Demo</h3>
+<div id="map"></div>
 </body>
 </html>

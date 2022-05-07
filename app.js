@@ -166,7 +166,7 @@ app.post('/Sign-Up',function(req,res){
         console.log(user);
 
         if (req.body.Password === user.password) {
-          console.log(user);
+          //console.log(user);
   
           if (user.role === "Doctor") {
             console.log("doctor login");
@@ -174,7 +174,7 @@ app.post('/Sign-Up',function(req,res){
           } else if (user.role === "Examinator") {
             return res.redirect("/Examinator");
           } else {
-            return res.redirect("/Patient");
+            return res.redirect("/Patient.html");
           }
         } else {
          return  res.redirect("/Log-In");
@@ -243,3 +243,21 @@ app.listen(3000,function(){
     console.log("Starting Server");
 });
 
+function initMap() {
+  // The location of Uluru
+  var uluru = {
+      lat: -25.344,
+      lng: 131.036
+  };
+  // The map, centered at Uluru
+  var map = new google.maps.Map(
+      document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+      });
+  // The marker, positioned at Uluru
+  var marker = new google.maps.Marker({
+      position: uluru,
+      map: map
+  });
+}
