@@ -67,6 +67,12 @@ app.get('/Patient',function(req,res){
   console.log("************************");
   res.render('Patient',{p:LoggedInUser});
 });
+app.get('/Examinator',function(req,res){
+  console.log("************************");
+  console.log(LoggedInUser);
+  console.log("************************");
+  res.render('Examinator',{p:LoggedInUser});
+});
 
 app.set("view engine","ejs");
 app.get('/',function(req,res){
