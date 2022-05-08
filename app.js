@@ -221,7 +221,7 @@ app.post('/Sign-Up',function(req,res){
           if (user.role === "Doctor") {
             console.log("doctor login");
 
-            return res.redirect("/Doctor");
+            return res.redirect("/Doctortest");
           } else if (user.role === "Examinator") {
             return res.redirect("/Examinator");
           } else {
