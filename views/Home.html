@@ -1,99 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<title>Home Page</title>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
-<style>
-body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
-body {font-size:16px;}
-.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
-.w3-half img:hover{opacity:1}
-#map {
-    height: 400px; 
-    width: 100%; 
-}
-</style>
+    <title>Home Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+    <style>
+        body,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5 {
+            font-family: "Poppins", sans-serif
+        }
+
+        body {
+            font-size: 16px;
+        }
+
+        .w3-half img {
+            margin-bottom: -6px;
+            margin-top: 16px;
+            opacity: 0.8;
+            cursor: pointer
+        }
+
+        .w3-half img:hover {
+            opacity: 1
+        }
+    </style>
 </head>
+
 <body>
 
-<!-- Sidebar/menu -->
-<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
-  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
-  <div class="w3-container">
-    <h3 class="w3-padding-64"><b>I-Doctor</b></h3>
-  </div>
-  <div class="w3-bar-block">
-    <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a> 
-    <a href="#showcase" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Showcase</a> 
-    <a href="#Aboutus" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">About Us</a> 
-    <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
-    <a href="Sign-Up.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Register</a> 
-    <a href="Log-In.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">LogIn</a> 
-  </div>
-</nav>
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding"
+        style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+        <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft"
+            style="width:100%;font-size:22px">Close Menu</a>
+        <div class="w3-container">
+            <h3 class="w3-padding-64"><b>I-Doctor</b></h3>
+        </div>
+        <div class="w3-bar-block">
+            <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>
+            <a href="#showcase" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Showcase</a>
+            <a href="#Aboutus" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">About Us</a>
+            <a href="#contact" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Contact</a>
+            <a href="Sign-Up.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Register</a>
+            <a href="Log-In.html" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">LogIn</a>
+        </div>
+    </nav>
 
-<!-- Top menu on small screens -->
-<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
-  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
-  <span>I-Doctor</span>
-</header>
+    <!-- Top menu on small screens -->
+    <header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+        <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+        <span>I-Doctor</span>
+    </header>
 
-<!-- Overlay effect when opening sidebar on small screens -->
-<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu"
+        id="myOverlay"></div>
 
-<!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:340px;margin-right:40px">
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:340px;margin-right:40px">
 
-  <!-- Header -->
-  <div class="w3-container" style="margin-top:80px" id="showcase">
-    <h1 class="w3-jumbo"><b>I-Doctor</b></h1>
-    <h1 class="w3-xxxlarge w3-text-red"><b>Showcase.</b></h1>
-    <hr style="width:50px;border:5px solid red" class="w3-round">
-  </div>
-  
-  
-  <div class="w3-row-padding">
-    <p>
-        <h2>Are you tired from reserving apointment by phone or by going to the clinc!!
-        <br>for this issue we here to make the things more simple<br>by one click all of your problems will be fixed</h2>
-    </p>
-  </div>
+        <!-- Header -->
+        <div class="w3-container" style="margin-top:80px" id="showcase">
+            <h1 class="w3-jumbo"><b>I-Doctor</b></h1>
+            <h1 class="w3-xxxlarge w3-text-red"><b>Showcase.</b></h1>
+            <hr style="width:50px;border:5px solid red" class="w3-round">
+        </div>
 
-  <!-- Services -->
-  <div class="w3-container" id="Aboutus" style="margin-top:75px">
-    <h1 class="w3-xxxlarge w3-text-red"><b>About Us.</b></h1>
-    <hr style="width:50px;border:5px solid red" class="w3-round">
-    <p><h1><b>What We Do</b></h1></p>
-    <p>
-        <h2>We have the knowledge and experience
-        We offer a system that provide for patients the ability to control and schedule there appointments in <br>
-        a simple way and we provide the ability to see the results of tests and to get from a doctor the prescription of treatment.</h2>
-    </p>
-  </div>
-  <!-- Contact -->
-  <div class="w3-container" id="contact" style="margin-top:75px">
-    <h1 class="w3-xxxlarge w3-text-red"><b>Contact.</b></h1>
-    <hr style="width:50px;border:5px solid red" class="w3-round">
 
-    <form action="/action_page.php" target="_blank">
-      <div class="w3-section">
-        <label>Name</label>
-        <input class="w3-input w3-border" type="text" name="Name" required>
-      </div>
-      <div class="w3-section">
-        <label>Email</label>
-        <input class="w3-input w3-border" type="text" name="Email" required>
-      </div>
-      <div class="w3-section">
-        <label>Message</label>
-        <input class="w3-input w3-border" type="text" name="Message" required>
-      </div>
-      <button type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Send Message</button>
-    </form>  
-  </div>
-</div>
+        <div class="w3-row-padding">
+            <p>
+                <h2>Are you tired from reserving apointment by phone or by going to the clinc!!
+                    <br>for this issue we here to make the things more simple<br>by one click all of your problems will
+                    be fixed</h2>
+            </p>
+        </div>
+
+        <!-- Services -->
+        <div class="w3-container" id="Aboutus" style="margin-top:75px">
+            <h1 class="w3-xxxlarge w3-text-red"><b>About Us.</b></h1>
+            <hr style="width:50px;border:5px solid red" class="w3-round">
+            <p>
+                <h1><b>What We Do</b></h1>
+            </p>
+            <p>
+                <h2>We have the knowledge and experience
+                    We offer a system that provide for patients the ability to control and schedule there appointments
+                    in <br>
+                    a simple way and we provide the ability to see the results of tests and to get from a doctor the
+                    prescription of treatment.</h2>
+            </p>
+        </div>
+        <!-- Contact -->
+        <div class="w3-container" id="contact" style="margin-top:75px">
+            <h1 class="w3-xxxlarge w3-text-red"><b>Contact.</b></h1>
+            <hr style="width:50px;border:5px solid red" class="w3-round">
+
+            <form action="/action_page.php" target="_blank">
+                <div class="w3-section">
+                    <label>Name</label>
+                    <input class="w3-input w3-border" type="text" name="Name" required>
+                </div>
+                <div class="w3-section">
+                    <label>Email</label>
+                    <input class="w3-input w3-border" type="text" name="Email" required>
+                </div>
+                <div class="w3-section">
+                    <label>Message</label>
+                    <input class="w3-input w3-border" type="text" name="Message" required>
+                </div>
+                <button type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Send
+                    Message</button>
+            </form>
+        </div>
+    </div>
 </body>
+
 </html>

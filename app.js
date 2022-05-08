@@ -28,7 +28,11 @@ FirstName: String,
 LastName:String,
 id: Number,
 password:String,
-email: String});
+email: String,
+Gender:String,
+Age:Number,
+Phone:Number,
+Birthdate:Date});
 
 const User = mongoose.model("User",regSchema);
 
@@ -40,6 +44,7 @@ app.set('view engine', 'html');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(flash());
 
+var LoggedInUser;
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -49,6 +54,19 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.get('/Doctor',function(req,res){
+  console.log("************************");
+  console.log(LoggedInUser);
+  console.log("************************");
+  res.render('Doctor',{asd:LoggedInUser});
+});
+
+app.get('/Patient',function(req,res){
+  console.log("************************");
+  console.log(LoggedInUser);
+  console.log("************************");
+  res.render('Patient',{p:LoggedInUser});
+});
 
 app.set("view engine","ejs");
 app.get('/',function(req,res){
@@ -99,7 +117,12 @@ app.post('/Sign-Up',function(req,res){
         LastName : req.body.Lname,
         id : req.body.id,
         password :req.body.password,
-        email:req.body.email
+        email:req.body.email,
+        Gender:req.body.gender,
+        Age:req.body.age,
+        Phone:req.body.phone,
+        Birthdate:req.body.birthdate
+        
 
     });
 
@@ -149,7 +172,6 @@ app.post('/Sign-Up',function(req,res){
   });
 
 
-
   app.post('/Log-In', function(req, res) {
     var  password = req.body.Password;
     User.findOne({
@@ -166,15 +188,16 @@ app.post('/Sign-Up',function(req,res){
         console.log(user);
 
         if (req.body.Password === user.password) {
-          //console.log(user);
-  
+          console.log(user);
+          LoggedInUser = user;
           if (user.role === "Doctor") {
             console.log("doctor login");
+
             return res.redirect("/Doctor");
           } else if (user.role === "Examinator") {
             return res.redirect("/Examinator");
           } else {
-            return res.redirect("/Patient.html");
+            return res.redirect("/Patient");
           }
         } else {
          return  res.redirect("/Log-In");
