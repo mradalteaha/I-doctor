@@ -64,10 +64,10 @@ app.get('/Doctor',function(req,res){
   console.log("************************");
   console.log(LoggedInUser);
   console.log("************************");
- 
+ let doctor;
    User.find({},function(err,users){
 
-    res.render('Doctor.ejs',{asd:req.session.user,patientslist:users});
+    res.render('Doctor.ejs',{doctor:req.session.user,patientslist:users});
 
 
    });
@@ -75,10 +75,24 @@ app.get('/Doctor',function(req,res){
 });
 
 app.get('/Patient',function(req,res){
+  
   console.log("************************");
   console.log(LoggedInUser);
   console.log("************************");
-  res.render('Patient',{p:req.session.user});
+  res.render('Patient.ejs',{p:req.session.user});
+});
+
+app.get('/Doctortest',function(req,res){
+  console.log("************************");
+  console.log(LoggedInUser);
+  console.log("************************");
+  let doctor;
+  User.find({},function(err,users){
+
+   res.render('Doctortest.ejs',{doctor:req.session.user,patientslist:users});
+
+
+  });
 });
 app.get('/Examinator',function(req,res){
   console.log("************************");
