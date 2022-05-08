@@ -37,6 +37,16 @@ Birthdate:Date,
 Specialist:String
 });
 
+const messages = new mongoose.Schema({
+  sender:Number,
+  reciever:Number,
+  Subject:String,
+  Mbody:String,
+  sent:Date});
+  
+
+const User = mongoose.model("User",regSchema);
+const uMessage = mongoose.model("uMessage",messages);
 const bloodtestSchema = new mongoose.Schema({
   id: String,
   wbc: String,
@@ -51,7 +61,6 @@ const bloodtestSchema = new mongoose.Schema({
   ap: String,
 
 });
-const User = mongoose.model("User",regSchema);
 const BloodTest = mongoose.model("BloodTest",bloodtestSchema);
 
 const app=express();
@@ -114,8 +123,17 @@ app.get('/Patient',function(req,res){
   console.log("************************");
   console.log(LoggedInUser);
   console.log("************************");
-  res.render('Patient.ejs',{p:req.session.user});
+  User.find({},function(err,users){
+
+    res.render('Patient.ejs',{p:req.session.user,userslist:users});
+
+
+   });
+
 });
+
+
+
 
 app.get('/Doctortest',function(req,res){
   console.log("************************");
@@ -209,11 +227,11 @@ passwordschema
     
   });
 
-app.post('/Sign-Up',function(req,res){
+app.post('/Sign-Up',(req,res)=>{
 
     
  
-
+try{
 
     let users = new User( {
         role : req.body.role,
@@ -264,14 +282,19 @@ app.post('/Sign-Up',function(req,res){
           return res.redirect("/Sign-Up");
         }
       });
-  
+    }catch{
+
+    return res.redirect("/Sign-Up");
+
+  }
   
     
   });
 
 
+  app.post('/Log-In', (req, res)=> {
 
-  app.post('/Log-In', function(req, res) {
+try{
     var  password = req.body.Password;
     User.findOne({
       id: req.body.id,
@@ -310,6 +333,65 @@ app.post('/Sign-Up',function(req,res){
         return res.redirect("/Log-In");
       }
     });
+  }catch{
+      return res.redirect("/Log-In");
+
+    }
+  });
+
+
+  app.post('/Patient',function(req,res){
+
+    console.log("inside patient post");
+  
+    var date = new Date();
+    let newmessage = new uMessage( {
+      sender:req.body.sender,
+  reciever:req.body.doctorid,
+  Subject:req.body.Subject,
+  Mbody:req.body.Message,
+  sent:date
+  });
+
+
+  newmessage.save(function(err) {
+    if (!err) {
+      
+      console.log(newmessage);
+      return res.redirect('/Patient');
+        }
+  });
+
+  uMessage.findOne({
+    _id: req.body.id,
+
+  }, function(err, msg) {
+    if (err) {
+
+      res.json({
+        error: err
+      })
+    }
+    if (!msg) {
+
+
+            newmessage.save(function(err) {
+              if (!err) {
+                
+                console.log(newmessage);
+                return res.redirect('/Patient');
+              }
+            });
+         
+        
+
+
+    } 
+  });
+
+
+   
+  
   });
 
 
