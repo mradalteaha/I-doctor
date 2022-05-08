@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="BloodTestValues.css">
+    <title>Blood Test </title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navlinks">
+            <ul>
+                <li><a href="Home">Home</a></li>
+                <li><a href="Log-In">Logout</a></li>
+                <li><a href="Doctor">Patient List</a></li>
+                <li><a href="BloodTestValues">Blood Test Values</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="login-block">
+        <h1>Bloot Test Values</h1>
+        <form action="/BloodTestValues" method="POST">
+            <input name="id" type="text" placeholder="ID" maxlength="9" />
+            <input name="age" type="text" placeholder="Age" maxlength="9" />
+            <input name="wbc" type="text" placeholder="Wbc" />
+            <input name="neut" type="text" placeholder="Neut" />
+            <input name="lymph" type="text" placeholder="Lymph" />
+            <input name="rbc" type="text" placeholder="RBC" />
+            <input name="hct" type="text" placeholder="Hct" />
+            <input name="urea" type="text" placeholder="Urea" />
+            <input name="hb" type="text" placeholder="Hb" />
+            <input name="creatine" type="text" placeholder="Creatine" />
+            <input name="iron" type="text" placeholder="Iron" />
+            <input name="ap" type="text" placeholder="Alkaline Phosphatase" />
+            <button type="submit">Add</button>
+        </form>
+    </div>
+</body>
+
+</html>

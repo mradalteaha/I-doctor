@@ -1,30 +1,9 @@
 <!DOCTYPE html>
-<html style="font-size: 16px;">
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="utf-8">
-    <meta name="keywords" content="MeDoctor">
-    <meta name="description" content="">
-    <meta name="page_type" content="np-template-header-footer-from-plugin">
-    <title>Log In</title>
-    <link rel="stylesheet" href="nicepage.css" media="screen">
-    <link rel="stylesheet" href="Log-In.css" media="screen">
-    <script class="u-script" type="text/javascript" src="jquery.js" defer=""></script>
-    <meta name="generator" content="Nicepage 4.8.2, nicepage.com">
-    <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i">
-
-
-    <script type="application/ld+json">{
-		"@context": "http://schema.org",
-		"@type": "Organization",
-		"name": "MeDoctor",
-		"logo": "images/29e82d2ed26e640eaed90747216337519f343bc1debc3c77da291383d7f1406e06d95d17fbba1dbb741d9c548d4fbc55d4e08628c23b9991b2a1c3_1280.png"
-}</script>
-    <meta name="theme-color" content="#478ac9">
-    <meta property="og:title" content="Log In">
-    <meta property="og:type" content="website">
+<html lang="en">
+<head>
     <link rel="icon" href="images/favicon.ico">
 
+<<<<<<< HEAD
   </head>
   <body class="u-body u-xl-mode"><header class="u-clearfix u-header u-palette-1-light-3 u-header" id="sec-2674" data-image-width="150" data-image-height="65"><div class="u-clearfix u-sheet u-sheet-1">
         <a href="/" data-page-id="315427882" class="u-image u-logo u-image-1" data-image-width="1280" data-image-height="1161" title="Home">
@@ -86,21 +65,33 @@
               <input type="submit" value="submit" class="u-form-control-hidden">
             </div>
           </form>
+=======
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Log_in.css">
+    <title>Login</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navlinks">
+            <ul>
+                <li><a href="Home.html">Home</a></li>
+                <li><a href="Sign-Up">Sign Up</a></li>
+            </ul>
+>>>>>>> master
         </div>
-      </div>
-    </section>
+    </nav>
 
-
-    <footer class="u-clearfix u-footer u-palette-1-light-1" id="sec-d641"><div class="u-clearfix u-sheet u-sheet-1">
-        <img class="u-image u-image-default u-image-1" src="images/0977c697ee4cc162b0d65c935c6029f6fcc6aec534d58d6ff49bdffdd7ecd3adfca47781f69a6ff59668b8a1ec861b2c44769fb9482067b52e12b0_1280.png" alt="" data-image-width="1280" data-image-height="640">
-        <h3 class="u-text u-text-default u-text-grey-60 u-text-1">We Here To Serve You<span style="font-weight: 700;">
-            <span style="font-weight: 400;">
-              <span style="font-style: italic;"></span>
-            </span>
-          </span>
-        </h3>
-        <div class="u-border-1 u-border-white u-line u-line-horizontal u-opacity u-opacity-50 u-line-1"></div>
-      </div>
-    </footer>
-  </body>
+<div class="login-block">
+    <h1>Login</h1>
+    <form action="/Log-In" method="POST">
+    <input  name="id" type="text" value="" placeholder="ID" id="Id" maxlength="9"/>
+    <input maxlength="15" minlength="8" name="Password" type="password" value="" placeholder="Password" id="password" />
+    <button type="submit">Log In</button>
+    <br><br>
+</form>
+<a href="ForgotPW.html"><button>Forget Password</button></a>
+</div>
+</body>
 </html>

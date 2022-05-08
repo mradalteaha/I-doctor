@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 var passwordValidator = require('password-validator');
 const flash = require("connect-flash");
 const session = require("express-session");
+const ejs = require("ejs");
 const { strictEqual } = require('assert');
 const dotenv = require('dotenv').config()
 
@@ -22,27 +23,48 @@ mongoose.connect('mongodb+srv://moradte:Mrad_1999@idoctor.1lmf0.mongodb.net/myFi
 
 
 
-
-
-const regSchema = new mongoose.Schema({ role: String,
-FName: String, 
-Lname:String,
-role:String,
+const regSchema = new mongoose.Schema({
+role: String,
+FirstName: String, 
+LastName:String,
 id: Number,
 password:String,
-pasword: String,
-email: String});
+email: String,
+Gender:String,
+Age:Number,
+Phone:Number,
+Birthdate:Date,
+Specialist:String
+});
 
+const bloodtestSchema = new mongoose.Schema({
+  id: String,
+  wbc: String,
+  neut: String,
+  lymph: String,
+  rbc: String,
+  hct: String,
+  urea: String,
+  hb: String,
+  creatine: String,
+  iron: String,
+  ap: String,
+
+});
 const User = mongoose.model("User",regSchema);
+const BloodTest = mongoose.model("BloodTest",bloodtestSchema);
 
 const app=express();
+app.set('view engine', 'ejs');
 app.use(express.static('views'));
 app.set('views', __dirname + '/views');
 app.engine('html', engines.mustache);
-app.set('view engine', 'html');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(flash());
 
+var LoggedInUser;
+var userslist=[];
+ 
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -52,13 +74,59 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+app.get('/Doctor',function(req,res){
+  console.log("************************");
+  console.log(LoggedInUser);
+  console.log("************************");
+ let doctor;
+   User.find({},function(err,users){
 
-app.set("view engine","ejs");
+    res.render('Doctor.ejs',{doctor:req.session.user,patientslist:users});
+
+
+   });
+  
+
+});
+
+app.get('/Patient',function(req,res){
+  
+  console.log("************************");
+  console.log(LoggedInUser);
+  console.log("************************");
+  res.render('Patient.ejs',{p:req.session.user});
+});
+
+app.get('/Doctortest',function(req,res){
+  console.log("************************");
+  console.log(LoggedInUser);
+  console.log("************************");
+  let doctor;
+  User.find({},function(err,users){
+
+   res.render('Doctortest.ejs',{doctor:req.session.user,patientslist:users});
+
+
+  });
+});
+app.get('/Examinator',function(req,res){
+  console.log("************************");
+  console.log(LoggedInUser);
+  console.log("************************");
+  res.render('Examinator',{p:req.session.user});
+});
+
+
 app.get('/',function(req,res){
-    res.render('Home',{style:'Home.css'});
+    res.render('Home.html',{style:'Home.css'});
 });
 app.get('/Sign-Up',function(req,res){
-  res.render('Sign-Up.html', {
+  res.render('Sign-Up', {
+    message: req.flash("message")
+  });
+});
+app.get('/Home',function(req,res){
+  res.render('Home.html', {
     message: req.flash("message")
   });
 });
@@ -73,7 +141,17 @@ app.get('/ForgotPW',function(req,res){
     message: req.flash("message")
   });
 });
+app.get('/Examinator',function(req,res){
+  res.render('Examinator', {
+    message: req.flash("message")
+  });
+});
 
+app.get('/BloodTestValues',function(req,res){
+  res.render('BloodTestValues', {
+    message: req.flash("message")
+  });
+});
 
 var passwordschema = new passwordValidator();
 
@@ -84,6 +162,32 @@ passwordschema
   .has().not().spaces()
   .has().digits(2) ;
 
+  app.post('/BloodTestValues',function(req,res){
+
+    let test = new BloodTest( {
+      id : req.body.id,
+      age:req.body.age,
+      wbc :req.body.wbc,
+      neut:req.body.neut,
+      lymph:req.body.lymph,
+      rbc:req.body.rbc,
+      hct:req.body.hct,
+      urea:req.body.urea,
+      hb:req.body.hb,
+      creatine:req.body.creatine,
+      iron:req.body.iron,
+      ap:req.body.ap
+  });
+    console.log("blood test enterd");
+    test.save(function(err) {
+      if (!err) {
+        
+        console.log(test);
+        return res.redirect('/Examinator');
+      }
+    });
+    
+  });
 
 app.post('/Sign-Up',function(req,res){
 
@@ -92,21 +196,24 @@ app.post('/Sign-Up',function(req,res){
 
 
     let users = new User( {
-        Fname : req.body.Fname,
-        Lname : req.body.Lname,
         role : req.body.role,
+        FirstName : req.body.Fname,
+        LastName : req.body.Lname,
         id : req.body.id,
         password :req.body.password,
-        email:req.body.email
-
+        email:req.body.email,
+        Gender:req.body.gender,
+        Age:req.body.age,
+        Phone:req.body.phone,
+        Birthdate:req.body.birthdate,
+        Specialist:req.body.Specialist
     });
-
 
 
     
     User.findOne({
         id: req.body.id,
-  
+
       }, function(err, user) {
         if (err) {
 
@@ -121,7 +228,7 @@ app.post('/Sign-Up',function(req,res){
                 users.save(function(err) {
                   if (!err) {
                     
-
+                    console.log(user);
                     return res.redirect('/Log-In');
                   }
                 });
@@ -157,14 +264,20 @@ app.post('/Sign-Up',function(req,res){
       }
       if (user) { //user exist
 
-        console.log(user);
 
         if (req.body.Password === user.password) {
           console.log(user);
-  
+          LoggedInUser = user.FirstName;
+          console.log("\n inside the login\n");
+
+         
+          req.session.user = user ;
+          console.log(req.session.user);
           if (user.role === "Doctor") {
+            myfunc();
             console.log("doctor login");
-            return res.redirect("/Doctor");
+
+            return res.redirect("/Doctortest");
           } else if (user.role === "Examinator") {
             return res.redirect("/Examinator");
           } else {
@@ -231,9 +344,45 @@ app.post('/Sign-Up',function(req,res){
   });
 
 
-
+  
 
 app.listen(3000,function(){
     console.log("Starting Server");
 });
 
+function initMap() {
+  // The location of Uluru
+  var uluru = {
+      lat: -25.344,
+      lng: 131.036
+  };
+  // The map, centered at Uluru
+  var map = new google.maps.Map(
+      document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+      });
+  // The marker, positioned at Uluru
+  var marker = new google.maps.Marker({
+      position: uluru,
+      map: map
+  });
+}
+
+function myfunc(){
+
+  
+  var i=0;
+  User.find({}, function(err, users) {
+    users.forEach(function(user) {
+
+      if(user.role == "Patient"){
+              userslist[i] = user;
+      i++;
+      }
+
+    });
+  });
+  
+
+}

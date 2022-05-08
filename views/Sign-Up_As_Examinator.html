@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Log_in.css">
+    <title>Examinator Register</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navlinks">
+            <ul>
+                <li><a href="Home.html">Home</a></li>
+                <li><a href="Log-In.html">Log In</a></li>
+            </ul>
+        </div>
+    </nav>
+
+<div class="login-block">
+    <h1><i> Sign Up As Examinator</i></h1>
+    <form action="/Sign-Up" method="POST">
+        <select name="gender" id="id">
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+        </select>
+    <input name="Fname" type="text"  placeholder="First Name" />
+    <input name="Lname" type="text"  placeholder="Last Name"/>
+    <input name="id" type="text"  placeholder="ID" maxlength="9"/>
+    <input name="password" type="password"  placeholder="Password" id="passw" minlength="8" maxlength="15"/>
+    <input name="pasword" type="password"  placeholder="Password confirmation" id="passw" minlength="8" maxlength="15"/>
+    <input name="email" type="email"  placeholder="Email"/>  
+    <input name="age" type="number"  placeholder="age"/>
+    <input name="Phone" type="tel"  placeholder="Phone" maxlength="10"/> 
+    <input name="birthdate" type="date"  placeholder="age"/>  
+    <button type="submit">Register</button>
+    <input name="role" value="Examinator" hidden="true" type="text" />
+    </form>
+</div>
+</body>
+</html>

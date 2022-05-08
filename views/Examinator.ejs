@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Patient.css">
+    <title>Document</title>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navlinks">
+        <ul>
+            <li><a href="Home">Home</a></li>
+            <li><a href="Log-In">Logout</a></li>
+            <li><a href="Doctor">Patient List</a></li>
+            <li><a href="BloodTestValues">Blood Test Values</a></li>
+        </ul>
+    </div>
+</nav>
+    <div id="resume">
+        
+        <p>Name: <%= p.FirstName %> &nbsp <%= p.LastName %> </p> 
+        <p>Phone: <%= p.Phone %></a>
+        <p>ID: <%= p.id %></a>
+        <p>Email: <%= p.email %></a>
+        <p> Gender: <%= p.Gender %> </p>
+        <p> Birthdate: <%= p.Birthdate %></p>
+
+        
+      <dl>
+        <dt>Last Blood test:
+        <dd>
+          <h2>Diseases</h2>
+          <p>Here Last blood test diseases</p>
+      </dl>
+      <dl>
+      <dt>Treatment
+      <dd>
+      <h2>Treatment</h2>
+      <p>Here drugs the patient take
+      
+    </div>
+      <br>
+      <br>
+      <div id="current_date"></p>
+        <script>
+        date = new Date();
+        year = date.getFullYear();
+        month = date.getMonth() + 1;
+        day = date.getDate();
+        document.getElementById("current_date").innerHTML = month + "/" + day + "/" + year;
+        </script>
+</body>
+</html>
