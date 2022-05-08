@@ -42,12 +42,12 @@ const app=express();
 app.use(express.static('views'));
 app.set('views', __dirname + '/views');
 app.engine('html', engines.mustache);
-app.set('view engine', 'html');
+app.set('view engine', 'ejs')
+
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(flash());
 
 var LoggedInUser;
-var userslist=[];
  
 
 app.use(session({
@@ -58,37 +58,39 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/Doctor',function(req,res){
+
+var userslist=[];
+
+app.get('/Doctor', (req, res) => {
+
   console.log("************************");
   console.log(LoggedInUser);
   console.log("************************");
  
 
-  
-myfunct();
    
   
   res.render('Doctor',{asd:LoggedInUser,patientslist:userslist});
 });
 
+function myfunc(){
 
-function myfunct(){
   
-
-
   var i=0;
   User.find({}, function(err, users) {
     users.forEach(function(user) {
-      userslist[i] = user;
+
+      if(user.role == "Patient"){
+              userslist[i] = user;
       i++;
+      }
+
     });
   });
-
-  render("/Doctor");
+  
 
 }
 
-app.set("view engine","ejs");
 app.get('/',function(req,res){
     res.render('Home.html',{style:'Home.css'});
 });
@@ -204,6 +206,8 @@ app.post('/Sign-Up',function(req,res){
           console.log(user);
           LoggedInUser = user.FirstName;
           if (user.role === "Doctor") {
+
+            myfunc();
             console.log("doctor login");
 
             return res.redirect("/Doctor");
