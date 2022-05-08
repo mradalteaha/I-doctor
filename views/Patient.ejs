@@ -40,6 +40,48 @@
       <h2>Treatment</h2>
       <p>Here drugs the patient take
       
+
+<section>
+  <div class="w3-container" id="contact" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Contact.</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+
+
+    <form action="/Patient" method="POST">
+
+
+      <div class="w3-section">
+        <label>Select Doctor</label>
+        <select name="doctorid" id="id">
+          <%userslist.forEach(user=>{ %> 
+            <% if(user.role == "Doctor"){ %>
+         
+              <option name = "doctorid1"><%= user.FirstName %> &nbsp <%= user.LastName %></option>
+     <%}%>
+     <%})%>
+          
+         </select>
+    </div>
+      
+        <div class="w3-section">
+            <label>Subject</label>
+            <input class="w3-input w3-border" type="text" name="Subject" required>
+        </div>
+
+        <div class="w3-section" hidden="true">
+          <input class="w3-input w3-border" type="number" name="sender" value= <%= p.id %> required>
+      </div>
+        <div class="w3-section">
+            <label>Message</label>
+            <input class="w3-input w3-border" type="text" name="Message" required>
+        </div>
+        <button type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Send
+            Message</button>
+    </form>
+</div>
+
+</section>
+
     </div>
       <br>
       <br>
