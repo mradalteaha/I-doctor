@@ -25,17 +25,17 @@
                 </tr>
             </thead>
             <tbody>
-                <%for(var i=0; i<patientslist.length;i++){ %> 
+                <%patientslist.forEach(user=>{ %> 
                 <tr>
-                    <td><%= patientslist[i].FirstName%></td>
-                    <td><%= patientslist[i].LastName%></td>
-                    <td><%= patientslist[i].id%></td>
-                    <td><%= patientslist[i].email%></td>
-                    <td><%= patientslist[i].Gender%></td>
-                    <td><%= patientslist[i].Age%></td>
+                    <td><%= user.FirstName%></td>
+                    <td><%= user.LastName%></td>
+                    <td><%= user.id%></td>
+                    <td><%= user.email%></td>
+                    <td><%= user.Gender%></td>
+                    <td><%= user.Age%></td>
                     <td><a href="Home.html"><button>View</button></a></td>
                 </tr>
-            <%}%>
+            <%})%>
             </tbody>
         </table>
 
