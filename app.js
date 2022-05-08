@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 var passwordValidator = require('password-validator');
 const flash = require("connect-flash");
 const session = require("express-session");
+const ejs = require("ejs");
 const { strictEqual } = require('assert');
 const dotenv = require('dotenv').config()
 
@@ -39,6 +40,7 @@ Specialist:String
 const User = mongoose.model("User",regSchema);
 
 const app=express();
+app.set('view engine', 'ejs');
 app.use(express.static('views'));
 app.set('views', __dirname + '/views');
 app.engine('html', engines.mustache);
@@ -63,28 +65,29 @@ app.get('/Doctor',function(req,res){
   console.log(LoggedInUser);
   console.log("************************");
  
+   User.find({},function(err,users){
 
+    res.render('Doctor.ejs',{asd:req.session.user,patientslist:users});
+
+
+   });
   
-myfunct();
-   
-  
-  res.render('Doctor',{asd:LoggedInUser,patientslist:userslist});
 });
 
 app.get('/Patient',function(req,res){
   console.log("************************");
   console.log(LoggedInUser);
   console.log("************************");
-  res.render('Patient',{p:LoggedInUser});
+  res.render('Patient',{p:req.session.user});
 });
 app.get('/Examinator',function(req,res){
   console.log("************************");
   console.log(LoggedInUser);
   console.log("************************");
-  res.render('Examinator',{p:LoggedInUser});
+  res.render('Examinator',{p:req.session.user});
 });
 
-app.set("view engine","ejs");
+
 app.get('/',function(req,res){
     res.render('Home.html',{style:'Home.css'});
 });
@@ -194,11 +197,13 @@ app.post('/Sign-Up',function(req,res){
       }
       if (user) { //user exist
 
-        console.log(user);
 
         if (req.body.Password === user.password) {
-          console.log(user);
-          LoggedInUser = user;
+          console.log("\n inside the login\n");
+
+         
+          req.session.user = user ;
+          console.log(req.session.user);
           if (user.role === "Doctor") {
             console.log("doctor login");
 
