@@ -224,7 +224,7 @@ app.post('/Sign-Up',function(req,res){
         email:req.body.email,
         Gender:req.body.gender,
         Age:req.body.age,
-        Phone:req.body.phone,
+        Phone:req.body.Phone,
         Birthdate:req.body.birthdate,
         Specialist:req.body.Specialist
     });
