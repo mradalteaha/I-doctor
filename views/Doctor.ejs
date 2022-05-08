@@ -7,10 +7,12 @@
     <link rel="stylesheet" href="doc.css">
     <title>Doctor Page</title>
 </head>
-<body>
+<body onload="myfunct()">
 
     <section>
-        <table class="container">
+       
+        <table class="container" >
+
             <h1><i>Hey Doctor <%= asd %> </i></h1>
             <thead>
                 <tr>
@@ -23,17 +25,17 @@
                 </tr>
             </thead>
             <tbody>
+                <%for(var i=0; i<patientslist.length;i++){ %> 
                 <tr>
-                    <td>Abed</td>
-                    </form>
-                    <td>Jamal</td>
-                    <td>123123123</td>
-                    <td>asdasd@gmail.com</td>
-                    <td>Male</td>
-                    <td>23</td>
+                    <td><%= patientslist[i].FirstName%></td>
+                    <td><%= patientslist[i].LastName%></td>
+                    <td><%= patientslist[i].id%></td>
+                    <td><%= patientslist[i].email%></td>
+                    <td><%= patientslist[i].Gender%></td>
+                    <td><%= patientslist[i].Age%></td>
                     <td><a href="Home.html"><button>View</button></a></td>
                 </tr>
-         
+            <%}%>
             </tbody>
         </table>
 
@@ -82,5 +84,6 @@
         </div>
 
     </section>
+    
 </body>
 </html>

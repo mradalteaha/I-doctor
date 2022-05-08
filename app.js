@@ -32,7 +32,9 @@ email: String,
 Gender:String,
 Age:Number,
 Phone:Number,
-Birthdate:Date});
+Birthdate:Date,
+Specialist:String
+});
 
 const User = mongoose.model("User",regSchema);
 
@@ -45,6 +47,8 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(flash());
 
 var LoggedInUser;
+var userslist=[];
+ 
 
 app.use(session({
   secret: process.env.SESSION_SECRET,
@@ -58,15 +62,38 @@ app.get('/Doctor',function(req,res){
   console.log("************************");
   console.log(LoggedInUser);
   console.log("************************");
-  res.render('Doctor',{asd:LoggedInUser});
+ 
+
+  
+myfunct();
+   
+  
+  res.render('Doctor',{asd:LoggedInUser,patientslist:userslist});
 });
+
+
+function myfunct(){
+  
+
+
+  var i=0;
+  User.find({}, function(err, users) {
+    users.forEach(function(user) {
+      userslist[i] = user;
+      i++;
+    });
+  });
+
+  render("/Doctor");
+
+}
 
 app.set("view engine","ejs");
 app.get('/',function(req,res){
     res.render('Home.html',{style:'Home.css'});
 });
 app.get('/Sign-Up',function(req,res){
-  res.render('Sign-Up.html', {
+  res.render('Sign-Up', {
     message: req.flash("message")
   });
 });
@@ -114,16 +141,10 @@ app.post('/Sign-Up',function(req,res){
         Gender:req.body.gender,
         Age:req.body.age,
         Phone:req.body.phone,
-        Birthdate:req.body.birthdate
-
+        Birthdate:req.body.birthdate,
+        Specialist:req.body.Specialist
     });
-
-    console.log(req.body.Fname);
-    console.log(req.body.Lname);
-    console.log(req.body.role);
     console.log(req.body.id);
-    console.log(req.body.password);
-    console.log(req.body.email);
     
     User.findOne({
         id: req.body.id,
@@ -252,7 +273,7 @@ app.post('/Sign-Up',function(req,res){
   });
 
 
-
+  
 
 app.listen(3000,function(){
     console.log("Starting Server");
