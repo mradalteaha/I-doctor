@@ -216,7 +216,7 @@ app.post('/Sign-Up',function(req,res){
 
         if (req.body.Password === user.password) {
           console.log(user);
-          LoggedInUser = user;
+          LoggedInUser = user.FirstName;
           if (user.role === "Doctor") {
 
             myfunc();
