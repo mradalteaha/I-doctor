@@ -37,6 +37,7 @@ Birthdate:Date,
 Specialist:String
 });
 
+<<<<<<< HEAD
 const messages = new mongoose.Schema({
   sender:Number,
   reciever:Number,
@@ -47,13 +48,30 @@ const messages = new mongoose.Schema({
 
 const User = mongoose.model("User",regSchema);
 const uMessage = mongoose.model("uMessage",messages);
+=======
+const bloodtestSchema = new mongoose.Schema({
+  id: String,
+  wbc: String,
+  neut: String,
+  lymph: String,
+  rbc: String,
+  hct: String,
+  urea: String,
+  hb: String,
+  creatine: String,
+  iron: String,
+  ap: String,
+
+});
+const User = mongoose.model("User",regSchema);
+const BloodTest = mongoose.model("BloodTest",bloodtestSchema);
+>>>>>>> cf6e3233f815f4d0cc4f974cf14686faede371a3
 
 const app=express();
 app.set('view engine', 'ejs');
 app.use(express.static('views'));
 app.set('views', __dirname + '/views');
 app.engine('html', engines.mustache);
-app.set('view engine', 'html');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(flash());
 
@@ -81,6 +99,7 @@ app.get('/Doctor',function(req,res){
 
    });
   
+
 });
 
 app.get('/Patient',function(req,res){
@@ -144,7 +163,17 @@ app.get('/ForgotPW',function(req,res){
     message: req.flash("message")
   });
 });
+app.get('/Examinator',function(req,res){
+  res.render('Examinator', {
+    message: req.flash("message")
+  });
+});
 
+app.get('/BloodTestValues',function(req,res){
+  res.render('BloodTestValues', {
+    message: req.flash("message")
+  });
+});
 
 var passwordschema = new passwordValidator();
 
@@ -155,6 +184,32 @@ passwordschema
   .has().not().spaces()
   .has().digits(2) ;
 
+  app.post('/BloodTestValues',function(req,res){
+
+    let test = new BloodTest( {
+      id : req.body.id,
+      age:req.body.age,
+      wbc :req.body.wbc,
+      neut:req.body.neut,
+      lymph:req.body.lymph,
+      rbc:req.body.rbc,
+      hct:req.body.hct,
+      urea:req.body.urea,
+      hb:req.body.hb,
+      creatine:req.body.creatine,
+      iron:req.body.iron,
+      ap:req.body.ap
+  });
+    console.log("blood test enterd");
+    test.save(function(err) {
+      if (!err) {
+        
+        console.log(test);
+        return res.redirect('/Examinator');
+      }
+    });
+    
+  });
 
 app.post('/Sign-Up',(req,res)=>{
 
@@ -175,7 +230,8 @@ try{
         Birthdate:req.body.birthdate,
         Specialist:req.body.Specialist
     });
-    console.log(req.body.id);
+
+
     
     User.findOne({
         id: req.body.id,
@@ -220,9 +276,14 @@ try{
   });
 
 
+<<<<<<< HEAD
   app.post('/Log-In', (req, res)=> {
 
 try{
+=======
+
+  app.post('/Log-In', function(req, res) {
+>>>>>>> cf6e3233f815f4d0cc4f974cf14686faede371a3
     var  password = req.body.Password;
     User.findOne({
       id: req.body.id,
@@ -237,12 +298,15 @@ try{
 
 
         if (req.body.Password === user.password) {
+          console.log(user);
+          LoggedInUser = user.FirstName;
           console.log("\n inside the login\n");
 
          
           req.session.user = user ;
           console.log(req.session.user);
           if (user.role === "Doctor") {
+            myfunc();
             console.log("doctor login");
 
             return res.redirect("/Doctortest");
@@ -394,4 +458,25 @@ function initMap() {
       position: uluru,
       map: map
   });
+<<<<<<< HEAD
+=======
+}
+
+function myfunc(){
+
+  
+  var i=0;
+  User.find({}, function(err, users) {
+    users.forEach(function(user) {
+
+      if(user.role == "Patient"){
+              userslist[i] = user;
+      i++;
+      }
+
+    });
+  });
+  
+
+>>>>>>> cf6e3233f815f4d0cc4f974cf14686faede371a3
 }
