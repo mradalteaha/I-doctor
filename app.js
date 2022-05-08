@@ -64,9 +64,14 @@ app.get('/Doctor',function(req,res){
   console.log("************************");
   console.log(LoggedInUser);
   console.log("************************");
- 
+ let doctor;
    User.find({},function(err,users){
+<<<<<<< HEAD
     res.render('Doctor.ejs',{asd:LoggedInUser,patientslist:users});
+=======
+
+    res.render('Doctor.ejs',{doctor:req.session.user,patientslist:users});
+>>>>>>> master
 
 
    });
@@ -75,10 +80,24 @@ app.get('/Doctor',function(req,res){
 });
 
 app.get('/Patient',function(req,res){
+  
   console.log("************************");
   console.log(LoggedInUser);
   console.log("************************");
-  res.render('Patient',{p:req.session.user});
+  res.render('Patient.ejs',{p:req.session.user});
+});
+
+app.get('/Doctortest',function(req,res){
+  console.log("************************");
+  console.log(LoggedInUser);
+  console.log("************************");
+  let doctor;
+  User.find({},function(err,users){
+
+   res.render('Doctortest.ejs',{doctor:req.session.user,patientslist:users});
+
+
+  });
 });
 app.get('/Examinator',function(req,res){
   console.log("************************");
@@ -210,7 +229,7 @@ app.post('/Sign-Up',function(req,res){
             myfunc();
             console.log("doctor login");
 
-            return res.redirect("/Doctor");
+            return res.redirect("/Doctortest");
           } else if (user.role === "Examinator") {
             return res.redirect("/Examinator");
           } else {
