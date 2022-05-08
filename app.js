@@ -90,6 +90,18 @@ function myfunc(){
   
 
 }
+app.get('/Patient',function(req,res){
+  console.log("************************");
+  console.log(LoggedInUser);
+  console.log("************************");
+  res.render('Patient',{p:LoggedInUser});
+});
+app.get('/Examinator',function(req,res){
+  console.log("************************");
+  console.log(LoggedInUser);
+  console.log("************************");
+  res.render('Examinator',{p:LoggedInUser});
+});
 
 app.get('/',function(req,res){
     res.render('Home.html',{style:'Home.css'});
@@ -204,7 +216,7 @@ app.post('/Sign-Up',function(req,res){
 
         if (req.body.Password === user.password) {
           console.log(user);
-          LoggedInUser = user.FirstName;
+          LoggedInUser = user;
           if (user.role === "Doctor") {
 
             myfunc();
@@ -283,3 +295,21 @@ app.listen(3000,function(){
     console.log("Starting Server");
 });
 
+function initMap() {
+  // The location of Uluru
+  var uluru = {
+      lat: -25.344,
+      lng: 131.036
+  };
+  // The map, centered at Uluru
+  var map = new google.maps.Map(
+      document.getElementById('map'), {
+          zoom: 4,
+          center: uluru
+      });
+  // The marker, positioned at Uluru
+  var marker = new google.maps.Marker({
+      position: uluru,
+      map: map
+  });
+}
