@@ -65,7 +65,7 @@ app.get('/Doctor',function(req,res){
  
 
   
-myfunct();
+myfunc();
    
   
   res.render('Doctor',{asd:LoggedInUser,patientslist:userslist});
@@ -198,7 +198,7 @@ app.post('/Sign-Up',function(req,res){
 
         if (req.body.Password === user.password) {
           console.log(user);
-          LoggedInUser = user;
+          LoggedInUser = user.FirstName;
           if (user.role === "Doctor") {
             console.log("doctor login");
 
@@ -292,4 +292,22 @@ function initMap() {
       position: uluru,
       map: map
   });
+}
+
+function myfunc(){
+
+  
+  var i=0;
+  User.find({}, function(err, users) {
+    users.forEach(function(user) {
+
+      if(user.role == "Patient"){
+              userslist[i] = user;
+      i++;
+      }
+
+    });
+  });
+  
+
 }
