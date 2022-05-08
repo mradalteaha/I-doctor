@@ -71,7 +71,6 @@ myfunct();
   res.render('Doctor',{asd:LoggedInUser,patientslist:userslist});
 });
 
-<<<<<<< HEAD
 app.get('/Patient',function(req,res){
   console.log("************************");
   console.log(LoggedInUser);
@@ -84,24 +83,6 @@ app.get('/Examinator',function(req,res){
   console.log("************************");
   res.render('Examinator',{p:LoggedInUser});
 });
-=======
-
-function myfunct(){
-  
-
-
-  var i=0;
-  User.find({}, function(err, users) {
-    users.forEach(function(user) {
-      userslist[i] = user;
-      i++;
-    });
-  });
-
-  render("/Doctor");
-
-}
->>>>>>> master
 
 app.set("view engine","ejs");
 app.get('/',function(req,res){
@@ -156,14 +137,8 @@ app.post('/Sign-Up',function(req,res){
         Gender:req.body.gender,
         Age:req.body.age,
         Phone:req.body.phone,
-<<<<<<< HEAD
-        Birthdate:req.body.birthdate
-        
-
-=======
         Birthdate:req.body.birthdate,
         Specialist:req.body.Specialist
->>>>>>> master
     });
     console.log(req.body.id);
     
