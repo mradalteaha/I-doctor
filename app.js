@@ -37,7 +37,6 @@ Birthdate:Date,
 Specialist:String
 });
 
-<<<<<<< HEAD
 const messages = new mongoose.Schema({
   sender:Number,
   reciever:Number,
@@ -48,7 +47,6 @@ const messages = new mongoose.Schema({
 
 const User = mongoose.model("User",regSchema);
 const uMessage = mongoose.model("uMessage",messages);
-=======
 const bloodtestSchema = new mongoose.Schema({
   id: String,
   wbc: String,
@@ -63,9 +61,7 @@ const bloodtestSchema = new mongoose.Schema({
   ap: String,
 
 });
-const User = mongoose.model("User",regSchema);
 const BloodTest = mongoose.model("BloodTest",bloodtestSchema);
->>>>>>> cf6e3233f815f4d0cc4f974cf14686faede371a3
 
 const app=express();
 app.set('view engine', 'ejs');
@@ -276,14 +272,9 @@ try{
   });
 
 
-<<<<<<< HEAD
   app.post('/Log-In', (req, res)=> {
 
 try{
-=======
-
-  app.post('/Log-In', function(req, res) {
->>>>>>> cf6e3233f815f4d0cc4f974cf14686faede371a3
     var  password = req.body.Password;
     User.findOne({
       id: req.body.id,
@@ -458,8 +449,6 @@ function initMap() {
       position: uluru,
       map: map
   });
-<<<<<<< HEAD
-=======
 }
 
 function myfunc(){
@@ -478,5 +467,4 @@ function myfunc(){
   });
   
 
->>>>>>> cf6e3233f815f4d0cc4f974cf14686faede371a3
 }
