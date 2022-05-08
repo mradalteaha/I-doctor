@@ -44,7 +44,7 @@ app.set('view engine', 'ejs');
 app.use(express.static('views'));
 app.set('views', __dirname + '/views');
 app.engine('html', engines.mustache);
-app.set('view engine', 'html');
+//app.set('view engine', 'html');
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(flash());
 
@@ -66,19 +66,12 @@ app.get('/Doctor',function(req,res){
   console.log("************************");
  
    User.find({},function(err,users){
-
-    res.render('Doctor.ejs',{asd:req.session.user,patientslist:users});
+    res.render('Doctor.ejs',{asd:LoggedInUser,patientslist:users});
 
 
    });
   
-<<<<<<< HEAD
-myfunc();
-   
-  
-  res.render('Doctor',{asd:LoggedInUser,patientslist:userslist});
-=======
->>>>>>> master
+
 });
 
 app.get('/Patient',function(req,res){
@@ -150,7 +143,7 @@ app.post('/Sign-Up',function(req,res){
         Birthdate:req.body.birthdate,
         Specialist:req.body.Specialist
     });
-    console.log(req.body.id);
+    console.log(req.body.Phone);
     
     User.findOne({
         id: req.body.id,
@@ -206,17 +199,15 @@ app.post('/Sign-Up',function(req,res){
 
 
         if (req.body.Password === user.password) {
-<<<<<<< HEAD
           console.log(user);
           LoggedInUser = user.FirstName;
-=======
           console.log("\n inside the login\n");
 
          
           req.session.user = user ;
           console.log(req.session.user);
->>>>>>> master
           if (user.role === "Doctor") {
+            myfunc();
             console.log("doctor login");
 
             return res.redirect("/Doctor");
