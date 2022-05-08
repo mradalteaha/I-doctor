@@ -1,0 +1,250 @@
+:root{
+    --main-color:#d3ad7f;
+    --black:#13131a;
+    --bg:#010103;
+    --border:.1rem solid rgba(255,255,255,.3);
+}
+
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Poppins', sans-serif;
+overflow-x: hidden;
+overflow-y: auto;
+}
+
+
+body{
+    background: var(--bg);
+}
+
+
+.wrapper{
+    position: relative;
+    left: 400px;
+    width: 80%;
+    height: 100vh;
+    top:50px;
+    display: block;
+    padding: 0 0 2rem 0;
+}
+
+
+.header{
+    width: 20%;
+     height: 0;
+     background: #e2e9f7;
+     display: block;
+ }
+ .side-nav{
+     width: 250px;
+     height: 100%;
+     background: #0d74f5;
+     position: fixed;
+     top: 0;
+     left: 0;
+     padding: 20px 30px;
+ }
+
+ .logo{
+    display: block;
+    margin-bottom: 130px;
+}
+.logo-img{
+    width: 150px;
+}
+.nav-links{
+    list-style: none;
+    position: relative;
+}
+
+.nav-links li{
+    padding: 10px 0;
+}
+.nav-links li a{
+    color: #fff;
+   text-decoration: none;
+    padding: 10px 14px;
+   display: flex;
+   align-items: center;
+}
+    I
+.nav-links li a i{
+   font-size: 22px;
+   margin-right: 20px;
+}
+
+
+
+
+ .logo-icon{
+    display: none;
+    width: 45px;
+ }
+
+ @media only screen and (max-width: 600px){
+     .side-nav{
+         width: 110px;
+     }
+     .logo-icon{
+         display: block;
+     }
+
+     
+     .nav-links li a i{
+        margin-right: 0;
+     }
+     .nav-links li a{
+        justify-content: center;
+     }
+     
+ }
+
+
+
+ h1 {
+    font-size:2em; 
+    font-weight: 300;
+    line-height:1em;
+    text-align: center;
+    color: #4DC3FA;
+  }
+
+  
+      I
+
+.heading{
+    text-align: center;
+    color:#fff;
+    text-transform: uppercase;
+    padding-bottom: 3.5rem;
+    font-size: 4rem;
+}
+
+.heading span{
+    color:var(--main-color);
+    text-transform: uppercase;
+}
+
+.headingb{
+    text-align: left;
+    color:#fff;
+    text-transform: uppercase;
+    padding-bottom: 3.5rem;
+    font-size: 15px;
+}
+
+.headingb span{
+    color:var(--main-color);
+    text-transform: uppercase;
+}
+
+  h2 {
+    font-size:1em; 
+    font-weight: 300;
+    text-align: center;
+    display: block;
+    line-height:1em;
+    padding-bottom: 2em;
+    color: #FB667A;
+  }
+  
+  h2 a {
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #FB667A;
+    text-decoration: none;
+  }
+  
+  .blue { color: #185875; }
+  .yellow { color: #FFF842; }
+  
+  .container th h1 {
+        font-weight: bold;
+        font-size: 1em;
+    text-align: left;
+    color: #185875;
+  }
+  
+  .container td {
+        font-weight: normal;
+        font-size: 1em;
+    -webkit-box-shadow: 0 2px 2px -2px #0E1119;
+         -moz-box-shadow: 0 2px 2px -2px #0E1119;
+              box-shadow: 0 2px 2px -2px #0E1119;
+  }
+  
+  .container {
+        text-align: left;
+        width: 100%;
+        height: 100%;
+        left: 550px; 
+        margin: 0 0;
+    display: table;
+    padding: 0 0 2em 0;
+  }
+  
+  .container td, .container th {
+        padding-bottom: 2%;
+        padding-top: 2%;
+    padding-left:2%;  
+  }
+  
+  /* Background-color of the odd rows */
+  .container tr:nth-child(odd) {
+        background-color: #323C50;
+  }
+  
+  /* Background-color of the even rows */
+  .container tr:nth-child(even) {
+        background-color: #2C3446;
+  }
+  
+  .container th {
+        background-color: #1F2739;
+  }
+  
+  .container td:first-child { color: #FB667A; }
+  
+  .container tr:hover {
+     background-color: #464A52;
+  -webkit-box-shadow: 0 6px 6px -6px #0E1119;
+         -moz-box-shadow: 0 6px 6px -6px #0E1119;
+              box-shadow: 0 6px 6px -6px #0E1119;
+  }
+  
+  .container td:hover {
+    background-color: #FFF842;
+    color: #403E10;
+    font-weight: bold;
+    
+    box-shadow: #7F7C21 -1px 1px, #7F7C21 -2px 2px, #7F7C21 -3px 3px, #7F7C21 -4px 4px, #7F7C21 -5px 5px, #7F7C21 -6px 6px;
+    transform: translate3d(6px, -6px, 0);
+    
+    transition-delay: 0s;
+        transition-duration: 0.4s;
+        transition-property: all;
+    transition-timing-function: line;
+  }
+  
+  @media (max-width: 800px) {
+  .container td:nth-child(4),
+  .container th:nth-child(4) { display: none; }
+  }
+
+
+
+
+
+.my-custom-scrollbar {
+  position: relative;
+  height: 600px;
+  overflow: auto;
+  }
+  .table-wrapper-scroll-y {
+  display: block;
+  }
+
+
+ 
