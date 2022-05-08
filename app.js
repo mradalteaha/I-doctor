@@ -37,15 +37,28 @@ Birthdate:Date,
 Specialist:String
 });
 
+const bloodtestSchema = new mongoose.Schema({
+  id: String,
+  wbc: String,
+  neut: String,
+  lymph: String,
+  rbc: String,
+  hct: String,
+  urea: String,
+  hb: String,
+  creatine: String,
+  iron: String,
+  ap: String,
+
+});
 const User = mongoose.model("User",regSchema);
+const BloodTest = mongoose.model("BloodTest",bloodtestSchema);
 
 const app=express();
 app.set('view engine', 'ejs');
 app.use(express.static('views'));
 app.set('views', __dirname + '/views');
 app.engine('html', engines.mustache);
-app.set('view engine', 'ejs')
-
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(flash());
 
@@ -76,6 +89,7 @@ app.get('/Doctor', (req, res) => {
 
    });
   
+
 });
 
 function myfunc(){
@@ -147,7 +161,17 @@ app.get('/ForgotPW',function(req,res){
     message: req.flash("message")
   });
 });
+app.get('/Examinator',function(req,res){
+  res.render('Examinator', {
+    message: req.flash("message")
+  });
+});
 
+app.get('/BloodTestValues',function(req,res){
+  res.render('BloodTestValues', {
+    message: req.flash("message")
+  });
+});
 
 var passwordschema = new passwordValidator();
 
@@ -158,6 +182,32 @@ passwordschema
   .has().not().spaces()
   .has().digits(2) ;
 
+  app.post('/BloodTestValues',function(req,res){
+
+    let test = new BloodTest( {
+      id : req.body.id,
+      age:req.body.age,
+      wbc :req.body.wbc,
+      neut:req.body.neut,
+      lymph:req.body.lymph,
+      rbc:req.body.rbc,
+      hct:req.body.hct,
+      urea:req.body.urea,
+      hb:req.body.hb,
+      creatine:req.body.creatine,
+      iron:req.body.iron,
+      ap:req.body.ap
+  });
+    console.log("blood test enterd");
+    test.save(function(err) {
+      if (!err) {
+        
+        console.log(test);
+        return res.redirect('/Examinator');
+      }
+    });
+    
+  });
 
 app.post('/Sign-Up',function(req,res){
 
@@ -178,7 +228,8 @@ app.post('/Sign-Up',function(req,res){
         Birthdate:req.body.birthdate,
         Specialist:req.body.Specialist
     });
-    console.log(req.body.id);
+
+
     
     User.findOne({
         id: req.body.id,
@@ -219,6 +270,7 @@ app.post('/Sign-Up',function(req,res){
   });
 
 
+
   app.post('/Log-In', function(req, res) {
     var  password = req.body.Password;
     User.findOne({
@@ -234,13 +286,14 @@ app.post('/Sign-Up',function(req,res){
 
 
         if (req.body.Password === user.password) {
+          console.log(user);
+          LoggedInUser = user.FirstName;
           console.log("\n inside the login\n");
 
          
           req.session.user = user ;
           console.log(req.session.user);
           if (user.role === "Doctor") {
-
             myfunc();
             console.log("doctor login");
 
@@ -334,4 +387,22 @@ function initMap() {
       position: uluru,
       map: map
   });
+}
+
+function myfunc(){
+
+  
+  var i=0;
+  User.find({}, function(err, users) {
+    users.forEach(function(user) {
+
+      if(user.role == "Patient"){
+              userslist[i] = user;
+      i++;
+      }
+
+    });
+  });
+  
+
 }
