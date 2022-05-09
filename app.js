@@ -91,7 +91,7 @@ app.get('/Doctor', (req, res) => {
   console.log(LoggedInUser);
   console.log("************************");
  let doctor;
- try{
+
    User.find({},function(err,users){
 
     uMessage.find({},function(err,message){
@@ -127,12 +127,14 @@ app.get('/Doctortest',function(req,res){
   console.log(LoggedInUser);
   console.log("************************");
   let doctor;
+
   User.find({},function(err,users){
 
-   res.render('Doctortest.ejs',{doctor:req.session.user,patientslist:users});
+    uMessage.find({},function(err,message){
+    res.render('Doctortest.ejs',{doctor:req.session.user,patientslist:users,messagess:message});
+    })
 
-
-  });
+   });
 });
 app.get('/Examinator',function(req,res){
   console.log("************************");
@@ -304,7 +306,7 @@ try{
           req.session.user = user ;
           console.log(req.session.user);
           if (user.role === "Doctor") {
-            myfunc();
+           
             console.log("doctor login");
 
             return res.redirect("/Doctortest");
