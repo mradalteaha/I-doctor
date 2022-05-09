@@ -4,13 +4,16 @@
         <meta name="viewport" content="width=Ddevice-width, initial-scale=1.0">
         <title>Doctor Test</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="Msg.css">
         <link rel="stylesheet" href="doctest.css">
-       
+
+        
+
 
     </head>
 <body>
 
-    
+
         <div class="header">
             <div class="side-nav">
                 <a href="#" class="logo">
@@ -20,7 +23,7 @@
                 <ul class="nav-links">
                     <li><h1 class="headingb"> <span>Welcome Doctor:</span> <%=doctor.FirstName  %> <%=doctor.LastName%> </h1></li>
                     <li><a href="#first"><i class="fas fa-house-user"></i><p>Patient Queue</p></a></li>
-                    <li><a href="Message.html"><i class="fas fa-comment-dots"></i><p>My Messeages</p></a></li>
+                    <li><a href="#second"><i class="fas fa-comment-dots"></i><p>My Messeages</p></a></li>
                     <li><a href="#three"><i class="fas fa-comment-dots"></i><p>Section 3</p></a></li>
                     <li><a href="#four"><i class="fas fa-comment-dots"></i><p>Section 4</p></a></li>
                     
@@ -76,7 +79,7 @@
         
         <div class="table-wrapper-scroll-y my-custom-scrollbar">
         
-            <table class="container" >
+            <table id="messagestable" class="container" >
 
                 
                 <thead>
@@ -91,6 +94,7 @@
                 </thead>
                 <tbody>
                     <%messagess.forEach(message=>{ %> 
+                        
                         <% if(message.reciever == doctor.id){ %>
                             <%patientslist.forEach(user=>{ %> 
                                 <% if(user.id == message.reciever){ %>
@@ -99,11 +103,11 @@
                                  <td><%= user.id%></td>
                                  <td><%= message.sent%></td>
                                  <td><%= message.Subject%></td>
-                                 <td><a href="Home.html"><button>View</button></a></td>
+                                 <td><button id= <%= message._id %> onclick="openForm(<%= JSON.stringify(message) %>)" class="openForm" >View Message</button></td>
                              </tr>
                          <%}%>
                          <%})%>
-                     </tr>
+                     
                  <%}%>
                  <%})%>
                  
@@ -111,6 +115,17 @@
             </table>
 
         </div>
+     
+     <div class="form-popup" id="myForm">
+        <form action="/action_page.php" class="form-container">
+         <br> <label id="messagefrom" type="text" for="email"></label></br>
+         <br> <label id="messagesubject" type="text" ></label></br>
+         <br> <label id="messagecontent" type="text" ></label></br>
+          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+      </div>
+        
+       
     
     </section>
 </div>
@@ -193,10 +208,36 @@
     </div>
 
 </section>
+
 </div>
 
 
         <script src="https://kit. fontawesome.com/c4254e24a8.js" crossorigin="anonymous"></script>
+        <script>
+            function openForm(message) {
+              
+                
+                console.log(message);
+                
+               console.log(message=== null ? "novaluesent": message);
+               
+               document.getElementById("messagefrom").textContent= "Message From: " +message.sender;
+               document.getElementById("messagesubject").textContent= "Message Subject: " +message.Subject;
+               document.getElementById("messagecontent").textContent= "Message From: " +message.Mbody;
+              document.getElementById("myForm").style.display = "block";
+              document.getElementById("messagestable").style.display = "none";
+              
+            }
+            
+            function closeForm() {
+              document.getElementById("myForm").style.display = "none";
+              document.getElementById("messagestable").style.display = "table";
+            }
+            </script>
+
+        
+      
+
     
 </body>
 </html>

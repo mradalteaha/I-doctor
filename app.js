@@ -85,23 +85,6 @@ app.use(passport.session());
 
 
 
-app.get('/Doctor', (req, res) => {
-
-  console.log("************************");
-  console.log(LoggedInUser);
-  console.log("************************");
- let doctor;
-
-   User.find({},function(err,users){
-
-    uMessage.find({},function(err,message){
-    res.render('Doctor.ejs',{doctor:req.session.user,patientslist:users,messagess:message});
-    })
-
-   });
- 
-
-});
 
 
 
@@ -131,7 +114,7 @@ app.get('/Doctortest',function(req,res){
   User.find({},function(err,users){
 
     uMessage.find({},function(err,message){
-    res.render('Doctortest.ejs',{doctor:req.session.user,patientslist:users,messagess:message});
+    res.render('Doctortest.ejs',{doctor:req.session.user,patientslist:users,messagess:message ,fortest:message});
     })
 
    });
