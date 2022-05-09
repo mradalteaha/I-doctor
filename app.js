@@ -105,7 +105,7 @@ app.get('/Patient',function(req,res){
 
 
 
-app.get('/Doctortest',function(req,res){
+app.get('/Doctor',function(req,res){
   console.log("************************");
   console.log(LoggedInUser);
   console.log("************************");
@@ -114,7 +114,7 @@ app.get('/Doctortest',function(req,res){
   User.find({},function(err,users){
 
     uMessage.find({},function(err,message){
-    res.render('Doctortest.ejs',{doctor:req.session.user,patientslist:users,messagess:message ,fortest:message});
+    res.render('Doctor.ejs',{doctor:req.session.user,patientslist:users,messagess:message ,fortest:message});
     })
 
    });
@@ -292,7 +292,7 @@ try{
            
             console.log("doctor login");
 
-            return res.redirect("/Doctortest");
+            return res.redirect("/Doctor");
           } else if (user.role === "Examinator") {
             return res.redirect("/Examinator");
           } else {
