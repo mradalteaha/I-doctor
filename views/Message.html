@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="Msg.css">
+</head>
+<body>
+
+<h1><i> Message </i></h1>
+<img src="images/bird.png" alt="bird">
+
+
+
+<button class="open-button" onclick="openForm()">Send Message To Patient</button>
+
+<div class="form-popup" id="myForm">
+  <form action="/action_page.php" class="form-container">
+    <label for="email"><b>Message</b></label>
+    <input type="text" placeholder="Enter Email" name="email" required>
+    <button type="submit" class="btn">Send</button>
+    <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+  </form>
+</div>
+
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+}
+</script>
+
+</body>
+</html>

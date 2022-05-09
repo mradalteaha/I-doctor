@@ -46,7 +46,6 @@ const messages = new mongoose.Schema({
   
 
 const uMessage = mongoose.model("uMessage",messages);
-
 const bloodtestSchema = new mongoose.Schema({
   id: String,
   wbc: String,
@@ -61,7 +60,6 @@ const bloodtestSchema = new mongoose.Schema({
   ap: String,
 
 });
-const User = mongoose.model("User",regSchema);
 const BloodTest = mongoose.model("BloodTest",bloodtestSchema);
 
 const app=express();
@@ -73,7 +71,6 @@ app.use(bodyParser.urlencoded({extended:true}));
 app.use(flash());
 
 var LoggedInUser;
-var userslist=[];
  
 
 app.use(session({
@@ -84,7 +81,10 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.get('/Doctor',function(req,res){
+
+
+app.get('/Doctor', (req, res) => {
+
   console.log("************************");
   console.log(LoggedInUser);
   console.log("************************");
@@ -98,6 +98,8 @@ app.get('/Doctor',function(req,res){
   
 
 });
+
+
 
 app.get('/Patient',function(req,res){
   
@@ -223,7 +225,7 @@ try{
         email:req.body.email,
         Gender:req.body.gender,
         Age:req.body.age,
-        Phone:req.body.phone,
+        Phone:req.body.Phone,
         Birthdate:req.body.birthdate,
         Specialist:req.body.Specialist
     });
