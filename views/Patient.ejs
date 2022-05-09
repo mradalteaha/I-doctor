@@ -56,7 +56,7 @@
           <%userslist.forEach(user=>{ %> 
             <% if(user.role == "Doctor"){ %>
          
-              <option name = "doctorid1"><%= user.FirstName %> &nbsp <%= user.LastName %></option>
+              <option value=<%=user.id%> <span><%= user.FirstName %> &nbsp <%= user.LastName %></span></option>
      <%}%>
      <%})%>
           
@@ -75,6 +75,8 @@
             <label>Message</label>
             <input class="w3-input w3-border" type="text" name="Message" required>
         </div>
+        <div class="w3-section">
+      </div>
         <button type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Send
             Message</button>
     </form>

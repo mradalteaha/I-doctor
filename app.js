@@ -45,6 +45,7 @@ const messages = new mongoose.Schema({
   sent:Date});
   
 
+const User = mongoose.model("User",regSchema);
 const uMessage = mongoose.model("uMessage",messages);
 const bloodtestSchema = new mongoose.Schema({
   id: String,
@@ -83,19 +84,22 @@ app.use(passport.session());
 
 
 
+
 app.get('/Doctor', (req, res) => {
 
   console.log("************************");
   console.log(LoggedInUser);
   console.log("************************");
  let doctor;
+ try{
    User.find({},function(err,users){
 
-    res.render('Doctor.ejs',{doctor:req.session.user,patientslist:users});
-
+    uMessage.find({},function(err,message){
+    res.render('Doctor.ejs',{doctor:req.session.user,patientslist:users,messagess:message});
+    })
 
    });
-  
+ 
 
 });
 
@@ -330,48 +334,51 @@ try{
     var date = new Date();
     let newmessage = new uMessage( {
       sender:req.body.sender,
-  reciever:req.body.doctorid,
-  Subject:req.body.Subject,
-  Mbody:req.body.Message,
-  sent:date
-  });
+      reciever:req.body.doctorid,
+      Subject:req.body.Subject,
+      Mbody:req.body.Message,
+      sent:date
+  }
+  );
+  console.log(newmessage)
 
 
-  newmessage.save(function(err) {
-    if (!err) {
-      
-      console.log(newmessage);
-      return res.redirect('/Patient');
-        }
-  });
+  try {
+    uMessage.findOne({
+      _id: req.body.id,
+  
+    }, async function(err, msg) {
+      if (err) {
+  
+        res.json({
+          error: err
+        })
+      }
+      if (!msg) {
+  
+  
+              await newmessage.save(function(err) {
+                if (!err) {
+                  
+                  console.log(newmessage);
+                  return res.redirect('/Patient');
+                }
+              });
+           
+          
+  
+  
+      } 
+    });
 
-  uMessage.findOne({
-    _id: req.body.id,
+  } catch (err) {
+    logger.error('Mongo error', err);
+    return res.status(500).send();
+  }
 
-  }, function(err, msg) {
-    if (err) {
-
-      res.json({
-        error: err
-      })
-    }
-    if (!msg) {
-
-
-            newmessage.save(function(err) {
-              if (!err) {
-                
-                console.log(newmessage);
-                return res.redirect('/Patient');
-              }
-            });
-         
-        
-
-
-    } 
-  });
-
+  
+  
+  console.log("message sent");
 
    
   
@@ -431,7 +438,7 @@ try{
 
   
 
-app.listen(3000,function(){
+app.listen(3000,()=>{
     console.log("Starting Server");
 });
 
