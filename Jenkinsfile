@@ -18,7 +18,7 @@ pipeline {
         }
         stage('Deliver') {
             steps {
-                sh 'mocha'
+                sh 'npm test'
             }
         }
     }
