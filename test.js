@@ -1,29 +1,14 @@
 var request = require('supertest');
-var expect = require('chai').expect;
-
+const assert = require('assert');
 var app = require('./app.js');
-describe('Our server', function() {
-    it('Testing the test', function() {
-        expect(5).to.equal(5);
+
+
+
+describe('Good Home Routes', function () {
+
+    test('responds to /', async () => {
+      const res = await request(app).get('/Log-in');
+      expect(res.header['content-type']).toBe('text/html; charset=utf-8');
+      expect(res.statusCode).toBe(200);
     });
 });
-
-describe('Testing login page', function() {
-  
-    before(function(done) {
-        app.listen(function() {
-          done();
-        });
-    });
-
-    it('Trying to app.get for page login', function(done) {
-      request(app)
-        .get('/Log-In')
-        .expect(200)
-        .end(function(err, res) {
-            if (err) throw err;
-            return done();
-        });
-    });
-  
-  });
