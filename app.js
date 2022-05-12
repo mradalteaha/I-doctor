@@ -35,7 +35,7 @@ Gender:String,
 Age:Number,
 Phone:Number,
 Birthdate:Date,
-Specialist:String
+Specialist:String,
 });
 
 const messages = new mongoose.Schema({
@@ -115,7 +115,9 @@ app.get('/Doctor',function(req,res){
   User.find({},function(err,users){
 
     uMessage.find({},function(err,message){
-    res.render('Doctor.ejs',{doctor:req.session.user,patientslist:users,messagess:message ,fortest:message});
+      BloodTest.find({},function(err,bloodtest){
+      res.render('Doctor.ejs',{doctor:req.session.user,patientslist:users,messagess:message ,blood:bloodtest});
+    })
     })
 
    });
