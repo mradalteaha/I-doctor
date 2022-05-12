@@ -7,10 +7,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link rel="stylesheet" href="Msg.css">
         <link rel="stylesheet" href="doc.css">
-
-        
-
-
     </head>
 <body>
 
@@ -39,6 +35,7 @@
             
             <div class="table-wrapper-scroll-y my-custom-scrollbar">
             
+             
                 <table class="container" >
     
                     
@@ -53,22 +50,31 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <%appointmentss.forEach(appointment=>{ %> 
                         <%patientslist.forEach(user=>{ %> 
-                           <% if(user.role == "Patient"){ %>
-                        <tr>
+                           <% if(user.role == "Patient" && appointment.patient == user.id){ %>
+                        <tr id= <%= user.id %>>
                             <td><%= user.FirstName%></td>
                             <td><%= user.LastName%></td>
                             <td><%= user.id%></td>
                             <td><%= user.email%></td>
                             <td><%= user.Gender%></td>
                             <td><%= user.Age%></td>
-                            <td><a href="Home.html"><button>View</button></a></td>
+                            <form action="/DeleteAppoitment" method="post">
+                                <div class="w3-section" hidden="true">
+                                    <input hidden="ture" class="w3-input w3-border" type="number" name="sender" value= <%= user.id %> required>
+                                </div>
+                                <div class="w3-section" hidden="true">
+                                    <input hidden="ture" class="w3-input w3-border" type="number" name="doctordel" value= <%= doctor.id %> required>
+                                </div>
+                            <td><button type="submit" id= <%= user._id %> >Done</button></td>
+                        </form>
                         </tr>
                     <%}%>
                     <%})%>
+                    <%})%>
                     </tbody>
                 </table>
-    
             </div>
         
         </section>
@@ -129,6 +135,9 @@
       </div>
     </section>
 </div>
+
+
+
 <div class="wrapper" id="three">
     <h1 class="heading"> <span>Blood</span> Tests </h1>
 <section >
