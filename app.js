@@ -423,9 +423,10 @@ try{
 
   
 
-app.listen(3000,()=>{
-    console.log("Starting Server");
-});
+
+
+
+module.exports = app;
 
 function initMap() {
   // The location of Uluru
