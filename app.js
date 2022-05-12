@@ -15,6 +15,7 @@ const dotenv = require('dotenv').config()
 var passport = require("passport");
 var engines = require('consolidate');
 const { connect } = require('http2');
+const { builtinModules } = require('module');
 
 
 
@@ -83,42 +84,10 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-var userslist=[];
-var PatientBloodTest=[];
-
-app.get('/Doctor', (req, res) => {
-
-  console.log("************************");
-  console.log(LoggedInUser);
-  console.log("************************");
- let doctor;
-   User.find({},function(err,users){
-
-    res.render('Doctor.ejs',{doctor:req.session.user,patientslist:users});
 
 
-   });
-  
 
-});
 
-function myfunc(){
-
-  
-  var i=0;
-  User.find({}, function(err, users) {
-    users.forEach(function(user) {
-
-      if(user.role == "Patient"){
-              userslist[i] = user;
-      i++;
-      }
-
-    });
-  });
-  
-
-}
 
 app.get('/Patient',function(req,res){
   
@@ -137,17 +106,19 @@ app.get('/Patient',function(req,res){
 
 
 
-app.get('/Doctortest',function(req,res){
+app.get('/Doctor',function(req,res){
   console.log("************************");
   console.log(LoggedInUser);
   console.log("************************");
   let doctor;
+
   User.find({},function(err,users){
 
-   res.render('Doctortest.ejs',{doctor:req.session.user,patientslist:users});
+    uMessage.find({},function(err,message){
+    res.render('Doctor.ejs',{doctor:req.session.user,patientslist:users,messagess:message ,fortest:message});
+    })
 
-
-  });
+   });
 });
 app.get('/Examinator',function(req,res){
   console.log("************************");
@@ -323,10 +294,10 @@ try{
           req.session.user = user ;
           console.log(req.session.user);
           if (user.role === "Doctor") {
-            myfunc();
+           
             console.log("doctor login");
 
-            return res.redirect("/Doctortest");
+            return res.redirect("/Doctor");
           } else if (user.role === "Examinator") {
             return res.redirect("/Examinator");
           } else {
@@ -353,48 +324,51 @@ try{
     var date = new Date();
     let newmessage = new uMessage( {
       sender:req.body.sender,
-  reciever:req.body.doctorid,
-  Subject:req.body.Subject,
-  Mbody:req.body.Message,
-  sent:date
-  });
+      reciever:req.body.doctorid,
+      Subject:req.body.Subject,
+      Mbody:req.body.Message,
+      sent:date
+  }
+  );
+  console.log(newmessage)
 
 
-  newmessage.save(function(err) {
-    if (!err) {
-      
-      console.log(newmessage);
-      return res.redirect('/Patient');
-        }
-  });
+  try {
+    uMessage.findOne({
+      _id: req.body.id,
+  
+    }, async function(err, msg) {
+      if (err) {
+  
+        res.json({
+          error: err
+        })
+      }
+      if (!msg) {
+  
+  
+              await newmessage.save(function(err) {
+                if (!err) {
+                  
+                  console.log(newmessage);
+                  return res.redirect('/Patient');
+                }
+              });
+           
+          
+  
+  
+      } 
+    });
 
-  uMessage.findOne({
-    _id: req.body.id,
+  } catch (err) {
+    logger.error('Mongo error', err);
+    return res.status(500).send();
+  }
 
-  }, function(err, msg) {
-    if (err) {
-
-      res.json({
-        error: err
-      })
-    }
-    if (!msg) {
-
-
-            newmessage.save(function(err) {
-              if (!err) {
-                
-                console.log(newmessage);
-                return res.redirect('/Patient');
-              }
-            });
-         
-        
-
-
-    } 
-  });
-
+  
+  
+  console.log("message sent");
 
    
   
@@ -453,10 +427,10 @@ try{
 
 
   
-
-app.listen(3000,function(){
-    console.log("Starting Server");
+app.listen(3000,() => {
+  console.log("rebandel");
 });
+
 
 function initMap() {
   // The location of Uluru
@@ -476,21 +450,4 @@ function initMap() {
       map: map
   });
 }
-
-function myfunc(){
-
-  
-  var i=0;
-  User.find({}, function(err, users) {
-    users.forEach(function(user) {
-
-      if(user.role == "Patient"){
-              userslist[i] = user;
-      i++;
-      }
-
-    });
-  });
-  
-
-}
+module.exports = app;
