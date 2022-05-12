@@ -164,6 +164,12 @@ app.get('/BloodTestValues',function(req,res){
   });
 });
 
+app.get('/EditDoctor',function(req,res){
+  res.render('EditDoctor', {
+    message: req.flash("message")
+  });
+});
+
 var passwordschema = new passwordValidator();
 
 passwordschema
@@ -420,6 +426,42 @@ try{
       }
     });
   });
+
+
+  app.post('/EditDoctor', function(req, res) {
+    var  special = req.body.Specialist;
+
+    User.findOne({
+      id: req.body.id,
+  
+    }, function(err, user) {
+      if (err) { // user doesn't exist
+        res.json({
+          error: err
+        })
+      }
+      if (user) { //user exist
+
+        console.log(user);
+
+        if (req.body.id == user.id ) {
+
+            User.updateOne({ id: user.id }, { Specialist: req.body.Specialist }, function(err, reas) {
+              if(err){
+                console.log("couldn't change Speciality");
+              }
+              else{
+                console.log("Speciality changed successfully");
+                return  res.redirect("/Doctor"); 
+              }
+            });
+         
+        } 
+      } 
+    });
+  });
+
+
 
 
   
