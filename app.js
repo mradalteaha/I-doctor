@@ -62,7 +62,7 @@ const bloodtestSchema = new mongoose.Schema({
   ap: String,
 
 });
-const BloodTest = mongoose.model("BloodTest",bloodtestSchema);
+const BloodTests = mongoose.model("BloodTests",bloodtestSchema);
 
 const app=express();
 app.set('view engine', 'ejs');
@@ -115,8 +115,8 @@ app.get('/Doctor',function(req,res){
   User.find({},function(err,users){
 
     uMessage.find({},function(err,message){
-      BloodTest.find({},function(err,bloodtest){
-      res.render('Doctor.ejs',{doctor:req.session.user,patientslist:users,messagess:message ,blood:bloodtest});
+      BloodTests.find({},function(err,bloodtest){
+        res.render('Doctor.ejs',{doctor:req.session.user,patientslist:users,messagess:message ,blood:bloodtest});
     })
     })
 
@@ -183,7 +183,7 @@ passwordschema
 
   app.post('/BloodTestValues',function(req,res){
 
-    let test = new BloodTest( {
+    let test = new BloodTests( {
       id : req.body.id,
       age:req.body.age,
       wbc :req.body.wbc,

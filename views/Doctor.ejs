@@ -25,8 +25,7 @@
                     <li><h1 class="headingb"> <span>Welcome Doctor:</span> <%=doctor.FirstName  %> <%=doctor.LastName%> </h1></li>
                     <li><a href="#first"><i class="fas fa-house-user"></i><p>Patient Queue</p></a></li>
                     <li><a href="#second"><i class="fas fa-comment-dots"></i><p>My Messeages</p></a></li>
-                    <li><a href="#three"><i class="fas fa-comment-dots"></i><p>Section 3</p></a></li>
-                    <li><a href="#four"><i class="fas fa-comment-dots"></i><p>Section 4</p></a></li>
+                    <li><a href="#three"><i class="fas fa-comment-dots"></i><p>Blood Tests</p></a></li>
                     <li><a href="EditDoctor"><i class="fas fa-comment-dots"></i><p>Edit</p></a></li>
                     <li><a href="Log-In.html"><i class="fas fa-comment-dots"></i><p>Logout</p></a></li>
                    
@@ -99,7 +98,7 @@
                         
                         <% if(message.reciever == doctor.id){ %>
                             <%patientslist.forEach(user=>{ %> 
-                                <% if(user.id == message.reciever){ %>
+                                <% if(user.id == message.sender){ %>
                              <tr>
                                  <td><%= user.FirstName%> &nbsp <%= user.LastName%></td>
                                  <td><%= user.id%></td>
@@ -126,20 +125,14 @@
           <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
         </form>
       </div>
-        
-       
-    
     </section>
 </div>
 <div class="wrapper" id="three">
-    <h1 class="heading"> <span>Patient</span> Queue </h1>
+    <h1 class="heading"> <span>Blood</span> Tests </h1>
 <section >
-    
     <div class="table-wrapper-scroll-y my-custom-scrollbar">
     
-        <table class="container" >
-
-            
+        <table id="BloodTestTable" class="container" >
             <thead>
                 <tr>
                     <th><h1>First Name</h1></th>
@@ -151,8 +144,12 @@
                 </tr>
             </thead>
             <tbody>
+                <%blood.forEach(bloodtest=>{ %> 
                 <%patientslist.forEach(user=>{ %> 
-                   <% if(user.role == "Patient"){ %>
+                   
+                        
+                            <% if(user.role == "Patient"){ %>
+                            <% if(user.id == bloodtest.id){ %>
                 <tr>
                     <td><%= user.FirstName%></td>
                     <td><%= user.LastName%></td>
@@ -160,58 +157,41 @@
                     <td><%= user.email%></td>
                     <td><%= user.Gender%></td>
                     <td><%= user.Age%></td>
-                    <td><a href="Home.html"><button>View</button></a></td>
+                    <td><button id= <%= bloodtest._id %> onclick="openbloodtest(<%= JSON.stringify(bloodtest) %>)" class="openbloodtest" >View blood tests result</button></td>
                 </tr>
             <%}%>
+            <%}%>
+            <%})%>
             <%})%>
             </tbody>
         </table>
 
     </div>
+         
+    <div class="form-popup" id="mybloodForm">
+        <form action="/action_page.php" class="form-container">
+         <br> <label id="BloodTestID" type="text" ></label></br>
+         <br> <label id="Age" type="text" ></label></br>
+         <br> <label id="WBC" type="text" ></label></br>
+         <br> <label id="neut" type="text" ></label></br>
+         <br> <label id="lymph" type="text" ></label></br>
+         <br> <label id="rbc" type="text" ></label></br>
+         <br> <label id="hct" type="text"></label></br>
+         <br> <label id="urea" type="text" ></label></br>
+         <br> <label id="hb" type="text" ></label></br>
+         <br> <label id="creatine" type="text" ></label></br>
+         <br> <label id="iron" type="text" ></label></br>
+         <br> <label id="ap" type="text" ></label></br>
+         <br>
+         <br>
+          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+      </div>
+        
 
 </section>
 </div>
-<div class="wrapper" id="four">
-    <h1 class="heading"> <span>Patient</span> Queue </h1>
-<section >
-    
-    <div class="table-wrapper-scroll-y my-custom-scrollbar">
-    
-        <table class="container" >
 
-            
-            <thead>
-                <tr>
-                    <th><h1>First Name</h1></th>
-                    <th><h1>Last Name</h1></th>
-                    <th><h1>ID</h1></th>
-                    <th><h1>E-mail</h1></th>
-                    <th><h1>Gender</h1></th>
-                    <th><h1>Age</h1></th>
-                </tr>
-            </thead>
-            <tbody>
-                <%patientslist.forEach(user=>{ %> 
-                   <% if(user.role == "Patient"){ %>
-                <tr>
-                    <td><%= user.FirstName%></td>
-                    <td><%= user.LastName%></td>
-                    <td><%= user.id%></td>
-                    <td><%= user.email%></td>
-                    <td><%= user.Gender%></td>
-                    <td><%= user.Age%></td>
-                    <td><a href="Home.html"><button>View</button></a></td>
-                </tr>
-            <%}%>
-            <%})%>
-            </tbody>
-        </table>
-
-    </div>
-
-</section>
-
-</div>
 
 
         <script src="https://kit. fontawesome.com/c4254e24a8.js" crossorigin="anonymous"></script>
@@ -234,7 +214,35 @@
             function closeForm() {
               document.getElementById("myForm").style.display = "none";
               document.getElementById("messagestable").style.display = "table";
+              document.getElementById("mybloodForm").style.display = "none";
+              document.getElementById("BloodTestTable").style.display = "table";
             }
+
+            function openbloodtest(bloodtest) {
+              
+                
+              console.log(bloodtest);
+              
+             console.log(bloodtest=== null ? "novaluesent": bloodtest);
+             
+             document.getElementById("BloodTestID").textContent= "Id:" +bloodtest.id;
+             document.getElementById("Age").textContent= "Age:" +bloodtest.age;
+             document.getElementById("WBC").textContent= "WBC:" +bloodtest.wbc;
+             document.getElementById("neut").textContent= "neut:" +bloodtest.neut;
+             document.getElementById("lymph").textContent= "lymph:" +bloodtest.lymph;
+             document.getElementById("rbc").textContent= "rbc:" +bloodtest.rbc;
+             document.getElementById("hct").textContent= "hct:" +bloodtest.hct;
+             document.getElementById("urea").textContent= "urea:" +bloodtest.urea;
+             document.getElementById("hb").textContent= "hb:" +bloodtest.hb;
+             document.getElementById("creatine").textContent= "creatine:" +bloodtest.creatine;
+             document.getElementById("iron").textContent= "iron:" +bloodtest.iron;
+             document.getElementById("ap").textContent= "ap:" +bloodtest.ap;
+            document.getElementById("mybloodForm").style.display = "block";
+            document.getElementById("BloodTestTable").style.display = "none";
+            
+            
+          }
+    
             </script>
 
         
