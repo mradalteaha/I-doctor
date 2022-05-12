@@ -428,7 +428,6 @@ try{
   });
 
 
-<<<<<<< HEAD
   app.post('/EditDoctor', function(req, res) {
     var  special = req.body.Specialist;
 
@@ -469,9 +468,6 @@ try{
 app.listen(3000,() => {
   console.log("rebandel");
 });
-=======
-
->>>>>>> master
 
 
 function initMap() {
