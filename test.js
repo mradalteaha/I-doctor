@@ -4,6 +4,8 @@ var app = require('./app.js');
 
 
 
+
+
 describe('Good Home Routes to login page', function () {
 
     test('responds to /', async () => {
@@ -47,3 +49,11 @@ describe('Good Home Routes to Forgot password', function () {
         expect(res.statusCode).toBe(200);
     });
 });
+
+afterAll(async () => {
+    try {
+      await mongoose.connection.close()
+    } catch (err) {
+      console.log(err)
+    }
+  })

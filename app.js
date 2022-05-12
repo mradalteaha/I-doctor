@@ -2,8 +2,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
-const mongoose = require('mongoose');
 var passwordValidator = require('password-validator');
+
+
 const flash = require("connect-flash");
 const session = require("express-session");
 const ejs = require("ejs");
@@ -11,58 +12,20 @@ const { strictEqual } = require('assert');
 const dotenv = require('dotenv').config()
 
 
-
 var passport = require("passport");
 var engines = require('consolidate');
+
 const { connect } = require('http2');
 const { builtinModules } = require('module');
 
 
+var data = require('./database.js');
+
 
 //data base connection :
-mongoose.connect('mongodb+srv://moradte:Mrad_1999@idoctor.1lmf0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',{useNewUrlParser: true}).catch(error => handleError(error));
 
 
 
-const regSchema = new mongoose.Schema({
-role: String,
-FirstName: String, 
-LastName:String,
-id: Number,
-password:String,
-email: String,
-Gender:String,
-Age:Number,
-Phone:Number,
-Birthdate:Date,
-Specialist:String
-});
-
-const messages = new mongoose.Schema({
-  sender:Number,
-  reciever:Number,
-  Subject:String,
-  Mbody:String,
-  sent:Date});
-  
-
-const User = mongoose.model("User",regSchema);
-const uMessage = mongoose.model("uMessage",messages);
-const bloodtestSchema = new mongoose.Schema({
-  id: String,
-  wbc: String,
-  neut: String,
-  lymph: String,
-  rbc: String,
-  hct: String,
-  urea: String,
-  hb: String,
-  creatine: String,
-  iron: String,
-  ap: String,
-
-});
-const BloodTest = mongoose.model("BloodTest",bloodtestSchema);
 
 const app=express();
 app.set('view engine', 'ejs');
@@ -422,10 +385,11 @@ try{
   });
 
 
+  app.listen(3000,() => {
+      console.log("rebandel");
+    });
+    
   
-app.listen(3000,() => {
-  console.log("rebandel");
-});
 
 
 function initMap() {
