@@ -319,7 +319,7 @@ try{
   });
 
 
-  app.post('/Patient',function(req,res){
+  app.post('/Patient',(req,res)=>{
 
     console.log("inside patient post");
   
@@ -428,6 +428,7 @@ try{
   });
 
 
+<<<<<<< HEAD
   app.post('/EditDoctor', function(req, res) {
     var  special = req.body.Specialist;
 
@@ -468,6 +469,9 @@ try{
 app.listen(3000,() => {
   console.log("rebandel");
 });
+=======
+
+>>>>>>> master
 
 
 function initMap() {
