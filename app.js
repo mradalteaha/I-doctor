@@ -448,38 +448,21 @@ try{
   });
 
 
-  app.post('/EditDoctor', function(req, res) {
-    var  special = req.body.Specialist;
+  app.post('/EditDoctor', async(req, res)=> {
+    try{
+      var message
 
-    User.findOne({
-      id: req.body.id,
-  
-    }, function(err, user) {
-      if (err) { // user doesn't exist
-        res.json({
-          error: err
-        })
-      }
-      if (user) { //user exist
+       console.log(req.body.Messageidentity);
+      await User.updateOne({id:req.body.is},{Specialist:Specialist});
+        console.log("updated successfully ");
+       return res.redirect("/Doctor");
+     }catch{
+       console.log("failed to delete the mesasge");
+         return res.redirect("/Doctor");
+   
+       }
+     });
 
-        console.log(user);
-
-        if (req.body.id == user.id ) {
-
-            User.updateOne({ id: user.id }, { Specialist: req.body.Specialist }, function(err, reas) {
-              if(err){
-                console.log("couldn't change Speciality");
-              }
-              else{
-                console.log("Speciality changed successfully");
-                return  res.redirect("/Doctor"); 
-              }
-            });
-         
-        } 
-      } 
-    });
-  });
 
 
 
