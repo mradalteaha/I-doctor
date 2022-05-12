@@ -313,7 +313,7 @@ try{
   });
 
 
-  app.post('/Patient',function(req,res){
+  app.post('/Patient',(req,res)=>{
 
     console.log("inside patient post");
   
@@ -422,10 +422,7 @@ try{
   });
 
 
-  
-app.listen(3000,() => {
-  console.log("rebandel");
-});
+
 
 
 function initMap() {
