@@ -16,6 +16,7 @@ var passport = require("passport");
 var engines = require('consolidate');
 const { connect } = require('http2');
 const { builtinModules } = require('module');
+const cons = require('consolidate');
 
 
 
@@ -271,6 +272,23 @@ try{
   });
 
 
+      app.post('/DoctorMessage', async(req, res)=> {
+
+        try{
+           var message
+
+            console.log("delete message id ");
+            console.log(req.body.Messageidentity);
+           await uMessage.deleteOne({_id:req.body.Messageidentity});
+             console.log("Message deleted successfully ");
+            return res.redirect("/Doctor");
+          }catch{
+            console.log("failed to delete the mesasge");
+              return res.redirect("/Doctor");
+        
+            }
+          });
+  
   app.post('/Log-In', (req, res)=> {
 
 try{
@@ -296,7 +314,7 @@ try{
           req.session.user = user ;
           console.log(req.session.user);
           if (user.role === "Doctor") {
-           
+            
             console.log("doctor login");
 
             return res.redirect("/Doctor");
