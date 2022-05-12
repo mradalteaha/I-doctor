@@ -118,11 +118,13 @@
         </div>
      
      <div class="form-popup" id="myForm">
-        <form action="/action_page.php" class="form-container">
+        <form action="/DoctorMessage" method="post" class="form-container">
          <br> <label id="messagefrom" type="text" for="email"></label></br>
          <br> <label id="messagesubject" type="text" ></label></br>
          <br> <label id="messagecontent" type="text" ></label></br>
+         <input id="messageid" hidden="true" name="Messageidentity" type="password" value="" placeholder="Password" id="password" />
           <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+          <button type="submit" class="btn confirm" >Delete Message</button>
         </form>
       </div>
     </section>
@@ -206,6 +208,7 @@
                document.getElementById("messagefrom").textContent= "Message From: " +message.sender;
                document.getElementById("messagesubject").textContent= "Message Subject: " +message.Subject;
                document.getElementById("messagecontent").textContent= "Message From: " +message.Mbody;
+               document.getElementById("messageid").value= message._id;
               document.getElementById("myForm").style.display = "block";
               document.getElementById("messagestable").style.display = "none";
               
