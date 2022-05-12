@@ -36,7 +36,7 @@ Gender:String,
 Age:Number,
 Phone:Number,
 Birthdate:Date,
-Specialist:String,
+Specialist:String
 });
 
 const messages = new mongoose.Schema({
@@ -46,9 +46,15 @@ const messages = new mongoose.Schema({
   Mbody:String,
   sent:Date});
   
+  const appointments = new mongoose.Schema({
+    patient:Number,
+    doctor:Number,
+    Date:String});
+    
 
 const User = mongoose.model("User",regSchema);
 const uMessage = mongoose.model("uMessage",messages);
+const Appointment = mongoose.model("Appointment",appointments);
 const bloodtestSchema = new mongoose.Schema({
   id: String,
   wbc: String,
@@ -63,7 +69,7 @@ const bloodtestSchema = new mongoose.Schema({
   ap: String,
 
 });
-const BloodTests = mongoose.model("BloodTests",bloodtestSchema);
+const BloodTest = mongoose.model("BloodTest",bloodtestSchema);
 
 const app=express();
 app.set('view engine', 'ejs');
@@ -116,9 +122,9 @@ app.get('/Doctor',function(req,res){
   User.find({},function(err,users){
 
     uMessage.find({},function(err,message){
-      BloodTests.find({},function(err,bloodtest){
-        res.render('Doctor.ejs',{doctor:req.session.user,patientslist:users,messagess:message ,blood:bloodtest});
-    })
+      Appointment.find({},function(err,appointmenta){
+        res.render('Doctor.ejs',{doctor:req.session.user,patientslist:users,messagess:message ,appointmentss:appointmenta});
+        })
     })
 
    });
@@ -184,7 +190,7 @@ passwordschema
 
   app.post('/BloodTestValues',function(req,res){
 
-    let test = new BloodTests( {
+    let test = new BloodTest( {
       id : req.body.id,
       age:req.body.age,
       wbc :req.body.wbc,
@@ -290,6 +296,24 @@ try{
         
             }
           });
+
+
+
+          app.post('/DeleteAppoitment', async(req, res)=> {
+
+            try{
+               var message
+    
+                console.log("delete message id ");
+                console.log(req.body.doctordel);
+                await Appointment.deleteOne({patient:req.body.sender,doctor:req.body.doctordel});
+                return res.redirect("/Doctor");
+              }catch{
+                
+                  return res.redirect("/Doctor");
+            
+                }
+              });
   
   app.post('/Log-In', (req, res)=> {
 
@@ -391,6 +415,76 @@ try{
   
   
   console.log("message sent");
+
+   
+  
+  });
+
+
+
+  app.post('/Appointment',async(req,res)=>{
+
+    console.log("inside patient reserve appointment");
+    console.log("patient:\n");
+
+    console.log(req.body.sender);
+
+    console.log("Doctor \n");
+
+    console.log(req.body.doctorid);
+
+    console.log("date \n");
+
+    console.log(req.body.datepicked);
+
+
+
+
+  let newappointment= new Appointment({
+    patient:req.body.sender,
+    doctor:req.body.doctorid,
+    Date:req.body.datepicked});
+
+  console.log(newappointment)
+
+
+  try {
+    await Appointment.findOne({patient:req.body.sender,
+      doctor:req.body.doctorid}, async function(err, appointmentt) {
+      if (err) {
+  
+        res.json({
+          error: err
+        })
+      }
+      if (!appointmentt) {
+  
+  
+              await newappointment.save(function(err) {
+                if (!err) {
+                  console.log("appointment set");
+
+                  console.log(newappointment);
+                  return res.redirect('/Patient');
+                }
+              });
+           
+          
+  
+  
+      } 
+    });
+
+  } catch (err) {
+    console.log("appopintment already exist");
+    return res.redirect('/Patient');
+    logger.error('Mongo error', err);
+    return res.status(500).send();
+  }
+
+  
+  
+  console.log("appointment set up");
 
    
   
