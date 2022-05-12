@@ -19,7 +19,6 @@ pipeline {
         stage('Deliver') {
             steps {
                 sh 'npm test'
-        
             }
         }
     }

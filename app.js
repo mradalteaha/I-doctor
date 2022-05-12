@@ -15,6 +15,7 @@ const dotenv = require('dotenv').config()
 var passport = require("passport");
 var engines = require('consolidate');
 const { connect } = require('http2');
+const { builtinModules } = require('module');
 
 
 
@@ -421,12 +422,8 @@ try{
   });
 
 
-  
 
 
-
-
-module.exports = app;
 
 function initMap() {
   // The location of Uluru
@@ -446,3 +443,4 @@ function initMap() {
       map: map
   });
 }
+module.exports = app;
