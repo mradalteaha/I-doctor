@@ -19,7 +19,7 @@ const { connect } = require('http2');
 
 
 //data base connection :
-mongoose.connect('mongodb+srv://moradte:Mrad_1999@idoctor.1lmf0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',{useNewUrlParser: true}).catch(error => handleError(error));
+mongoose.connect('mongodb+srv://moradte:Mrad_1999@idoctor.1lmf0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',{useNewUrlParser: true}).catch(error => handleError(errstaor));
 
 
 
@@ -84,6 +84,7 @@ app.use(passport.session());
 
 
 var userslist=[];
+var PatientBloodTest=[];
 
 app.get('/Doctor', (req, res) => {
 
@@ -118,6 +119,7 @@ function myfunc(){
   
 
 }
+
 app.get('/Patient',function(req,res){
   
   console.log("************************");
@@ -224,8 +226,12 @@ passwordschema
         return res.redirect('/Examinator');
       }
     });
-    
   });
+  
+
+
+
+
 
 app.post('/Sign-Up',(req,res)=>{
 
