@@ -21,7 +21,6 @@ const cons = require('consolidate');
 
 
 //data base connection :
-mongoose.connect('mongodb+srv://moradte:Mrad_1999@idoctor.1lmf0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',{useNewUrlParser: true}).catch(error => handleError(error));
 
 
 
@@ -577,12 +576,6 @@ try{
    
   
   });
-
-
-  
-app.listen(3000,() => {
-  console.log("rebandel");
-});
 
 
 function initMap() {

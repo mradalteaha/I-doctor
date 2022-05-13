@@ -4,7 +4,7 @@
   "description": "doctor",
   "main": "app.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --detectOpenHandles"
   },
   "author": "abed",
   "license": "ISC",
