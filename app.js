@@ -304,9 +304,16 @@ try{
             try{
                var message
     
-                console.log("delete message id ");
+                console.log("delete appointment ");
                 console.log(req.body.doctordel);
-                await Appointment.deleteOne({patient:req.body.sender,doctor:req.body.doctordel});
+                Appointment.deleteOne({patient:req.body.sender,doctor:req.body.doctordel},function(err,successfully){
+                    if(err){
+                      console.log("function failed");
+                    }else{
+                      console.log("function success");
+                    }
+
+                });
                 return res.redirect("/Doctor");
               }catch{
                 
