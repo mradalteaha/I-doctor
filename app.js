@@ -325,6 +325,7 @@ app.post('/DoctorMessage', async (req, res) => {
 });
 
 app.post('/DeleteAppoitment', async (req, res) => {
+  
 
   try {
     var message
@@ -350,6 +351,22 @@ app.post('/DeleteAppoitment', async (req, res) => {
   }
 });
 
+
+app.post('/PatientProfile', async (req, res) => {
+  
+
+  try {
+    
+
+    console.log("Patient Profile " + req.body.userprofile_id);
+    
+    return res.redirect("/Doctor");
+  } catch {
+
+    return res.redirect("/Doctor");
+
+  }
+});
 
 
 app.post('/Log-In', (req, res) => {
@@ -560,7 +577,7 @@ app.post('/Appointment', async (req, res) => {
 
 
 
-
+ 
   try {
     Appointment.findOne({
       patient: req.body.sender,
