@@ -21,7 +21,8 @@
             <li><a href="Home">Home</a></li>
             <li><a href="Log-In">Logout</a></li>
             <li><a href="Home">Blood Test</a></li>
-            <li><a href="#appointment">Reserve Appointment</a></li>
+            <li><a href="#docappointment">Reserve Doctor Appointment</a></li>
+            <li><a href="#exappointment">Reserve Examinator Appointment</a></li>
         </ul>
     </div>
 </nav>
@@ -125,8 +126,8 @@
                </section>
             </div>
 
-    <div class="wrapper" id="appointment">
-        <h1 class="heading"> <span>Reserver</span> Appointment </h1>
+    <div class="wrapper" id="docappointment">
+        <h1 class="heading"> <span>Reserver Doctor</span> Appointment </h1>
         <section>
             
           <div class="w3-container" id="contact" style="margin-top:75px">
@@ -171,6 +172,54 @@
         
         </section>
     </div>
+
+
+    <div class="wrapper" id="exappointment">
+      <h1 class="heading"> <span>Reserver Examinator</span> Appointment </h1>
+      <section>
+          
+        <div class="w3-container" id="contact" style="margin-top:75px">
+    
+    
+        <form action="/Appointmentex" method="POST">
+    
+    
+          <div class="w3-section">
+            <label>Select Doctor</label>
+            <select name="exrid" id="id">
+              <%userslist.forEach(user=>{ %> 
+                <% if(user.role == "Examinator"){ %>
+             
+                  <option value=<%=user.id%> <span><%= user.FirstName %> &nbsp <%= user.LastName %></span></option>
+         <%}%>
+         <%})%>
+              
+             </select>
+        </div>
+
+        <div class="w3-section" hidden="true">
+          <input class="w3-input w3-border" type="number" name="sender" value= <%= p.id %> required>
+      </div>
+        <table>
+          <tr>
+            <th><b>Datepicker</b></th>
+          </tr>
+          <tr>
+            <td>Date:</td>
+            <td><input type="text" name="datepicked" id="datepicker"></td>
+          </tr>
+        </table>
+    
+          
+      
+            <button type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">reserve appointment</button>
+        </form>
+    </div>
+          
+         
+      
+      </section>
+  </div>
     <script>
       $( function() {
           $( "#datepicker" ).datepicker();

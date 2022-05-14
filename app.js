@@ -160,6 +160,29 @@ app.get('/Examinator', function (req, res) {
 });
 
 
+app.get('/Examinatortest', function (req, res) {
+  console.log("************************");
+  console.log(LoggedInUser);
+  console.log("************************");
+  User.find({}, function (err, users) {
+
+    uMessage.find({}, function (err, message) {
+      BloodTests.find({}, function (err, bloodtest) {
+        Appointment.find({}, function (err, appointmenta) {
+          res.render('Examinatortest.ejs', {
+            examinator: req.session.user,
+            patientslist: users,
+            messagess: message,
+            blood: bloodtest,
+            appointmentss: appointmenta
+          });
+        })
+      })
+    })
+
+  });
+});
+
 app.get('/', function (req, res) {
   res.render('Home.html', {
     style: 'Home.css'
@@ -399,7 +422,7 @@ app.post('/Log-In', (req, res) => {
 
             return res.redirect("/Doctor");
           } else if (user.role === "Examinator") {
-            return res.redirect("/Examinator");
+            return res.redirect("/Examinatortest");
           } else {
             return res.redirect("/Patient");
           }
@@ -596,6 +619,60 @@ app.post('/Appointment', async (req, res) => {
         newappointment.save(function (err) {
           if (!err) {
             console.log("appointment set");
+
+            console.log(newappointment);
+            return res.redirect('/Patient');
+          }
+        });
+
+
+
+      } else {
+        console.log("appopintment already exist");
+        return res.redirect('/Patient');
+
+      }
+    });
+
+  } catch (err) {
+
+
+    return res.status(500).send();
+  }
+
+
+});
+
+
+app.post('/Appointmentex', async (req, res) => {
+
+  let newappointment = new Appointment({
+    patient: req.body.sender,
+    doctor: req.body.exeid,
+    Date: req.body.datepicked
+  });
+
+
+
+ 
+  try {
+    Appointment.findOne({
+      patient: req.body.sender,
+      doctor: req.body.exrid,
+      Date: req.body.datepicked
+    }, function (err, appointmentt) {
+      if (err) {
+
+        res.json({
+          error: err
+        })
+      }
+      if (!appointmentt) {
+
+
+        newappointment.save(function (err) {
+          if (!err) {
+            console.log("appointment with examinator set");
 
             console.log(newappointment);
             return res.redirect('/Patient');
