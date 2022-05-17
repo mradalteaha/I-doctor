@@ -497,7 +497,7 @@ try{
               }
               else{
                 console.log("Speciality changed successfully");
-                return  res.redirect("/Doctor"); 
+                return  res.redirect("/Log-in"); 
               }
             });
          
