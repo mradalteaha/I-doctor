@@ -204,6 +204,12 @@ app.get('/EditDoctor', function (req, res) {
   });
 });
 
+app.get('/PatientListExaminator', function (req, res) {
+  res.render('PatientListExaminator', {
+    message: req.flash("message")
+  });
+});
+
 var passwordschema = new passwordValidator();
 
 passwordschema
@@ -562,7 +568,7 @@ app.post('/EditDoctor', function (req, res) {
       }
     }
   });
-});
+
 
 
 
@@ -576,7 +582,7 @@ app.post('/EditDoctor', function (req, res) {
               }
             });
          
-
+          });
 
 app.post('/Appointment', async (req, res) => {
 
@@ -631,6 +637,7 @@ app.post('/Appointment', async (req, res) => {
 
 });
 
+//app.post('PatientListExaminator')
 
 
 module.exports = app;
