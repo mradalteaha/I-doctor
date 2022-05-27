@@ -18,30 +18,32 @@
         </ul>
     </div>
 </nav>
-    <div id="resume">
-        
-        <p>Name: <%= p.FirstName %> &nbsp <%= p.LastName %> </p> 
-        <p>Phone: <%= p.Phone %></a>
-        <p>ID: <%= p.id %></a>
-        <p>Email: <%= p.email %></a>
-        <p> Gender: <%= p.Gender %> </p>
-        <p> Birthdate: <%= p.Birthdate %></p>
-        
-      <dl>
-        <dt>Last Blood test:
-        <dd>
-          <h2>Diseases</h2>
-          <p>Here Last blood test diseases</p>
-      </dl>
-      <dl>
-      <dt>Treatment
-      <dd>
-      <h2>Treatment</h2>
-      <p>Here drugs the patient take
-      
-    </div>
-      <br>
-      <br>
+<div id="gradient"></div>
+<div id="card">
+  <h2>Examinator Profile</h2>
+  <p>Welcome Examinator <%= p.FirstName %><%= p.LastName %> ☊</p>
+  <p>ID: <%= p.id %></a>
+  <p>Email: <%= p.email %></a>
+  <p> Birthdate: <%= p.Birthdate %></p>
+  <span class="left bottom"> tel: <%= p.Phone %></span>
+  <span class="right bottom">Gender: <%= p.Gender %></span>
+</div>
+<br><br><br><br><br><br>
+<div class="wrapper1">     
+      <div id="resume">
+            <dl>
+              <dt>Last Blood test:
+              <dd>
+                <h2>Diseases</h2>
+                <p>Here Last blood test diseases</p>
+            </dl>
+            <dl>
+            <dt>Treatment
+            <dd>
+            <h2>Treatment</h2>
+            <p>Here drugs the patient take
+        </div>
+  </div> 
       <div id="current_date"></p>
         <script>
         date = new Date();
