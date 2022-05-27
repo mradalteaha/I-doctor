@@ -205,8 +205,27 @@ app.get('/EditDoctor', function (req, res) {
 });
 
 app.get('/PatientListExaminator', function (req, res) {
-  res.render('PatientListExaminator', {
-    message: req.flash("message")
+  console.log("************************");
+  console.log(LoggedInUser);
+  console.log("************************");
+  let examinator;
+
+  User.find({}, function (err, users) {
+
+    uMessage.find({}, function (err, message) {
+      BloodTests.find({}, function (err, bloodtest) {
+        Appointment.find({}, function (err, appointmenta) {
+          res.render('PatientListExaminator.ejs', {
+            examinator: req.session.user,
+            patientslist: users,
+            messagess: message,
+            blood: bloodtest,
+            appointmentss: appointmenta
+          });
+        })
+      })
+    })
+
   });
 });
 
@@ -637,7 +656,7 @@ app.post('/Appointment', async (req, res) => {
 
 });
 
-//app.post('PatientListExaminator')
+
 
 
 module.exports = app;
