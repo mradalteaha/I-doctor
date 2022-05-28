@@ -30,6 +30,7 @@
     "passport": "^0.5.2",
     "password-validator": "^5.2.1",
     "path": "^0.12.7",
+    "should": "^13.2.3",
     "supertest": "^6.2.3",
     "test": "^0.6.0"
   },
