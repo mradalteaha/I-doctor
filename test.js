@@ -1,6 +1,15 @@
 var request = require('supertest');
 const assert = require('assert');
-var app = require('./app.js');
+const mongoose = require('mongoose');
+var apps = require('./app.js');
+var app = apps[0];
+var User = apps[1];
+var uMessage = apps[2];
+
+const { setupDB } = require("./test_setup.js");
+
+// Setup a Test Database
+setupDB();
 
 
 describe('Check if the routes goes to login page!', function () {
@@ -82,3 +91,43 @@ describe('Check if the routes goes to EditDoctor', function () {
     expect(res.statusCode).toBe(200);
   });
 });
+
+
+var users = [
+  {
+    role: "123",
+    FirstName: "123",
+    LastName: "123",
+    id: "123",
+    password: "123",
+    email: "123",
+    Gender: "123",
+    Age: "123",
+    Phone: "123",
+    Birthdate: "123",
+    Specialist: "123"
+  },
+  {
+    role: "123",
+    FirstName: "123",
+    LastName: "123",
+    id: "123123",
+    password: "123",
+    email: "123",
+    Gender: "123",
+    Age: "123",
+    Phone: "123",
+    Birthdate: "123",
+    Specialist: "123"
+  }
+]
+
+
+describe('Post stamm',function(){
+  test('responds to baed /', async () => {
+      for(const u of users){
+        const user = new User(u);
+        await user.save();
+      }
+  });
+})

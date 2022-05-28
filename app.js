@@ -622,4 +622,4 @@ app.post('/Appointment', async (req, res) => {
 
 
 
-module.exports = app;
+module.exports = [app,User,uMessage,Appointment];
