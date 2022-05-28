@@ -119,64 +119,44 @@ app.get('/Examinator', function (req, res) {
 
 
 app.get('/', function (req, res) {
-  res.render(200,'Home.html', {
-    style: 'Home.css'
-  });
+  res.render('Home.html');
+  
 });
 app.get('/Sign-Up', function (req, res) {
-  res.render(200,'Sign-Up.ejs', {
-    message: req.flash("message")
-  });
+  res.render('Sign-Up.ejs');
 });
 
 
 app.get('/Sign-Up_As_Doctor', function (req, res) {
-  res.render(200,'Sign-Up_As_Doctor.html', {
-    message: req.flash("message")
-  });
+  res.render('Sign-Up_As_Doctor.html');
 });
 app.get('/Sign-Up_As_Examinator', function (req, res) {
-  res.render(200,'Sign-Up_As_Examinator.html', {
-    message: req.flash("message")
-  });
+  res.render('Sign-Up_As_Examinator.html');
 });
 app.get('/Sign-Up_As_Patient', function (req, res) {
-  res.render(200,'Sign-Up_As_Patient.html', {
-    message: req.flash("message")
-  });
+  res.render('Sign-Up_As_Patient.html');
 });
 app.get('/Home', function (req, res) {
-  res.render(200,'Home.html', {
-    message: req.flash("message")
-  });
+  res.render('Home.html');
 });
 app.get('/Log-in', function (req, res) {
-  res.render(200,'Log-In.html', {
-    message: req.flash("message")
-  });
+  res.render('Log-In.html');
+ 
 });
 
 app.get('/ForgotPW', function (req, res) {
-  res.render(200,'ForgotPW.html', {
-    message: req.flash("message")
-  });
+  res.render('ForgotPW.html');
 });
 app.get('/Examinator', function (req, res) {
-  res.render(200,'Examinator.ejs', {
-    message: req.flash("message")
-  });
+  res.render('Examinator.ejs');
 });
 
 app.get('/BloodTestValues', function (req, res) {
-  res.render(200,'BloodTestValues.ejs', {
-    message: req.flash("message")
-  });
+  res.render('BloodTestValues.ejs');
 });
 
 app.get('/EditDoctor', function (req, res) {
-  res.render(200,'EditDoctor.ejs', {
-    message: req.flash("message")
-  });
+  res.render('EditDoctor.ejs');
 });
 
 var passwordschema = new passwordValidator();

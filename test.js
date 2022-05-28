@@ -1,6 +1,6 @@
 var request = require('supertest');
 const assert = require('assert');
-var app = require('../../app.js');
+var app = require('./app.js');
 const mongoose = require('mongoose');
 
 

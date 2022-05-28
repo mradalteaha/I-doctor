@@ -19,18 +19,18 @@ var test = require('mocha').test;
 
 describe('Check if the routes goes to login page!', function () {
 
-    test('responds to /', async () => {
-      const res = await request(app).get('/Log-In');
-      expect(res.should.have.status(500));
+    test('responds to /Log-In', async () => {
+      const res = await request(server).get('/Log-In');
+      expect(res.should.have.status(200));
     });
 });
 //2
 
 describe('Check if the routes goes to register page!', function () {
 
-    test('responds to /', async () => {
+    test('responds to /Sign-Up', async () => {
       const res = await request(app).get('/Sign-Up');
-     expect(res.should.have.status(500));
+     expect(res.should.have.status(200));
     });
 });
 
@@ -38,44 +38,46 @@ describe('Check if the routes goes to register page!', function () {
 
 describe('Check if the routes goes to Home page!', function () {
 
-    test('responds to /', async () => {
+    test('responds to /Home', async () => {
       const res = await request(app).get('/Home');
-     expect(res.should.have.status(500));
+     expect(res.should.have.status(200));
     });
 });
 
 //4
 describe('Check if the routes goes to Sign Up As Patient!', function () {
 
-  test('responds to /', async () => {
+  test('responds to /Sign-Up_As_Patient', async () => {
     const res = await request(app).get('/Sign-Up_As_Patient');
-   expect(res.should.have.status(500));
+   expect(res.should.have.status(200));
   });
 });
 
 //5
 describe('Check if the routes goes to Sign Up As Examinator!', function () {
 
-  test('responds to /', async () => {
-  expect(res.should.have.status(500));
+  test('responds to /Sign-Up_As_Examinator', async () => {
+    const res = await request(app).get('/Sign-Up_As_Examinator');
+
+  expect(res.should.have.status(200));
   });
 });
 
 //6
 describe('Check if the routes goes to Sign Up As Doctor!', function () {
 
-  test('responds to /', async () => {
+  test('responds to /Sign-Up_As_Doctor', async () => {
     const res = await request(app).get('/Sign-Up_As_Doctor');
-   expect(res.should.have.status(500));
+   expect(res.should.have.status(200));
   });
 });
 
 //7
 describe('Check if the routes goes to ForgotPW', function () {
 
-  test('responds to /', async () => {
+  test('responds to /ForgotPW', async () => {
     const res = await request(app).get('/ForgotPW');
-    expect(res.should.have.status(500));
+    expect(res.should.have.status(200));
   });
 });
 
@@ -83,9 +85,9 @@ describe('Check if the routes goes to ForgotPW', function () {
 //8
 describe('Check if the routes goes to BloodTestValues', function () {
 
-  test('responds to /', async () => {
+  test('responds to /BloodTestValues', async () => {
     const res = await request(app).get('/BloodTestValues');
-   expect(res.should.have.status(500));
+   expect(res.should.have.status(200));
   });
 });
 
@@ -93,9 +95,9 @@ describe('Check if the routes goes to BloodTestValues', function () {
 
 describe('Check if the routes goes to EditDoctor', function () {
 
-  test('responds to /', async () => {
+  test('responds to /EditDoctor', async () => {
     const res = await request(app).get('/EditDoctor');
-    expect(res.should.have.status(500));
+    expect(res.should.have.status(200));
   });
 });
 
