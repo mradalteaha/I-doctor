@@ -1,7 +1,12 @@
 var request = require('supertest');
 const assert = require('assert');
 var app = require('./app.js');
+const mongoose = require('mongoose');
 
+jest.useFakeTimers();
+
+
+//1
 
 describe('Check if the routes goes to login page!', function () {
 
@@ -11,7 +16,7 @@ describe('Check if the routes goes to login page!', function () {
       expect(res.statusCode).toBe(200);
     });
 });
-
+//2
 describe('Check if the routes goes to register page!', function () {
 
     test('responds to /', async () => {
@@ -21,6 +26,8 @@ describe('Check if the routes goes to register page!', function () {
     });
 });
 
+//3
+
 describe('Check if the routes goes to Home page!', function () {
 
     test('responds to /', async () => {
@@ -29,6 +36,8 @@ describe('Check if the routes goes to Home page!', function () {
       expect(res.statusCode).toBe(200);
     });
 });
+
+//4
 describe('Check if the routes goes to Sign Up As Patient!', function () {
 
   test('responds to /', async () => {
@@ -38,6 +47,7 @@ describe('Check if the routes goes to Sign Up As Patient!', function () {
   });
 });
 
+//5
 describe('Check if the routes goes to Sign Up As Examinator!', function () {
 
   test('responds to /', async () => {
@@ -47,6 +57,7 @@ describe('Check if the routes goes to Sign Up As Examinator!', function () {
   });
 });
 
+//6
 describe('Check if the routes goes to Sign Up As Doctor!', function () {
 
   test('responds to /', async () => {
@@ -56,6 +67,7 @@ describe('Check if the routes goes to Sign Up As Doctor!', function () {
   });
 });
 
+//7
 describe('Check if the routes goes to ForgotPW', function () {
 
   test('responds to /', async () => {
@@ -65,6 +77,8 @@ describe('Check if the routes goes to ForgotPW', function () {
   });
 });
 
+
+//8
 describe('Check if the routes goes to BloodTestValues', function () {
 
   test('responds to /', async () => {
@@ -74,6 +88,8 @@ describe('Check if the routes goes to BloodTestValues', function () {
   });
 });
 
+//9
+
 describe('Check if the routes goes to EditDoctor', function () {
 
   test('responds to /', async () => {
@@ -82,3 +98,24 @@ describe('Check if the routes goes to EditDoctor', function () {
     expect(res.statusCode).toBe(200);
   });
 });
+
+
+//10
+
+describe('should respond with redirect on post to login', function () {
+
+  it('should respond with redirect on post', function(done) {
+    request(app)
+      .post('/Log-In')
+      .send({"id":"123123123"},{"Password":"Abedd13"});
+      console.log(request(app).body)
+      expect(302)
+      expect('Content-Type', 'text/plain; charset=utf-8')
+      end(function(err, res) {
+        if (err) {done(err);
+          console.log("error in post")}
+         });
+      done();
+  });
+});
+

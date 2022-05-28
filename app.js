@@ -26,58 +26,16 @@ const cons = require('consolidate');
 
 
 
-//data base connection :
+//data base models :
+const User = require('./db/models/User.js').User;
+
+const uMessage = require('./db/models/messages.js').uMessage;
+
+const Appointment = require('./db/models/appointments.js').Appointment;
+
+const BloodTests = require('./db/models/bloodtestSchema.js').BloodTests;
 
 
-
-const regSchema = new mongoose.Schema({
-  role: String,
-  FirstName: String,
-  LastName: String,
-  id: Number,
-  password: String,
-  email: String,
-  Gender: String,
-  Age: Number,
-  Phone: Number,
-  Birthdate: Date,
-  Specialist: String,
-});
-
-const messages = new mongoose.Schema({
-  sender: Number,
-  reciever: Number,
-  Subject: String,
-  Mbody: String,
-  sent: Date
-});
-
-
-const appointments = new mongoose.Schema({
-  patient: Number,
-  doctor: Number,
-  Date: String
-});
-
-
-const User = mongoose.model("User", regSchema);
-const uMessage = mongoose.model("uMessage", messages);
-const Appointment = mongoose.model("Appointment", appointments);
-const bloodtestSchema = new mongoose.Schema({
-  id: String,
-  wbc: String,
-  neut: String,
-  lymph: String,
-  rbc: String,
-  hct: String,
-  urea: String,
-  hb: String,
-  creatine: String,
-  iron: String,
-  ap: String,
-
-});
-const BloodTests = mongoose.model("BloodTests", bloodtestSchema);
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -167,6 +125,23 @@ app.get('/', function (req, res) {
 });
 app.get('/Sign-Up', function (req, res) {
   res.render('Sign-Up', {
+    message: req.flash("message")
+  });
+});
+
+
+app.get('/Sign-Up_As_Doctor', function (req, res) {
+  res.render('Sign-Up_As_Doctor.html', {
+    message: req.flash("message")
+  });
+});
+app.get('/Sign-Up_As_Examinator', function (req, res) {
+  res.render('Sign-Up_As_Examinator.html', {
+    message: req.flash("message")
+  });
+});
+app.get('/Sign-Up_As_Patient', function (req, res) {
+  res.render('Sign-Up_As_Patient.html', {
     message: req.flash("message")
   });
 });
@@ -383,7 +358,8 @@ app.post('/Log-In', (req, res) => {
         })
       }
       if (user) { //user exist
-
+        
+        
 
         if (req.body.Password === user.password) {
           console.log(user);
@@ -392,8 +368,9 @@ app.post('/Log-In', (req, res) => {
 
 
           req.session.user = user;
-          console.log(req.session.user);
+          
           if (user.role === "Doctor") {
+
 
             console.log("doctor login");
 
