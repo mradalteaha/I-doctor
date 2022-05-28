@@ -1,312 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta name="viewport" content="width=Ddevice-width, initial-scale=1.0">
-        <title>Examinator Test</title>
-        <link rel="icon" href="images/favicon.ico">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-        <link rel="stylesheet" href="Msg.css">
-        <link rel="stylesheet" href="doc.css">
-    </head>
+
+<head>
+    <meta name="viewport" content="width=Ddevice-width, initial-scale=1.0">
+    <title>Examinator Test</title>
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="Msg.css">
+    <link rel="stylesheet" href="doc.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Patient.css">
+</head>
+
 <body>
-
-
-        <div class="header">
-            <div class="side-nav">
-                <a href="#" class="logo">
-                    <img img="doctor.png" class="logo-img">
-                    <img src="logo-icon.png" class="logo-icon">
-                </a>
-                <ul class="nav-links">
-                    <li><h1 class="headingb"> <span>Welcome Examinator:</span> <%=examinator.FirstName  %> <%=examinator.LastName%> </h1></li>
-                    <li><a href="#first"><i class="fas fa-house-user"></i><p>Patient Queue</p></a></li>
-                    <li><a href="#second"><i class="fas fa-comment-dots"></i><p>My Messeages</p></a></li>
-                    <li><a href="#three"><i class="fa fa-medkit" aria-hidden="true"></i><p>Blood Tests</p></a></li>
-                    <li><a href="#four"><i class="fa fa-map-marker" aria-hidden="true"></i><p>Navigate</p></a></li>
-                    
-                    <li><a href="Log-In"><i class="fas fa-sign-out-alt" aria-hidden="true"></i><p>Logout</p></a></li>
-                   
-                </ul>
-            </div>
+    <nav class="navbar">
+        <div class="navlinks">
+            <ul>
+                <li><a href="Home">Home</a></li>
+                <li><a href="Log-In">Logout</a></li>
+                <li><a href="Examinator">Profile</a></li>
+                <li><a href="BloodTestValues">Blood Test Values</a></li>
+            </ul>
         </div>
-        
-        <div class="wrapper" id="first">
-            <h1 class="heading"> <span>Patient</span> Queue </h1>
-        <section >
-            
-            <div class="table-wrapper-scroll-y my-custom-scrollbar">
-            
-             
-                <table id="PatientqueueTable" class="container" >
-    
-                    
-                    <thead>
-                        <tr>
-                            <th><h1>First Name</h1></th>
-                            <th><h1>Last Name</h1></th>
-                            <th><h1>ID</h1></th>
-                            <th><h1>E-mail</h1></th>
-                            <th><h1>Gender</h1></th>
-                            <th><h1>Age</h1></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <%appointmentss.forEach(appointment=>{ %> 
-                        <%patientslist.forEach(user=>{ %> 
-                           <% if(user.role == "Patient" && appointment.patient == user.id && appointment.examinator == examinator.id){ %>
-                        <tr id= <%= user.id %>>
-                            <td><%= user.FirstName%></td>
-                            <td><%= user.LastName%></td>
-                            <td><%= user.id%></td>
-                            <td><%= user.email%></td>
-                            <td><%= user.Gender%></td>
-                            <td><%= user.Age%></td>
-                            <td><button id= <%= user._id %> onclick="openPatientProfile(<%= JSON.stringify(user) %>)" class="openForm" >View Profile</button></td>
-                            <form action="/DeleteAppoitment" method="post">
-                                <div class="w3-section" hidden="true">
-                                    <input hidden="ture" class="w3-input w3-border" type="number" name="sender" value= <%= user.id %> required>
-                                </div>
-                                <div class="w3-section" hidden="true">
-                                    <input hidden="ture" class="w3-input w3-border" type="number" name="doctordel" value= <%= examinator.id %> required>
-                                </div>
-                            <td><button type="submit" id= <%= user._id %> >Done</button></td>
-                        </form>
-                        </tr>
-                    <%}%>
-                    <%})%>
-                    <%})%>
-                    </tbody>
-                </table>
-            </div>
-            <div class="form-popup" id="PatientProfile">
-                <form action="/PatientProfile" method="post" class="form-container">
-                    <p id="fnln">Name:  </p>
-                    <p id="pidnum">ID: </a>
-                    <p id ="pemail">Email:</a>
-                    <p id="pgender"> Gender: </p>
-                    <p id="pbday"> Birthdate: </p>
-      
-                    
-                  <dl>
-                    <dt>Last Blood test:
-                    <dd>
-                      <h2>Diseases</h2>
-                      <p>Here Last blood test diseases</p>
-                  </dl>
-                  <dl>
-                  <dt>Treatment
-                  <dd>
-                  <h2>Treatment</h2>
-                  <p>Here drugs the patient take
-                 <input id="messageid" hidden="true" name="Messageidentity" type="password" value="" placeholder="Password" id="password" />
-                  <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-                 
-                </form>
-              </div>
-        
-        </section>
-    </div>
-
-    <div class="wrapper" id="second">
-        <h1 class="heading"> <span>My</span> Messages </h1>
-    <section >
-        
-        <div class="table-wrapper-scroll-y my-custom-scrollbar">
-        
-            <table id="messagestable" class="container" >
-
-                
-                <thead>
-                    <tr>
-                        <th><h1>Patient Name</h1></th>
-                        <th><h1>Patient ID</h1></th>
-                        <th><h1>Message Date</h1></th>
-                        <th><h1>Subject</h1></th>
-                        <th><h1>View</h1></th>
-                        
-                    </tr>
-                </thead>
-                <tbody>
-                    <%messagess.forEach(message=>{ %> 
-                        
-                        <% if(message.reciever == examinator.id){ %>
-                            <%patientslist.forEach(user=>{ %> 
-                                <% if(user.id == message.sender){ %>
-                             <tr>
-                                 <td><%= user.FirstName%> &nbsp <%= user.LastName%></td>
-                                 <td><%= user.id%></td>
-                                 <td><%= message.sent%></td>
-                                 <td><%= message.Subject%></td>
-                                 <td><button id= <%= message._id %> onclick="openForm(<%= JSON.stringify(message) %>)" class="openForm" >View Message</button></td>
-                             </tr>
-                         <%}%>
-                         <%})%>
-                     
-                 <%}%>
-                 <%})%>
-                 
-                </tbody>
-            </table>
-
-        </div>
-     
-     <div class="form-popup" id="myForm">
-        <form action="/DoctorMessage" method="post" class="form-container">
-         <br> <label id="messagefrom" type="text" for="email"></label></br>
-         <br> <label id="messagesubject" type="text" ></label></br>
-         <br> <label id="messagecontent" type="text" ></label></br>
-         <input id="messageid" hidden="true" name="Messageidentity" type="password" value="" placeholder="Password" id="password" />
-          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-          <button type="submit" class="btn confirm" >Delete Message</button>
-        </form>
-      </div>
-    </section>
-</div>
+    </nav>
+    <table class="container">
 
 
-
-<div class="wrapper" id="three">
-    <h1 class="heading"> <span>Blood</span> Tests </h1>
-<section >
-    <div class="table-wrapper-scroll-y my-custom-scrollbar">
-    
-        <table id="BloodTestTable" class="container" >
-            <thead>
-                <tr>
-                    <th><h1>First Name</h1></th>
-                    <th><h1>Last Name</h1></th>
-                    <th><h1>ID</h1></th>
-                    <th><h1>E-mail</h1></th>
-                    <th><h1>Gender</h1></th>
-                    <th><h1>Age</h1></th>
-                </tr>
-            </thead>
-            <tbody>
-                <%blood.forEach(bloodtest=>{ %> 
-                <%patientslist.forEach(user=>{ %> 
-                   
-                        
-                            <% if(user.role == "Patient"){ %>
-                            <% if(user.id == bloodtest.id){ %>
-                <tr>
-                    <td><%= user.FirstName%></td>
-                    <td><%= user.LastName%></td>
-                    <td><%= user.id%></td>
-                    <td><%= user.email%></td>
-                    <td><%= user.Gender%></td>
-                    <td><%= user.Age%></td>
-                    <td><button id= <%= bloodtest._id %> onclick="openbloodtest(<%= JSON.stringify(bloodtest) %>)" class="openbloodtest" >View blood tests result</button></td>
-                </tr>
-            <%}%>
+        <thead>
+            <tr>
+                <th>
+                    <h1>First Name</h1>
+                </th>
+                <th>
+                    <h1>Last Name</h1>
+                </th>
+                <th>
+                    <h1>ID</h1>
+                </th>
+                <th>
+                    <h1>E-mail</h1>
+                </th>
+                <th>
+                    <h1>Gender</h1>
+                </th>
+                <th>
+                    <h1>Age</h1>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <%patientslist.forEach(user=>{ %>
+            <% if(user.role == "Patient"){ %>
+                <form action="/PatientInfo" method="post">
+            <tr id=<%= user.id %>>
+                <td><%= user.FirstName%></td>
+                <td><%= user.LastName%></td>
+                <td><%= user.id%></td>
+                <td><%= user.email%></td>
+                <td><%= user.Gender%></td>
+                <td><%= user.Age%></td>
+                <td><button id=<%= user.id %>>View Profile</button></td>
+            </tr>
             <%}%>
             <%})%>
-            <%})%>
-            </tbody>
-        </table>
-
-    </div>
-         
-    <div class="form-popup" id="mybloodForm">
-        <form action="/action_page.php" class="form-container">
-         <br> <label id="BloodTestID" type="text" ></label></br>
-         <br> <label id="Age" type="text" ></label></br>
-         <br> <label id="WBC" type="text" ></label></br>
-         <br> <label id="neut" type="text" ></label></br>
-         <br> <label id="lymph" type="text" ></label></br>
-         <br> <label id="rbc" type="text" ></label></br>
-         <br> <label id="hct" type="text"></label></br>
-         <br> <label id="urea" type="text" ></label></br>
-         <br> <label id="hb" type="text" ></label></br>
-         <br> <label id="creatine" type="text" ></label></br>
-         <br> <label id="iron" type="text" ></label></br>
-         <br> <label id="ap" type="text" ></label></br>
-         <br>
-         <br>
-          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
         </form>
-      </div>
-        
-
-</section>
-</div>
-
-<div class="wrapper" id="four">
-      <section class="location" id="location">
-
-                <h1 class="heading"> <span>Navigate to nearest </span> Hospital</h1>
-        
-                <div class="row">
-        
-                  <div style="width: 100%"><iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Yitzhack%20I.%20Rager%20Blvd%20151,%20Be'er%20Sheva+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/wearable-gps/">adventure gps</a></iframe></div>
-                    <div class="content">
-                        <h3 style="color: white;">Our Address</h3>
-                        <p style="color: white;">Soroka,</p>
-                        <p style="color: white;">Yitzhack I. Rager Blvd 151, Be'er Sheva</p>
+        </tbody>
+    </table>
+    </div>
+    <script>
+        function openForm(message) {
           
+            
+            console.log(message);
+            
+           console.log(message=== null ? "novaluesent": message);
+           
+           document.getElementById("messagefrom").textContent= "Message From: " +message.sender;
+           document.getElementById("messagesubject").textContent= "Message Subject: " +message.Subject;
+           document.getElementById("messagecontent").textContent= "Message From: " +message.Mbody;
+           document.getElementById("messageid").value= message._id;
+          document.getElementById("myForm").style.display = "block";
+          document.getElementById("messagestable").style.display = "none";
+          
+        }
         
-                    </div>
-        
-                </div>
-
-         </section>
-      </div>
-
-
-
-
-        <script src="https://kit. fontawesome.com/c4254e24a8.js" crossorigin="anonymous"></script>
-        <script>
-            function openForm(message) {
-              
-                
-                console.log(message);
-                
-               console.log(message=== null ? "novaluesent": message);
-               
-               document.getElementById("messagefrom").textContent= "Message From: " +message.sender;
-               document.getElementById("messagesubject").textContent= "Message Subject: " +message.Subject;
-               document.getElementById("messagecontent").textContent= "Message From: " +message.Mbody;
-               document.getElementById("messageid").value= message._id;
-              document.getElementById("myForm").style.display = "block";
-              document.getElementById("messagestable").style.display = "none";
-              
-            }
-            
-            function closeForm() {
-              document.getElementById("myForm").style.display = "none";
-              document.getElementById("messagestable").style.display = "table";
-              document.getElementById("mybloodForm").style.display = "none";
-              document.getElementById("BloodTestTable").style.display = "table";
-              document.getElementById("PatientProfile").style.display = "none";
-              document.getElementById("PatientqueueTable").style.display = "table";
-            }
-
-            function openbloodtest(bloodtest) {
-              
-                
-              console.log(bloodtest);
-              
-             console.log(bloodtest=== null ? "novaluesent": bloodtest);
-             
-             document.getElementById("BloodTestID").textContent= "Id:" +bloodtest.id;
-             document.getElementById("Age").textContent= "Age:" +bloodtest.age;
-             document.getElementById("WBC").textContent= "WBC:" +bloodtest.wbc;
-             document.getElementById("neut").textContent= "neut:" +bloodtest.neut;
-             document.getElementById("lymph").textContent= "lymph:" +bloodtest.lymph;
-             document.getElementById("rbc").textContent= "rbc:" +bloodtest.rbc;
-             document.getElementById("hct").textContent= "hct:" +bloodtest.hct;
-             document.getElementById("urea").textContent= "urea:" +bloodtest.urea;
-             document.getElementById("hb").textContent= "hb:" +bloodtest.hb;
-             document.getElementById("creatine").textContent= "creatine:" +bloodtest.creatine;
-             document.getElementById("iron").textContent= "iron:" +bloodtest.iron;
-             document.getElementById("ap").textContent= "ap:" +bloodtest.ap;
-            document.getElementById("mybloodForm").style.display = "block";
-            document.getElementById("BloodTestTable").style.display = "none";
-            
-            
-          }
-
-          function openPatientProfile(user) {
+        function closeForm() {
+          document.getElementById("myForm").style.display = "none";
+          document.getElementById("messagestable").style.display = "table";
+          document.getElementById("mybloodForm").style.display = "none";
+          document.getElementById("BloodTestTable").style.display = "table";
+          document.getElementById("PatientProfile").style.display = "none";
+          document.getElementById("PatientqueueTable").style.display = "table";
+        }
+        function openPatientProfile(user) {
               
                 
               console.log(user);
@@ -319,19 +107,11 @@
              document.getElementById("pemail").textContent= "Email:  " +user.email;
              document.getElementById("pgender").textContent= "Gender:  " +user.Gender;
              document.getElementById("pbday").textContent= "Birthdate:  " +user.Birthdate;
-
-             
             document.getElementById("PatientProfile").style.display = "block";
             document.getElementById("PatientqueueTable").style.display = "none";
             
           }
-    
-            </script>
-
-        
-      
-
-    
+</script>
 </body>
 </html>
 </html>

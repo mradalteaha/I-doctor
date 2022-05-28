@@ -115,7 +115,9 @@ app.get('/Patient', function (req, res) {
 
     res.render('Patient.ejs', {
       p: req.session.user,
-      userslist: users
+      userslist: users,
+      bloodtest: tests 
+
     });
 
 
@@ -123,8 +125,26 @@ app.get('/Patient', function (req, res) {
 
 });
 
+app.get('/PatientTestValues', function (req, res) {
+
+  console.log("************************");
+  console.log(LoggedInUser);
+  console.log("************************");
+  User.find({}, function (err, users) {
+    BloodTests.find({}, function (err, bloodtest) {
+    res.render('PatientTestValues.ejs', {
+      p: req.session.user,
+      userslist: users,
+      blood: bloodtest,
+      })
+    });
 
 
+  });
+
+});
+
+var tests=[];
 
 app.get('/Doctor', function (req, res) {
   console.log("************************");
@@ -229,6 +249,27 @@ app.get('/PatientListExaminator', function (req, res) {
   });
 });
 
+/*app.get('/PatientInfo', function (req, res) {
+  res.render('PatientInfo', {
+    p: req.session.user
+  })
+});*/
+
+app.get('/PatientInfo', function (req, res) {
+  res.render('PatientInfo', {
+    message: req.flash("message")
+  });
+});
+
+app.post('/PatientInfo', function (req, res) {
+  console.log(req.session.user.id);
+  res.render('PatientInfo', {
+    p: req.body.user
+  })
+});
+
+
+
 var passwordschema = new passwordValidator();
 
 passwordschema
@@ -255,6 +296,8 @@ app.post('/BloodTestValues', function (req, res) {
     ap: req.body.ap
   });
   console.log("blood test enterd");
+  tests.push(req.body.id);
+  console.log(tests);
   test.save(function (err) {
     if (!err) {
 
@@ -264,6 +307,8 @@ app.post('/BloodTestValues', function (req, res) {
   });
 
 });
+
+
 
 app.post('/Sign-Up', (req, res) => {
 
