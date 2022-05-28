@@ -108,7 +108,7 @@ describe('should respond with redirect on post to login', function () {
     request(app)
       .post('/Log-In')
       .send({"id":"123123123"},{"Password":"Abedd13"});
-      console.log(request(app).body)
+      
       expect(302)
       expect('Content-Type', 'text/plain; charset=utf-8')
       end(function(err, res) {
@@ -116,6 +116,20 @@ describe('should respond with redirect on post to login', function () {
           console.log("error in post")}
          });
       done();
+  });
+
+  it('should send post params in request body', function() {
+    var params = { foo: 'bar' };
+    var expected = JSON.stringify(params);
+   
+    var request = new MockReq({ method: '/Log-In' });
+    var write = sinon.spy(request, 'write');
+   
+    this.request.returns(request);
+   
+    api.post(params, function() { });
+   
+    assert(write.withArgs(expected).calledOnce);
   });
 });
 
