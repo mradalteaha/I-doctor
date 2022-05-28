@@ -26,58 +26,16 @@ const cons = require('consolidate');
 
 
 
-//data base connection :
+//data base models :
+const User = require('./db/models/User.js').User;
+
+const uMessage = require('./db/models/messages.js').uMessage;
+
+const Appointment = require('./db/models/appointments.js').Appointment;
+
+const BloodTests = require('./db/models/bloodtestSchema.js').BloodTests;
 
 
-
-const regSchema = new mongoose.Schema({
-  role: String,
-  FirstName: String,
-  LastName: String,
-  id: Number,
-  password: String,
-  email: String,
-  Gender: String,
-  Age: Number,
-  Phone: Number,
-  Birthdate: Date,
-  Specialist: String,
-});
-
-const messages = new mongoose.Schema({
-  sender: Number,
-  reciever: Number,
-  Subject: String,
-  Mbody: String,
-  sent: Date
-});
-
-
-const appointments = new mongoose.Schema({
-  patient: Number,
-  doctor: Number,
-  Date: String
-});
-
-
-const User = mongoose.model("User", regSchema);
-const uMessage = mongoose.model("uMessage", messages);
-const Appointment = mongoose.model("Appointment", appointments);
-const bloodtestSchema = new mongoose.Schema({
-  id: String,
-  wbc: String,
-  neut: String,
-  lymph: String,
-  rbc: String,
-  hct: String,
-  urea: String,
-  hb: String,
-  creatine: String,
-  iron: String,
-  ap: String,
-
-});
-const BloodTests = mongoose.model("BloodTests", bloodtestSchema);
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -113,7 +71,7 @@ app.get('/Patient', function (req, res) {
   console.log("************************");
   User.find({}, function (err, users) {
 
-    res.render('Patient.ejs', {
+    res.render(200,'Patient.ejs', {
       p: req.session.user,
       userslist: users
     });
@@ -161,47 +119,44 @@ app.get('/Examinator', function (req, res) {
 
 
 app.get('/', function (req, res) {
-  res.render('Home.html', {
-    style: 'Home.css'
-  });
+  res.render('Home.html');
+  
 });
 app.get('/Sign-Up', function (req, res) {
-  res.render('Sign-Up', {
-    message: req.flash("message")
-  });
+  res.render('Sign-Up.ejs');
+});
+
+
+app.get('/Sign-Up_As_Doctor', function (req, res) {
+  res.render('Sign-Up_As_Doctor.html');
+});
+app.get('/Sign-Up_As_Examinator', function (req, res) {
+  res.render('Sign-Up_As_Examinator.html');
+});
+app.get('/Sign-Up_As_Patient', function (req, res) {
+  res.render('Sign-Up_As_Patient.html');
 });
 app.get('/Home', function (req, res) {
-  res.render('Home.html', {
-    message: req.flash("message")
-  });
+  res.render('Home.html');
 });
 app.get('/Log-in', function (req, res) {
-  res.render('Log-In.html', {
-    message: req.flash("message")
-  });
+  res.render('Log-In.html');
+ 
 });
 
 app.get('/ForgotPW', function (req, res) {
-  res.render('ForgotPW.html', {
-    message: req.flash("message")
-  });
+  res.render('ForgotPW.html');
 });
 app.get('/Examinator', function (req, res) {
-  res.render('Examinator', {
-    message: req.flash("message")
-  });
+  res.render('Examinator.ejs');
 });
 
 app.get('/BloodTestValues', function (req, res) {
-  res.render('BloodTestValues', {
-    message: req.flash("message")
-  });
+  res.render('BloodTestValues.ejs');
 });
 
 app.get('/EditDoctor', function (req, res) {
-  res.render('EditDoctor', {
-    message: req.flash("message")
-  });
+  res.render('EditDoctor.ejs');
 });
 
 var passwordschema = new passwordValidator();
@@ -383,7 +338,8 @@ app.post('/Log-In', (req, res) => {
         })
       }
       if (user) { //user exist
-
+        
+        
 
         if (req.body.Password === user.password) {
           console.log(user);
@@ -392,12 +348,12 @@ app.post('/Log-In', (req, res) => {
 
 
           req.session.user = user;
-          console.log(req.session.user);
+          
           if (user.role === "Doctor") {
 
-            console.log("doctor login");
 
-            return res.redirect("/Doctor");
+            console.log("doctor login");
+            return res.redirect(302,"/Doctor");
           } else if (user.role === "Examinator") {
             return res.redirect("/Examinator");
           } else {
@@ -411,10 +367,13 @@ app.post('/Log-In', (req, res) => {
       }
     });
   } catch {
-    return res.redirect("/Log-In");
+    return res.redirect(500,"/Log-In");
 
   }
 });
+
+
+
 
 
 app.post('/Patient', (req, res) => {
@@ -614,7 +573,7 @@ app.post('/Appointment', async (req, res) => {
   } catch (err) {
 
 
-    return res.status(500).send();
+    
   }
 
 
