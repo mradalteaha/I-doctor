@@ -71,14 +71,12 @@ app.get('/Patient', function (req, res) {
   console.log("************************");
   User.find({}, function (err, users) {
 
-    res.render(200,'Patient.ejs', {
+    res.render('Patient.ejs', {
       p: req.session.user,
       userslist: users,
       bloodtest: tests 
 
     });
-
-
   });
 
 });
@@ -93,7 +91,7 @@ app.get('/PatientTestValues', function (req, res) {
     res.render('PatientTestValues.ejs', {
       p: req.session.user,
       userslist: users,
-      blood: bloodtest,
+      blood: bloodtest
       })
     });
 
