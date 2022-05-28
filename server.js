@@ -3,10 +3,9 @@ const db = require ('./db/database.js');
 
 
 
-db.connect()
-.then(()=>{
-    app.listen(3000,()=>{
-        console.log("Starting Server port 3000");
-    });
-});
+db.connect();
 
+const server = app.listen(3000,()=>{
+    console.log("Starting Server port 3000");
+});
+module.exports = server;

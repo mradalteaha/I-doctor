@@ -71,7 +71,7 @@ app.get('/Patient', function (req, res) {
   console.log("************************");
   User.find({}, function (err, users) {
 
-    res.render('Patient.ejs', {
+    res.render(200,'Patient.ejs', {
       p: req.session.user,
       userslist: users
     });
@@ -119,62 +119,62 @@ app.get('/Examinator', function (req, res) {
 
 
 app.get('/', function (req, res) {
-  res.render('Home.html', {
+  res.render(200,'Home.html', {
     style: 'Home.css'
   });
 });
 app.get('/Sign-Up', function (req, res) {
-  res.render('Sign-Up', {
+  res.render(200,'Sign-Up.ejs', {
     message: req.flash("message")
   });
 });
 
 
 app.get('/Sign-Up_As_Doctor', function (req, res) {
-  res.render('Sign-Up_As_Doctor.html', {
+  res.render(200,'Sign-Up_As_Doctor.html', {
     message: req.flash("message")
   });
 });
 app.get('/Sign-Up_As_Examinator', function (req, res) {
-  res.render('Sign-Up_As_Examinator.html', {
+  res.render(200,'Sign-Up_As_Examinator.html', {
     message: req.flash("message")
   });
 });
 app.get('/Sign-Up_As_Patient', function (req, res) {
-  res.render('Sign-Up_As_Patient.html', {
+  res.render(200,'Sign-Up_As_Patient.html', {
     message: req.flash("message")
   });
 });
 app.get('/Home', function (req, res) {
-  res.render('Home.html', {
+  res.render(200,'Home.html', {
     message: req.flash("message")
   });
 });
 app.get('/Log-in', function (req, res) {
-  res.render('Log-In.html', {
+  res.render(200,'Log-In.html', {
     message: req.flash("message")
   });
 });
 
 app.get('/ForgotPW', function (req, res) {
-  res.render('ForgotPW.html', {
+  res.render(200,'ForgotPW.html', {
     message: req.flash("message")
   });
 });
 app.get('/Examinator', function (req, res) {
-  res.render('Examinator', {
+  res.render(200,'Examinator.ejs', {
     message: req.flash("message")
   });
 });
 
 app.get('/BloodTestValues', function (req, res) {
-  res.render('BloodTestValues', {
+  res.render(200,'BloodTestValues.ejs', {
     message: req.flash("message")
   });
 });
 
 app.get('/EditDoctor', function (req, res) {
-  res.render('EditDoctor', {
+  res.render(200,'EditDoctor.ejs', {
     message: req.flash("message")
   });
 });
@@ -373,8 +373,7 @@ app.post('/Log-In', (req, res) => {
 
 
             console.log("doctor login");
-
-            return res.redirect("/Doctor");
+            return res.redirect(302,"/Doctor");
           } else if (user.role === "Examinator") {
             return res.redirect("/Examinator");
           } else {
@@ -388,10 +387,13 @@ app.post('/Log-In', (req, res) => {
       }
     });
   } catch {
-    return res.redirect("/Log-In");
+    return res.redirect(500,"/Log-In");
 
   }
 });
+
+
+
 
 
 app.post('/Patient', (req, res) => {
@@ -591,7 +593,7 @@ app.post('/Appointment', async (req, res) => {
   } catch (err) {
 
 
-    return res.status(500).send();
+    
   }
 
 

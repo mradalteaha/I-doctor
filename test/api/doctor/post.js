@@ -1,5 +1,5 @@
 //jshint esversion:6
-process.env.NODE_ENV = 'test';
+
 const expect = require('chai').expect;
 const request = require('supertest');
 
@@ -26,16 +26,25 @@ describe('POST /Log-in', () => {
         .send({ id: '315198564', Password: "Mrad_1999" })
         .then((res) => {
           const body = res.body;
-          expect(body).to.contain.property('_id');
-          expect(body).to.contain.property('role');
-          expect(body).to.contain.property('FirstName');
-          expect(body).to.contain.property('LastName');
-          expect(body).to.contain.property('id');
-          expect(body).to.contain.property('password');
-          expect(body).to.contain.property('email');
-          expect(body).to.contain.property('Gender');
-          expect(body).to.contain.property('Age');
+       
+          expect(302)
+          expect('Location', '/Doctor')
           done();
+          
+        })
+        .catch((err) => done(err));
+    });
+
+    it('Wrong credintials, Login Failed', (done) => {
+      request(app).post('/Log-In')
+        .send({ id: '315198564', Password: "Mrad_19999" })
+        .then((res) => {
+          const body = res.body;
+       
+          expect(500)
+          expect('Location', '/Log-In')
+          done();
+          
         })
         .catch((err) => done(err));
     });
