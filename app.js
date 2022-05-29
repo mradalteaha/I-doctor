@@ -255,7 +255,34 @@ app.post('/PatientInfo/:id', function (req, res) {
       })
     }
     if (user) {
+      console.log("inside user found")
      
+      BloodTests.find({id:user.id},function(err,bld){
+        if(err){
+          res.json({
+            error:err
+          })
+        }
+          if(bld){
+            console.log("inside user blood test found")
+            tds.find({id:user.id},function(err,tre){
+              if(err){
+                res.json({
+                  error:err
+                })
+              }
+                if(tre){
+                  console.log("inside treatment found")
+
+                  res.render('PatientInfo.ejs',{patient:user,bldtlist:bld,treatments:tre});
+
+                }
+              }
+            )
+          }
+        
+
+      })
 
      
         
@@ -265,7 +292,7 @@ app.post('/PatientInfo/:id', function (req, res) {
   });
 
 
-  res.render('PatientInfo.ejs',{patient:user,bldtlist:,treatments:});
+  
   
 
 });
@@ -669,17 +696,17 @@ app.post('/EditDoctor', function (req, res) {
 
 
 
-            User.updateOne({ id: user.id }, { Specialist: req.body.Specialist }, function(err, reas) {
-              if(err){
-                console.log("couldn't change Speciality");
-              }
-              else{
-                console.log("Speciality changed successfully");
-                return  res.redirect("/Log-in"); 
-              }
-            });
-         
-          });
+  User.updateOne({ id: user.id }, { Specialist: req.body.Specialist }, function(err, reas) {
+    if(err){
+      console.log("couldn't change Speciality");
+    }
+    else{
+      console.log("Speciality changed successfully");
+      return  res.redirect("/Log-in"); 
+    }
+  });
+
+});
 
 app.post('/Appointment', async (req, res) => {
 
