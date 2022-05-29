@@ -41,7 +41,7 @@ describe('POST /Log-in', () => {
         .then((res) => {
           const body = res.body;
        
-          expect(500)
+          expect(200)
           expect('Location', '/Log-In')
           done();
           

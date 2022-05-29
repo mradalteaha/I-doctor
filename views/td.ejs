@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="BloodTestValues.css">
+    <title>Blood Test </title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navlinks">
+            <ul>
+                <li><a href="Home">Home</a></li>
+                <li><a href="Log-In">Logout</a></li>
+                <li><a href="PatientListExaminator">Patient List</a></li>
+                <li><a href="Examinator">Profile</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="login-block">
+        <h1>Adding Treatment and Diseases</h1>
+        <form action="/td" method="POST">
+            <input name="id" type="text" placeholder="ID" maxlength="9" />
+            <textarea name="Treatment" id="" cols="30" rows="10" placeholder="Add Treatment"></textarea>
+            <textarea name="Diseases" id="" cols="30" rows="10" placeholder="Add Diseases"></textarea>
+            <button type="submit">Add</button>
+        </form>
+    </div>
+</body>
+
+</html>
