@@ -26,16 +26,58 @@ const cons = require('consolidate');
 
 
 
-//data base models :
-const User = require('./db/models/User.js').User;
-
-const uMessage = require('./db/models/messages.js').uMessage;
-
-const Appointment = require('./db/models/appointments.js').Appointment;
-
-const BloodTests = require('./db/models/bloodtestSchema.js').BloodTests;
+//data base connection :
 
 
+
+const regSchema = new mongoose.Schema({
+  role: String,
+  FirstName: String,
+  LastName: String,
+  id: Number,
+  password: String,
+  email: String,
+  Gender: String,
+  Age: Number,
+  Phone: Number,
+  Birthdate: Date,
+  Specialist: String,
+});
+
+const messages = new mongoose.Schema({
+  sender: Number,
+  reciever: Number,
+  Subject: String,
+  Mbody: String,
+  sent: Date
+});
+
+
+const appointments = new mongoose.Schema({
+  patient: Number,
+  doctor: Number,
+  Date: String
+});
+
+
+const User = mongoose.model("User", regSchema);
+const uMessage = mongoose.model("uMessage", messages);
+const Appointment = mongoose.model("Appointment", appointments);
+const bloodtestSchema = new mongoose.Schema({
+  id: String,
+  wbc: String,
+  neut: String,
+  lymph: String,
+  rbc: String,
+  hct: String,
+  urea: String,
+  hb: String,
+  creatine: String,
+  iron: String,
+  ap: String,
+
+});
+const BloodTests = mongoose.model("BloodTests", bloodtestSchema);
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -77,6 +119,8 @@ app.get('/Patient', function (req, res) {
       bloodtest: tests 
 
     });
+
+
   });
 
 });
@@ -91,7 +135,7 @@ app.get('/PatientTestValues', function (req, res) {
     res.render('PatientTestValues.ejs', {
       p: req.session.user,
       userslist: users,
-      blood: bloodtest
+      blood: bloodtest,
       })
     });
 
@@ -137,44 +181,47 @@ app.get('/Examinator', function (req, res) {
 
 
 app.get('/', function (req, res) {
-  res.render('Home.html');
-  
+  res.render('Home.html', {
+    style: 'Home.css'
+  });
 });
 app.get('/Sign-Up', function (req, res) {
-  res.render('Sign-Up.ejs');
-});
-
-
-app.get('/Sign-Up_As_Doctor', function (req, res) {
-  res.render('Sign-Up_As_Doctor.html');
-});
-app.get('/Sign-Up_As_Examinator', function (req, res) {
-  res.render('Sign-Up_As_Examinator.html');
-});
-app.get('/Sign-Up_As_Patient', function (req, res) {
-  res.render('Sign-Up_As_Patient.html');
+  res.render('Sign-Up', {
+    message: req.flash("message")
+  });
 });
 app.get('/Home', function (req, res) {
-  res.render('Home.html');
+  res.render('Home.html', {
+    message: req.flash("message")
+  });
 });
 app.get('/Log-in', function (req, res) {
-  res.render('Log-In.html');
- 
+  res.render('Log-In.html', {
+    message: req.flash("message")
+  });
 });
 
 app.get('/ForgotPW', function (req, res) {
-  res.render('ForgotPW.html');
+  res.render('ForgotPW.html', {
+    message: req.flash("message")
+  });
 });
 app.get('/Examinator', function (req, res) {
-  res.render('Examinator.ejs');
+  res.render('Examinator', {
+    message: req.flash("message")
+  });
 });
 
 app.get('/BloodTestValues', function (req, res) {
-  res.render('BloodTestValues.ejs');
+  res.render('BloodTestValues', {
+    message: req.flash("message")
+  });
 });
 
 app.get('/EditDoctor', function (req, res) {
-  res.render('EditDoctor.ejs');
+  res.render('EditDoctor', {
+    message: req.flash("message")
+  });
 });
 
 app.get('/PatientListExaminator', function (req, res) {
@@ -189,7 +236,6 @@ app.get('/PatientListExaminator', function (req, res) {
       BloodTests.find({}, function (err, bloodtest) {
         Appointment.find({}, function (err, appointmenta) {
           res.render('PatientListExaminator.ejs', {
-            examinator: req.session.user,
             patientslist: users,
             messagess: message,
             blood: bloodtest,
@@ -215,9 +261,9 @@ app.get('/PatientInfo', function (req, res) {
 });
 
 app.post('/PatientInfo', function (req, res) {
-  console.log(req.session.user.id);
   res.render('PatientInfo', {
-    p: req.body.user
+    p1: req.session.user,
+    s: req.body.userprofile_id
   })
 });
 
@@ -377,7 +423,6 @@ app.post('/DeleteAppoitment', async (req, res) => {
 
 app.post('/PatientProfile', async (req, res) => {
   
-
   try {
     
 
@@ -393,7 +438,7 @@ app.post('/PatientProfile', async (req, res) => {
 
 
 app.post('/Log-In', (req, res) => {
- 
+
   try {
     var password = req.body.Password;
     User.findOne({
@@ -406,8 +451,7 @@ app.post('/Log-In', (req, res) => {
         })
       }
       if (user) { //user exist
-        
-        
+
 
         if (req.body.Password === user.password) {
           console.log(user);
@@ -416,12 +460,12 @@ app.post('/Log-In', (req, res) => {
 
 
           req.session.user = user;
-          
+          console.log(req.session.user);
           if (user.role === "Doctor") {
 
-
             console.log("doctor login");
-            return res.redirect(302,"/Doctor");
+
+            return res.redirect("/Doctor");
           } else if (user.role === "Examinator") {
             return res.redirect("/Examinator");
           } else {
@@ -435,13 +479,10 @@ app.post('/Log-In', (req, res) => {
       }
     });
   } catch {
-    return res.redirect(500,"/Log-In");
+    return res.redirect("/Log-In");
 
   }
 });
-
-
-
 
 
 app.post('/Patient', (req, res) => {
@@ -652,11 +693,12 @@ app.post('/Appointment', async (req, res) => {
   } catch (err) {
 
 
-    
+    return res.status(500).send();
   }
 
 
 });
+
 
 
 

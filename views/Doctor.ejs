@@ -62,7 +62,7 @@
                             <td><%= user.email%></td>
                             <td><%= user.Gender%></td>
                             <td><%= user.Age%></td>
-                            <td><button id= <%= user._id %> onclick="openPatientProfile(<%= JSON.stringify(user) %>)" class="openForm" >View Profile</button></td>
+                            <td><button id= <%= user.id %> onclick="openPatientProfile(<%= JSON.stringify(user) %>)" class="openForm" >View Profile</button></td>
                             <form action="/DeleteAppoitment" method="post">
                                 <div class="w3-section" hidden="true">
                                     <input hidden="ture" class="w3-input w3-border" type="number" name="sender" value= <%= user.id %> required>
