@@ -25,7 +25,9 @@
                     <li><a href="#three"><i class="fa fa-medkit" aria-hidden="true"></i><p>Blood Tests</p></a></li>
                     <li><a href="#four"><i class="fa fa-map-marker" aria-hidden="true"></i><p>Navigate</p></a></li>
                     <li><a href="EditDoctor"><i class="fas fa-edit" aria-hidden="true"></i><p>Edit Speciality</p></a></li>
+                    <li><a href="td">AddTreatment and AddDiseases</a></li>
                     <li><a href="Log-In"><i class="fas fa-sign-out-alt" aria-hidden="true"></i><p>Logout</p></a></li>
+                    
                    
                 </ul>
             </div>
@@ -70,7 +72,7 @@
                                 <div class="w3-section" hidden="true">
                                     <input hidden="ture" class="w3-input w3-border" type="number" name="doctordel" value= <%= doctor.id %> required>
                                 </div>
-                            <td><button type="submit" id= <%= user._id %> >Done</button></td>
+                            <td><button type="submit" id= <%= user._id %>> Done</button></td>
                         </form>
                         </tr>
                     <%}%>
@@ -88,17 +90,26 @@
                     <p id="pbday"> Birthdate: </p>
       
                     
-                  <dl>
-                    <dt>Last Blood test:
-                    <dd>
-                      <h2>Diseases</h2>
-                      <p>Here Last blood test diseases</p>
-                  </dl>
-                  <dl>
-                  <dt>Treatment
-                  <dd>
-                  <h2>Treatment</h2>
-                  <p>Here drugs the patient take</p>
+                    <Table>
+                        <tr><% var test=0;%>
+                          <th>Diseases</th>
+                          <th>----------------</th>
+                          <th>Treatments</th>
+                        </tr>
+                      <%patientslist.forEach(user=>{ %> 
+                        <%t.forEach(ttdd=>{ %> 
+                          <% if(ttdd.id==user.id){ %>
+                          <tr>
+                            <%test++%>
+                            
+                            <td>( <%= test%> ) <%= ttdd.Diseases %></td>
+                            <td>----------------</td>
+                            <td><%= ttdd.Treatment %></td>
+                        </tr>
+                          <%}%>
+                        <%})%>
+                      <%})%>
+                    </Table>
                  <!-- <input id="messageid" hidden="true" name="Messageidentity" type="password" value="" placeholder="Password" id="password" /> -->
                   <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
                  
