@@ -35,6 +35,8 @@ const Appointment = require('./db/models/appointments.js').Appointment;
 
 const BloodTests = require('./db/models/bloodtestSchema.js').BloodTests;
 
+const tds = require('./db/models/td.js').tds;
+
 
 
 const app = express();
@@ -70,15 +72,16 @@ app.get('/Patient', function (req, res) {
   console.log(LoggedInUser);
   console.log("************************");
   User.find({}, function (err, users) {
-
+    tds.find({}, function (err, treat) {
     res.render('Patient.ejs', {
       p: req.session.user,
       userslist: users,
-      bloodtest: tests 
+      bloodtest: tests,
+      t: treat 
 
     });
   });
-
+  });
 });
 
 app.get('/PatientTestValues', function (req, res) {
@@ -113,13 +116,16 @@ app.get('/Doctor', function (req, res) {
     uMessage.find({}, function (err, message) {
       BloodTests.find({}, function (err, bloodtest) {
         Appointment.find({}, function (err, appointmenta) {
+          tds.find({}, function (err, treat) {
           res.render('Doctor.ejs', {
             doctor: req.session.user,
             patientslist: users,
             messagess: message,
             blood: bloodtest,
-            appointmentss: appointmenta
+            appointmentss: appointmenta,
+            t: treat 
           });
+        });
         })
       })
     })
@@ -177,6 +183,16 @@ app.get('/EditDoctor', function (req, res) {
   res.render('EditDoctor.ejs');
 });
 
+app.get('/td', function (req, res) {
+  
+  res.render('td.ejs',{
+    p: req.body.ttdd,
+    p1: req.body.user
+
+  })
+});
+
+
 app.get('/PatientListExaminator', function (req, res) {
   console.log("************************");
   console.log(LoggedInUser);
@@ -207,18 +223,78 @@ app.get('/PatientListExaminator', function (req, res) {
     p: req.session.user
   })
 });*/
+/*
+app.get('/PatientInfo/:id', function (req, res) {
 
-app.get('/PatientInfo', function (req, res) {
-  res.render('PatientInfo', {
-    message: req.flash("message")
-  });
-});
+  console.log("inside the get request")
+  console.log(req.body);
+  console.log(req.params);
 
-app.post('/PatientInfo', function (req, res) {
-  console.log(req.session.user.id);
   res.render('PatientInfo', {
-    p: req.body.user
+    p: req.params.id
   })
+  
+  
+});
+*/
+
+app.post('/PatientInfo/:id', function (req, res) {
+
+  console.log("inside the post request")
+  const PublicPatient=null;
+  
+
+  User.findOne({
+    id: req.params.id,
+
+  }, function (err, user) {
+    if (err) {
+
+      res.json({
+        error: err
+      })
+    }
+    if (user) {
+      console.log("inside user found")
+     
+      BloodTests.find({id:user.id},function(err,bld){
+        if(err){
+          res.json({
+            error:err
+          })
+        }
+          if(bld){
+            console.log("inside user blood test found")
+            tds.find({id:user.id},function(err,tre){
+              if(err){
+                res.json({
+                  error:err
+                })
+              }
+                if(tre){
+                  console.log("inside treatment found")
+
+                  res.render('PatientInfo.ejs',{patient:user,bldtlist:bld,treatments:tre});
+
+                }
+              }
+            )
+          }
+        
+
+      })
+
+     
+        
+
+
+    } 
+  });
+
+
+  
+  
+
 });
 
 
@@ -261,10 +337,11 @@ app.post('/BloodTestValues', function (req, res) {
 
 });
 
-
+function assignelements(b){
+  return b
+}
 
 app.post('/Sign-Up', (req, res) => {
-
 
 
   try {
@@ -280,7 +357,9 @@ app.post('/Sign-Up', (req, res) => {
       Age: req.body.age,
       Phone: req.body.Phone,
       Birthdate: req.body.birthdate,
-      Specialist: req.body.Specialist
+      Specialist: req.body.Specialist,
+      Diseases:req.body.Diseases,
+      Treatment:req.body.Treatment
     });
 
 
@@ -324,8 +403,30 @@ app.post('/Sign-Up', (req, res) => {
 
   }
 
-
 });
+
+app.post('/td',async (req,res) => {
+  try {
+
+    let td = new tds({
+      id: req.body.id,
+      Diseases:req.body.Diseases,
+      Treatment:req.body.Treatment
+    });
+    
+    td.save(function (err) {
+      if (!err) {
+  
+        console.log(td);
+        return res.redirect('/Doctor');
+      }
+    });
+  }catch{
+    return res.redirect('/Doctor');
+  }
+});
+
+
 
 
 app.post('/DoctorMessage', async (req, res) => {
@@ -374,7 +475,7 @@ app.post('/DeleteAppoitment', async (req, res) => {
   }
 });
 
-
+/*
 app.post('/PatientProfile', async (req, res) => {
   
 
@@ -391,7 +492,7 @@ app.post('/PatientProfile', async (req, res) => {
   }
 });
 
-
+*/
 app.post('/Log-In', (req, res) => {
  
   try {
@@ -455,6 +556,8 @@ app.post('/Patient', (req, res) => {
     Subject: req.body.Subject,
     Mbody: req.body.Message,
     sent: date
+    
+
   });
   console.log(newmessage)
 
@@ -593,17 +696,17 @@ app.post('/EditDoctor', function (req, res) {
 
 
 
-            User.updateOne({ id: user.id }, { Specialist: req.body.Specialist }, function(err, reas) {
-              if(err){
-                console.log("couldn't change Speciality");
-              }
-              else{
-                console.log("Speciality changed successfully");
-                return  res.redirect("/Log-in"); 
-              }
-            });
-         
-          });
+  User.updateOne({ id: user.id }, { Specialist: req.body.Specialist }, function(err, reas) {
+    if(err){
+      console.log("couldn't change Speciality");
+    }
+    else{
+      console.log("Speciality changed successfully");
+      return  res.redirect("/Log-in"); 
+    }
+  });
+
+});
 
 app.post('/Appointment', async (req, res) => {
 
