@@ -223,18 +223,78 @@ app.get('/PatientListExaminator', function (req, res) {
     p: req.session.user
   })
 });*/
+/*
+app.get('/PatientInfo/:id', function (req, res) {
 
-app.get('/PatientInfo', function (req, res) {
-  res.render('PatientInfo', {
-    message: req.flash("message")
-  });
-});
+  console.log("inside the get request")
+  console.log(req.body);
+  console.log(req.params);
 
-app.post('/PatientInfo', function (req, res) {
-  console.log(req.session.user.id);
   res.render('PatientInfo', {
-    p: req.body.user
+    p: req.params.id
   })
+  
+  
+});
+*/
+
+app.post('/PatientInfo/:id', function (req, res) {
+
+  console.log("inside the post request")
+  const PublicPatient=null;
+  
+
+  User.findOne({
+    id: req.params.id,
+
+  }, function (err, user) {
+    if (err) {
+
+      res.json({
+        error: err
+      })
+    }
+    if (user) {
+      console.log("inside user found")
+     
+      BloodTests.find({id:user.id},function(err,bld){
+        if(err){
+          res.json({
+            error:err
+          })
+        }
+          if(bld){
+            console.log("inside user blood test found")
+            tds.find({id:user.id},function(err,tre){
+              if(err){
+                res.json({
+                  error:err
+                })
+              }
+                if(tre){
+                  console.log("inside treatment found")
+
+                  res.render('PatientInfo.ejs',{patient:user,bldtlist:bld,treatments:tre});
+
+                }
+              }
+            )
+          }
+        
+
+      })
+
+     
+        
+
+
+    } 
+  });
+
+
+  
+  
+
 });
 
 
@@ -277,7 +337,9 @@ app.post('/BloodTestValues', function (req, res) {
 
 });
 
-
+function assignelements(b){
+  return b
+}
 
 app.post('/Sign-Up', (req, res) => {
 
@@ -413,7 +475,7 @@ app.post('/DeleteAppoitment', async (req, res) => {
   }
 });
 
-
+/*
 app.post('/PatientProfile', async (req, res) => {
   
 
@@ -430,7 +492,7 @@ app.post('/PatientProfile', async (req, res) => {
   }
 });
 
-
+*/
 app.post('/Log-In', (req, res) => {
  
   try {
@@ -634,17 +696,17 @@ app.post('/EditDoctor', function (req, res) {
 
 
 
-            User.updateOne({ id: user.id }, { Specialist: req.body.Specialist }, function(err, reas) {
-              if(err){
-                console.log("couldn't change Speciality");
-              }
-              else{
-                console.log("Speciality changed successfully");
-                return  res.redirect("/Log-in"); 
-              }
-            });
-         
-          });
+  User.updateOne({ id: user.id }, { Specialist: req.body.Specialist }, function(err, reas) {
+    if(err){
+      console.log("couldn't change Speciality");
+    }
+    else{
+      console.log("Speciality changed successfully");
+      return  res.redirect("/Log-in"); 
+    }
+  });
+
+});
 
 app.post('/Appointment', async (req, res) => {
 

@@ -53,7 +53,7 @@
         <tbody>
             <%patientslist.forEach(user=>{ %>
             <% if(user.role == "Patient"){ %>
-                <form action="/PatientInfo" method="post">
+               
             <tr id=<%= user.id %>>
                 <td><%= user.FirstName%></td>
                 <td><%= user.LastName%></td>
@@ -61,11 +61,13 @@
                 <td><%= user.email%></td>
                 <td><%= user.Gender%></td>
                 <td><%= user.Age%></td>
-                <td><button id=<%= user.id %>>View Profile</button></td>
+                <form action="/PatientInfo/<%= user.id %>" method="post">
+                <td><button type = "submit"id=<%= user.id %>>View Profile</button></td>
+            </form>
             </tr>
             <%}%>
             <%})%>
-        </form>
+        
         </tbody>
     </table>
     </div>
