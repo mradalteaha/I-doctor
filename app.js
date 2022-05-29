@@ -35,6 +35,8 @@ const Appointment = require('./db/models/appointments.js').Appointment;
 
 const BloodTests = require('./db/models/bloodtestSchema.js').BloodTests;
 
+const tds = require('./db/models/td.js').tds;
+
 
 
 const app = express();
@@ -70,15 +72,16 @@ app.get('/Patient', function (req, res) {
   console.log(LoggedInUser);
   console.log("************************");
   User.find({}, function (err, users) {
-
+    tds.find({}, function (err, treat) {
     res.render('Patient.ejs', {
       p: req.session.user,
       userslist: users,
-      bloodtest: tests 
+      bloodtest: tests,
+      t: treat 
 
     });
   });
-
+  });
 });
 
 app.get('/PatientTestValues', function (req, res) {
@@ -113,13 +116,16 @@ app.get('/Doctor', function (req, res) {
     uMessage.find({}, function (err, message) {
       BloodTests.find({}, function (err, bloodtest) {
         Appointment.find({}, function (err, appointmenta) {
+          tds.find({}, function (err, treat) {
           res.render('Doctor.ejs', {
             doctor: req.session.user,
             patientslist: users,
             messagess: message,
             blood: bloodtest,
-            appointmentss: appointmenta
+            appointmentss: appointmenta,
+            t: treat 
           });
+        });
         })
       })
     })
@@ -176,6 +182,16 @@ app.get('/BloodTestValues', function (req, res) {
 app.get('/EditDoctor', function (req, res) {
   res.render('EditDoctor.ejs');
 });
+
+app.get('/td', function (req, res) {
+  
+  res.render('td.ejs',{
+    p: req.body.ttdd,
+    p1: req.body.user
+
+  })
+});
+
 
 app.get('/PatientListExaminator', function (req, res) {
   console.log("************************");
@@ -301,7 +317,6 @@ function assignelements(b){
 app.post('/Sign-Up', (req, res) => {
 
 
-
   try {
 
     let users = new User({
@@ -315,7 +330,9 @@ app.post('/Sign-Up', (req, res) => {
       Age: req.body.age,
       Phone: req.body.Phone,
       Birthdate: req.body.birthdate,
-      Specialist: req.body.Specialist
+      Specialist: req.body.Specialist,
+      Diseases:req.body.Diseases,
+      Treatment:req.body.Treatment
     });
 
 
@@ -359,8 +376,30 @@ app.post('/Sign-Up', (req, res) => {
 
   }
 
-
 });
+
+app.post('/td',async (req,res) => {
+  try {
+
+    let td = new tds({
+      id: req.body.id,
+      Diseases:req.body.Diseases,
+      Treatment:req.body.Treatment
+    });
+    
+    td.save(function (err) {
+      if (!err) {
+  
+        console.log(td);
+        return res.redirect('/Doctor');
+      }
+    });
+  }catch{
+    return res.redirect('/Doctor');
+  }
+});
+
+
 
 
 app.post('/DoctorMessage', async (req, res) => {
@@ -490,6 +529,8 @@ app.post('/Patient', (req, res) => {
     Subject: req.body.Subject,
     Mbody: req.body.Message,
     sent: date
+    
+
   });
   console.log(newmessage)
 
