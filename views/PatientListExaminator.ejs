@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=Ddevice-width, initial-scale=1.0">
+    <title>Examinator Test</title>
+    <link rel="icon" href="images/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="Msg.css">
+    <link rel="stylesheet" href="doc.css">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="Patient.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="navlinks">
+            <ul>
+                <li><a href="Home">Home</a></li>
+                <li><a href="Log-In">Logout</a></li>
+                <li><a href="Examinator">Profile</a></li>
+                <li><a href="BloodTestValues">Blood Test Values</a></li>
+            </ul>
+        </div>
+    </nav>
+    <table class="container">
+
+
+        <thead>
+            <tr>
+                <th>
+                    <h1>First Name</h1>
+                </th>
+                <th>
+                    <h1>Last Name</h1>
+                </th>
+                <th>
+                    <h1>ID</h1>
+                </th>
+                <th>
+                    <h1>E-mail</h1>
+                </th>
+                <th>
+                    <h1>Gender</h1>
+                </th>
+                <th>
+                    <h1>Age</h1>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <%patientslist.forEach(user=>{ %>
+            <% if(user.role == "Patient"){ %>
+                <form action="/PatientInfo" method="post">
+            <tr id=<%= user.id %>>
+                <td><%= user.FirstName%></td>
+                <td><%= user.LastName%></td>
+                <td><%= user.id%></td>
+                <td><%= user.email%></td>
+                <td><%= user.Gender%></td>
+                <td><%= user.Age%></td>
+                <td><button id=<%= user.id %>>View Profile</button></td>
+            </tr>
+            <%}%>
+            <%})%>
+        </form>
+        </tbody>
+    </table>
+    </div>
+    <script>
+        function openForm(message) {
+          
+            
+            console.log(message);
+            
+           console.log(message=== null ? "novaluesent": message);
+           
+           document.getElementById("messagefrom").textContent= "Message From: " +message.sender;
+           document.getElementById("messagesubject").textContent= "Message Subject: " +message.Subject;
+           document.getElementById("messagecontent").textContent= "Message From: " +message.Mbody;
+           document.getElementById("messageid").value= message._id;
+          document.getElementById("myForm").style.display = "block";
+          document.getElementById("messagestable").style.display = "none";
+          
+        }
+        
+        function closeForm() {
+          document.getElementById("myForm").style.display = "none";
+          document.getElementById("messagestable").style.display = "table";
+          document.getElementById("mybloodForm").style.display = "none";
+          document.getElementById("BloodTestTable").style.display = "table";
+          document.getElementById("PatientProfile").style.display = "none";
+          document.getElementById("PatientqueueTable").style.display = "table";
+        }
+        function openPatientProfile(user) {
+              
+                
+              console.log(user);
+              
+             console.log(user=== null ? "novaluesent": user);
+    
+             
+             document.getElementById("fnln").textContent= "Name:  " +user.FirstName +" "+ user.LastName;
+             document.getElementById("pidnum").textContent= "ID:  " +user.id;
+             document.getElementById("pemail").textContent= "Email:  " +user.email;
+             document.getElementById("pgender").textContent= "Gender:  " +user.Gender;
+             document.getElementById("pbday").textContent= "Birthdate:  " +user.Birthdate;
+            document.getElementById("PatientProfile").style.display = "block";
+            document.getElementById("PatientqueueTable").style.display = "none";
+            
+          }
+</script>
+</body>
+</html>
+</html>

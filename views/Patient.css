@@ -2,104 +2,242 @@
   box-sizing: border-box
 }
 
+  
+  body {
+    background-color: #5c5a52;
+    margin: 0px;
+    padding: 0;
+    
+  }
+    
 
-
-body {
-  background-color: #6ff5ff;
-  margin: 0px;
+.left {
+  left: 25px;
 }
 
-div#resume {
-  min-width: 310px;
-  font: 16px Helvetica, Avernir, sans-serif;
-  line-height: 24px;
-  color: #000
+.right {
+  right: 25px;
 }
 
-div#resume h1 {
-  margin: 0 0 16px 0;
-  padding: 0 0 16px 0;
-  font-size: 42px;
-  font-weight: bold;
-  letter-spacing: -2px;
-  border-bottom: 1px solid #999;
-  line-height: 50px
+.center {
+  text-align: center;
 }
 
-div#resume h2 {
-  font-size: 20px;
-  margin: 0 0 6px 0;
-  position: relative
-}
-
-div#resume h2 span {
+.bottom {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  font-style: italic;
-  font-family: Georgia, serif;
-  font-size: 16px;
-  color: rgb(0, 0, 0);
-  font-weight: normal;
+  bottom: 25px;
 }
 
-.wrapper{
-  position: relative;
-  left: 300px;
-  width: 80%;
-  height: 100vh;
-  top:50px;
-  display: block;
-  padding: 0 0 2rem 0;
+#gradient {
+  background: #999955;
+  background-image: linear-gradient(#DAB046 20%, #D73B25 20%, #D73B25 40%, #C71B25 40%, #C71B25 60%, #961A39 60%, #961A39 80%, #601035 80%);
+  margin: 0 auto;
+  margin-top: 100px;
+  width: 100%;
+  height: 150px;
 }
 
-
-div#resume p.objective {
-  font-family: Georgia, serif;
-  font-style: italic;
-  color: #666
+#gradient:after {
+  content: "";
+  position: absolute;
+  background: #E9E2D0;
+  left: 50%;
+  margin-top: -67.5px;
+  margin-left: -270px;
+  padding-left: 20px;
+  border-radius: 5px;
+  width: 520px;
+  height: 275px;
+  z-index: -1;
 }
 
-div#resume dt {
-  font-style: italic;
-  font-weight: bold;
-  font-size: 18px;
-  text-align: right;
-  padding: 0 26px 0 0;
+#card {
+  position: absolute;
+  width: 450px;
+  height: 225px;
+  padding: 25px;
+  padding-top: 0;
+  padding-bottom: 0;
+  left: 50%;
+  top: 67.5px;
+  margin-left: -250px;
+  background: #E9E2D0;
+  box-shadow: -20px 0 35px -25px black, 20px 0 35px -25px black;
+  z-index: 5;
+}
+
+#card img {
   width: 150px;
-  border-right: 1px solid #999
+  float: left;
+  border-radius: 5px;
+  margin-right: 20px;
+  -webkit-filter: sepia(1);
+  -moz-filter: sepia(1);
+  filter: sepia(1);
 }
 
-div#resume dl {
-  display: table-row
+#card h2 {
+  font-family: courier;
+  color: #333;
+  margin: 0 auto;
+  padding: 0;
+  font-size: 15pt;
 }
 
-div#resume dl dt,
-div#resume dl dd {
-  display: table-cell;
-  padding-bottom: 20px
+#card p {
+  font-family: courier;
+  color: #555;
+  font-size: 13px;
 }
 
-div#resume dl dd {
-  width: 500px;
-  padding-left: 26px
+#card span {
+  font-family: courier;
+}
+  
+
+  
+  
+  div#resume {
+    min-width: 310px;
+    font: 16px Helvetica, Avernir, sans-serif;
+    line-height: 24px;
+    color: #000
+  }
+  
+  div#resume h1 {
+    margin: 0 0 16px 0;
+    padding: 0 0 16px 0;
+    font-size: 42px;
+    font-weight: bold;
+    letter-spacing: -2px;
+    border-bottom: 1px solid #999;
+    line-height: 50px
+  }
+  .wrapper2{
+    position: relative;
+    left: 300px;
+    width: 80%;
+    height: 20vw;
+    padding: 0 auto;
 }
 
+  .wrapper1{
+    position: relative;
+    left: 300px;
+    width: 80%;
+    padding: 0 auto;
+}
 
-@media screen and (max-width:1100px) {
+  .wrapper{
+    position: relative;
+    left: 300px;
+    width: 80%;
+    padding: 0 auto;
+}
+
+  
+  div#resume h2 {
+    font-size: 20px;
+    margin: 0 0 6px 0;
+    position: relative
+  }
+  
   div#resume h2 span {
     position: static;
     display: block;
     margin-top: 2px
   }
+  
+
+
+  div#resume p.objective {
+    font-family: Georgia, serif;
+    font-style: italic;
+    color: #666
+  }
+  
+  div#resume dt {
+    font-style: italic;
+    font-weight: bold;
+    font-size: 18px;
+    text-align: right;
+    padding: 0 26px 0 0;
+    width: 150px;
+    border-right: 1px solid #999
+  }
+  
+  div#resume dl {
+    display: table-row
+  }
+  
+  div#resume dl dt,
+  div#resume dl dd {
+    display: table-cell;
+    padding-bottom: 20px
+  }
+  
+  div#resume dl dd {
+    width: 500px;
+    padding-left: 26px
+  }
+  select{
+    width: 100%;
+    height: 42px;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+    font-size: 14px;
+    font-family: Montserrat;
+    padding-top: 0 20px 0 50px;
+    outline: none;
+  }
+  button {
+    width: 100%;
+    height: 40px;
+    background: #ff656c;
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 1px solid #e15960;
+    color: black;
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 14px;
+    font-family: Montserrat;
+    outline: none;
+    cursor: pointer;
 }
-.navbar{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color:#444669;
-  color: black;
-  margin: 0 0 100px 0;
+
+button:hover {
+    background: #ff7b81;
+}
+input {
+  width: 100%;
+  height: 42px;
+  box-sizing: border-box;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+  font-size: 14px;
+  font-family: Montserrat;
+  padding: 0 20px 0 50px;
+  outline: none;
+}
+  
+  @media screen and (max-width:1100px) {
+    div#resume h2 span {
+      position: static;
+      display: block;
+      margin-top: 2px
+    }
+  }
+  .navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color:#444669;
+    color: black;
+    margin: 0 0 100px 0;
 }
 .navlinks ul{
   margin: 0px;
@@ -142,8 +280,4 @@ div#resume dl dd {
       display: flex;
   }
 }
-
-
-
-
 

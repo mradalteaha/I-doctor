@@ -6,12 +6,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="Patient.css">
-    <link rel="stylesheet" href="Msg.css">
-    <!--<link rel="stylesheet" href="doc.css"> --> 
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <!-- <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" href="/resources/demos/style.css">
  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
     <title>Patient</title>
 </head>
 <body>
@@ -20,92 +19,60 @@
         <ul>
             <li><a href="Home">Home</a></li>
             <li><a href="Log-In">Logout</a></li>
-            <li><a href="Doctor">Doctors</a></li>
-            <li><a href="Home">Blood Test</a></li>
+            <li><a href="PatientTestValues">Blood Test</a></li>
             <li><a href="#appointment">Reserve Appointment</a></li>
         </ul>
     </div>
 </nav>
 
-<div id="wrapper">
+<div id="gradient"></div>
+<div id="card">
+  <h2>Patient Profile</h2>
+  <p>Name: <%= p.FirstName %><%= p.LastName %> </p>
+  <p>ID: <%= p.id %></a>
+  <p>Email: <%= p.email %></a>
+  <p> Birthdate: <%= p.Birthdate %></p>
+  <span class="left bottom"> tel: <%= p.Phone %></span>
+  <span class="right bottom">Gender: <%= p.Gender %></span>
+</div>
+<br><br><br><br><br><br>
+<div class="wrapper1">
 
-  <h1 class="heading"> <span>Patient</span> Info </h1>     
-      <section>
+  <h1><i>Patient Information</i></h1>     
       <div id="resume">
-          
-              <p>Name: <%= p.FirstName %> &nbsp <%= p.LastName %> </p>
-              <p>Phone: <%= p.Phone %></a>
-              <p>ID: <%= p.id %></a>
-              <p>Email: <%= p.email %></a>
-              <p> Gender: <%= p.Gender %> </p>
-              <p> Birthdate: <%= p.Birthdate %></p>
-
               
-            <dl>
-              <dt>Last Blood test:
-              <dd>
-                <h2>Diseases</h2>
-                <p>Here Last blood test diseases</p>
-            </dl>
             <dl>
             <dt>Treatment
             <dd>
             <h2>Treatment</h2>
-            <p>Here drugs the patient take
-          </div>
-        </section>
-  </div>
-     
-
-
- <div id="wrapper"> 
-  <h1 class="heading"> <span>Send</span> Message </h1>     
-    <section>
-          <div class="w3-container" id="contact" style="margin-top:75px">
-            <h1 class="w3-xxxlarge w3-text-red"><b>Contact.</b></h1>
-
-
-            <form action="/Patient" method="POST">
-
-
-              <div class="w3-section">
-                <label>Select Doctor</label>
-                <select name="doctorid" id="id">
-                  <%userslist.forEach(user=>{ %> 
-                    <% if(user.role == "Doctor"){ %>
-                
-                      <option value=<%=user.id%> <span><%= user.FirstName %> &nbsp <%= user.LastName %></span></option>
-            <%}%>
-            <%})%>
-                  
-                </select>
-            </div>
-              
-                <div class="w3-section">
-                    <label>Subject</label>
-                    <input class="w3-input w3-border" type="text" name="Subject" required>
-                </div>
-
-                <div class="w3-section" hidden="true">
-                  <input class="w3-input w3-border" type="number" name="sender" value= <%= p.id %> required>
-              </div>
-                <div class="w3-section">
-                    <label>Message</label>
-                    <input class="w3-input w3-border" type="text" name="Message" required>
-                </div>
-                <div class="w3-section">
-              </div>
-                <button type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Send
-                    Message</button>
-            </form>
+            <p>Here drugs the patient take</p>
         </div>
+  </div> 
+  <br><br><br><br><br><br>
 
-    </section>
-
-</div>  
+      <div class="wrapper">
+        <h1><i>Send Message to </i></h1>
+        <form action="/Patient" method="POST">
+          <label><h1>Select Doctor</h1></label>
+              <select name="doctorid" id="id">
+                <%userslist.forEach(user=>{ %> 
+                  <% if(user.role == "Doctor"){ %>
+              
+                    <option value=<%=user.id%> <span><h1><%= user.FirstName %> <%= user.LastName %></h1></span></option>
+          <%}%>
+          <%})%>
+            </select>
+            <input placeholder="Subject" type="text" name="Subject" required>
+            <div hidden="true">
+              <input type="number" name="sender" value= "<%= p.id %>" required>
+            </div> 
+            <input placeholder="Message" type="text" name="Message" required>
+            <button type="submit">Send</button>
+        </form>
+    </div>
 
         <div id ="wrapper" >
-          <h1 class="heading"> <span>Nav</span> igate </h1> 
+          <h1 class="heading">Navigate </h1> 
             <section class="location" id="location">
 
                       <h1 class="heading"> <span>Navigate to nearest </span> Hospital</h1>
@@ -127,30 +94,29 @@
             </div>
 
     <div class="wrapper" id="appointment">
-        <h1 class="heading"> <span>Reserver</span> Appointment </h1>
         <section>
             
           <div class="w3-container" id="contact" style="margin-top:75px">
       
-      
+          <h1><i> Reserver Appointment</i></h1>
           <form action="/Appointment" method="POST">
       
       
             <div class="w3-section">
-              <label>Select Doctor</label>
+              <label><h1>Select Doctor</h1></label>
               <select name="doctorid" id="id">
                 <%userslist.forEach(user=>{ %> 
                   <% if(user.role == "Doctor"){ %>
                
-                    <option value=<%=user.id%> <span><%= user.FirstName %> &nbsp <%= user.LastName %></span></option>
+                    <option value=<%=user.id%> <span><%= user.FirstName %> <%= user.LastName %></span></option>
            <%}%>
            <%})%>
                 
                </select>
           </div>
 
-          <div class="w3-section" hidden="true">
-            <input class="w3-input w3-border" type="number" name="sender" value= <%= p.id %> required>
+          <div class="wrapper2" hidden="true">
+            <input  type="number" name="sender" value= "<%= p.id %>" required>
         </div>
           <table>
             <tr>
@@ -158,13 +124,10 @@
             </tr>
             <tr>
               <td>Date:</td>
-              <td><input type="text" name="datepicked" id="datepicker"></td>
+              <td><input type="date" name="datepicked" id="datepicker"></td>
             </tr>
           </table>
-      
-            
-        
-              <button type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">reserve appointment</button>
+              <button type="submit" >reserve appointment</button>
           </form>
       </div>
             

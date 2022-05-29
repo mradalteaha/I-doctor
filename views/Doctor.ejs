@@ -7,10 +7,6 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
         <link rel="stylesheet" href="Msg.css">
         <link rel="stylesheet" href="doc.css">
-
-        
-
-
     </head>
 <body>
 
@@ -23,11 +19,19 @@
                 </a>
                 <ul class="nav-links">
                     <li><h1 class="headingb"> <span>Welcome Doctor:</span> <%=doctor.FirstName  %> <%=doctor.LastName%> </h1></li>
+                    <li><h1 class="headingb"><span> Specialty: </span><%=doctor.Specialist  %></h1></li>
                     <li><a href="#first"><i class="fas fa-house-user"></i><p>Patient Queue</p></a></li>
                     <li><a href="#second"><i class="fas fa-comment-dots"></i><p>My Messeages</p></a></li>
+<<<<<<< HEAD
                     <li><a href="#three"><i class="fas fa-comment-dots"></i><p>Section 3</p></a></li>
                     <li><a href="#four"><i class="fas fa-comment-dots"></i><p>Section 4</p></a></li>
                     
+=======
+                    <li><a href="#three"><i class="fa fa-medkit" aria-hidden="true"></i><p>Blood Tests</p></a></li>
+                    <li><a href="#four"><i class="fa fa-map-marker" aria-hidden="true"></i><p>Navigate</p></a></li>
+                    <li><a href="EditDoctor"><i class="fas fa-edit" aria-hidden="true"></i><p>Edit Speciality</p></a></li>
+                    <li><a href="Log-In"><i class="fas fa-sign-out-alt" aria-hidden="true"></i><p>Logout</p></a></li>
+>>>>>>> master
                    
                 </ul>
             </div>
@@ -39,7 +43,8 @@
             
             <div class="table-wrapper-scroll-y my-custom-scrollbar">
             
-                <table class="container" >
+             
+                <table id="PatientqueueTable" class="container" >
     
                     
                     <thead>
@@ -55,7 +60,11 @@
                     <tbody>
                         <%appointmentss.forEach(appointment=>{ %> 
                         <%patientslist.forEach(user=>{ %> 
+<<<<<<< HEAD
                            <% if(user.role == "Patient" && appointment.patient == user.id){ %>
+=======
+                           <% if(user.role == "Patient" && appointment.patient == user.id && appointment.doctor == doctor.id){ %>
+>>>>>>> master
                         <tr id= <%= user.id %>>
                             <td><%= user.FirstName%></td>
                             <td><%= user.LastName%></td>
@@ -63,6 +72,10 @@
                             <td><%= user.email%></td>
                             <td><%= user.Gender%></td>
                             <td><%= user.Age%></td>
+<<<<<<< HEAD
+=======
+                            <td><button id= <%= user._id %> onclick="openPatientProfile(<%= JSON.stringify(user) %>)" class="openForm" >View Profile</button></td>
+>>>>>>> master
                             <form action="/DeleteAppoitment" method="post">
                                 <div class="w3-section" hidden="true">
                                     <input hidden="ture" class="w3-input w3-border" type="number" name="sender" value= <%= user.id %> required>
@@ -78,8 +91,32 @@
                     <%})%>
                     </tbody>
                 </table>
-    
             </div>
+            <div class="form-popup" id="PatientProfile">
+                <form action="/PatientProfile" method="post" class="form-container">
+                    <p id="fnln">Name:  </p>
+                    <p id="pidnum">ID: </a>
+                    <p id ="pemail">Email:</a>
+                    <p id="pgender"> Gender: </p>
+                    <p id="pbday"> Birthdate: </p>
+      
+                    
+                  <dl>
+                    <dt>Last Blood test:
+                    <dd>
+                      <h2>Diseases</h2>
+                      <p>Here Last blood test diseases</p>
+                  </dl>
+                  <dl>
+                  <dt>Treatment
+                  <dd>
+                  <h2>Treatment</h2>
+                  <p>Here drugs the patient take</p>
+                 <!-- <input id="messageid" hidden="true" name="Messageidentity" type="password" value="" placeholder="Password" id="password" /> -->
+                  <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+                 
+                </form>
+              </div>
         
         </section>
     </div>
@@ -134,7 +171,7 @@
          <br> <label id="messagecontent" type="text" ></label></br>
          <input id="messageid" hidden="true" name="Messageidentity" type="password" value="" placeholder="Password" id="password" />
           <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
-          <button type="submit" class="btn confirm" >Delete Message</button>
+          <button type="submit" class="btn confirm">Delete Message</button>
         </form>
       </div>
         
@@ -142,6 +179,9 @@
     
     </section>
 </div>
+
+
+
 <div class="wrapper" id="three">
     <h1 class="heading"> <span>Patient</span> Queue </h1>
 <section >
@@ -190,6 +230,7 @@
     
         <table class="container" >
 
+<<<<<<< HEAD
             
             <thead>
                 <tr>
@@ -223,6 +264,30 @@
 </section>
 
 </div>
+=======
+<div class="wrapper" id="four">
+      <section class="location" id="location">
+
+                <h1 class="heading"> <span>Navigate to nearest </span> Hospital</h1>
+        
+                <div class="row">
+        
+                  <div style="width: 100%"><iframe width="100%" height="600" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/maps?width=100%25&amp;height=600&amp;hl=en&amp;q=Yitzhack%20I.%20Rager%20Blvd%20151,%20Be'er%20Sheva+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"><a href="https://www.gps.ie/wearable-gps/">adventure gps</a></iframe></div>
+                    <div class="content">
+                        <h3 style="color: white;">Our Address</h3>
+                        <p style="color: white;">Soroka,</p>
+                        <p style="color: white;">Yitzhack I. Rager Blvd 151, Be'er Sheva</p>
+          
+        
+                    </div>
+        
+                </div>
+
+         </section>
+      </div>
+
+
+>>>>>>> master
 
 
         <script src="https://kit. fontawesome.com/c4254e24a8.js" crossorigin="anonymous"></script>
@@ -246,6 +311,10 @@
             function closeForm() {
               document.getElementById("myForm").style.display = "none";
               document.getElementById("messagestable").style.display = "table";
+              document.getElementById("mybloodForm").style.display = "none";
+              document.getElementById("BloodTestTable").style.display = "table";
+              document.getElementById("PatientProfile").style.display = "none";
+              document.getElementById("PatientqueueTable").style.display = "table";
             }
 
             function donePatient(user) {
@@ -254,6 +323,27 @@
               console.log(user);
             
           }
+
+          function openPatientProfile(user) {
+              
+                
+              console.log(user);
+              
+             console.log(user=== null ? "novaluesent": user);
+    
+             
+             document.getElementById("fnln").textContent= "Name:  " +user.FirstName +" "+ user.LastName;
+             document.getElementById("pidnum").textContent= "ID:  " +user.id;
+             document.getElementById("pemail").textContent= "Email:  " +user.email;
+             document.getElementById("pgender").textContent= "Gender:  " +user.Gender;
+             document.getElementById("pbday").textContent= "Birthdate:  " +user.Birthdate;
+
+             
+            document.getElementById("PatientProfile").style.display = "block";
+            document.getElementById("PatientqueueTable").style.display = "none";
+            
+          }
+    
             </script>
 
         
