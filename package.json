@@ -1,9 +1,10 @@
 {
-  "name": "i-doctor1",
+  "name": "i-doctor",
   "version": "1.0.0",
   "description": "doctor",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "mocha --recursive --exit --timeout 100000"
   },
   "author": "abed",
@@ -21,6 +22,7 @@
     "express": "^4.17.3",
     "express-session": "^1.17.2",
     "flash": "^1.1.0",
+    "heroku": "^7.60.2",
     "jest": "^28.1.0",
     "mocha": "^10.0.0",
     "mongodb": "^4.5.0",
