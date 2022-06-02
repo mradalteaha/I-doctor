@@ -264,7 +264,7 @@ app.post('/BloodTestValues', function (req, res) {
     iron: req.body.iron,
     ap: req.body.ap
   });
-  console.log("blood test enterd");
+  console.log("blood test entered");
   tests.push(req.body.id);
   console.log(tests);
   test.save(function (err) {
@@ -474,7 +474,7 @@ app.post('/Log-In', (req, res) => {
       }
     });
   } catch {
-    return res.redirect(500,"/Log-In");
+    return res.redirect ("/Log-In");
 
   }
 });
@@ -623,28 +623,15 @@ app.post('/EditDoctor', function (req, res) {
             console.log("couldn't change Speciality");
           } else {
             console.log("Speciality changed successfully");
-            return res.redirect("/Doctor");
+            console.log(user);
+            return res.redirect("/Log-In");
           }
         });
 
       }
     }
   });
-
-
-
-
-            User.updateOne({ id: user.id }, { Specialist: req.body.Specialist }, function(err, reas) {
-              if(err){
-                console.log("couldn't change Speciality");
-              }
-              else{
-                console.log("Speciality changed successfully");
-                return  res.redirect("/Log-in"); 
-              }
-            });
-         
-          });
+ });
 
 app.post('/Appointment', async (req, res) => {
 
