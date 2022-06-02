@@ -43,9 +43,11 @@
       <div id="resume">
         <Table>
           <tr><% var test=0;%>
-            <th>Diseases</th>
-            <th>----------------</th>
+            
             <th>Treatments</th>
+            <th>----------------</th>
+            <th>Diseases</th>
+            
           </tr>
  
           <%t.forEach(ttdd=>{ %> 
@@ -53,9 +55,10 @@
             <tr>
               <%test++%>
               
-              <td>( <%= test%> ) <%= ttdd.Diseases %></td>
-              <td>----------------</td>
               <td><%= ttdd.Treatment %></td>
+              <td>----------------</td>
+              
+              <td>( <%= test%> ) <%= ttdd.Diseases %></td>
           </tr>
             <%}%>
           <%})%>
