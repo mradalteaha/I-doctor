@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "test": "mocha --recursive --exit --timeout 100000",
-    "start":"node server.js"
+    "start": "node server.js"
   },
   "author": "abed",
   "license": "ISC",
