@@ -685,24 +685,11 @@ app.post('/EditDoctor', function (req, res) {
             console.log("couldn't change Speciality");
           } else {
             console.log("Speciality changed successfully");
-            return res.redirect("/Log-In.html");
+            return res.redirect("/Log-In");
           }
         });
 
       }
-    }
-  });
-
-
-
-
-  User.updateOne({ id: user.id }, { Specialist: req.body.Specialist }, function(err, reas) {
-    if(err){
-      console.log("couldn't change Speciality");
-    }
-    else{
-      console.log("Speciality changed successfully");
-      return  res.redirect("/Log-in"); 
     }
   });
 
