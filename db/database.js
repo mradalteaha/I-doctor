@@ -1,6 +1,6 @@
 //jshint esversion:6
 const mongoose = require('mongoose');
-const DB_URI = 'mongodb+srv://moradte:Mrad_1999@idoctor.1lmf0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+const DB_URI =process.env.MONGODB_URL || 'mongodb+srv://moradte:Mrad_1999@idoctor.1lmf0.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
 
 
