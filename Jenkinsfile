@@ -18,7 +18,9 @@ pipeline {
         }
         stage('Deliver') {
             steps {
-                sh 'npm run test'
+                sh 'git add .'
+                sh 'git commit -m "deploy"'
+                sh 'git push heroku master'
             }
         }
     }
