@@ -14,6 +14,12 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'npm run test'
+                sh 'npm run test'
+            }
+        }
+        stage('Code Coverage'){
+            steps{
+                sh 'npm -- --coverage'
             }
         }
         stage('Deliver') {
