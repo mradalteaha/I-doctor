@@ -14,7 +14,6 @@ pipeline {
         stage('Test') {
             steps {
                 sh 'npm run test'
-                sh 'npm run test'
             }
         }
         stage('Code Coverage'){
@@ -24,9 +23,7 @@ pipeline {
         }
         stage('Deliver') {
             steps {
-                sh 'git add .'
-                sh 'git commit -m "deploy"'
-                sh 'git push heroku master'
+            sh 'npm run test'
             }
         }
     }
