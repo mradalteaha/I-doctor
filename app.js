@@ -685,7 +685,7 @@ app.post('/EditDoctor', function (req, res) {
             console.log("couldn't change Speciality");
           } else {
             console.log("Speciality changed successfully");
-            return res.redirect("/Doctor");
+            return res.redirect("/Log-In.html");
           }
         });
 

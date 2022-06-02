@@ -47,9 +47,9 @@
             <th>----------------</th>
             <th>Treatments</th>
           </tr>
-        <%userslist.forEach(user=>{ %> 
+ 
           <%t.forEach(ttdd=>{ %> 
-            <% if(ttdd.id==user.id){ %>
+            <% if(ttdd.id==p.id){ %>
             <tr>
               <%test++%>
               
@@ -59,7 +59,6 @@
           </tr>
             <%}%>
           <%})%>
-        <%})%>
       </Table>
         </div>
   </div> 
