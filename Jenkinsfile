@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Code Coverage'){
             steps{
-                sh 'npm -- --coverage'
+                sh 'npm t -- --coverage'
             }
         }
         stage('Deliver') {
