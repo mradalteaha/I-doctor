@@ -150,7 +150,12 @@ app.get('/Sign-Up', function (req, res) {
   res.render('Sign-Up.ejs');
 });
 
-
+app.get('/PatientInfo/Home', function (req, res) {
+  res.render('Home.html');
+});
+app.get('/PatientInfo/Log-In', function (req, res) {
+  res.render('Log-In.html');
+});
 app.get('/Sign-Up_As_Doctor', function (req, res) {
   res.render('Sign-Up_As_Doctor.html');
 });
@@ -273,7 +278,6 @@ app.post('/PatientInfo/:id', function (req, res) {
               }
                 if(tre){
                   console.log("inside treatment found")
-
                   res.render('PatientInfo.ejs',{patient:user,bldtlist:bld,treatments:tre});
 
                 }
