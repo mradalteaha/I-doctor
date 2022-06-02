@@ -181,14 +181,11 @@
 
 
 <div class="wrapper" id="three">
-    <h1 class="heading"> <span>Patient</span> Queue </h1>
+    <h1 class="heading"> <span>Blood</span> Tests </h1>
 <section >
-    
     <div class="table-wrapper-scroll-y my-custom-scrollbar">
     
-        <table class="container" >
-
-            
+        <table id="BloodTestTable" class="container" >
             <thead>
                 <tr>
                     <th><h1>First Name</h1></th>
@@ -200,8 +197,12 @@
                 </tr>
             </thead>
             <tbody>
+                <%blood.forEach(bloodtest=>{ %> 
                 <%patientslist.forEach(user=>{ %> 
-                   <% if(user.role == "Patient"){ %>
+                   
+                        
+                            <% if(user.role == "Patient"){ %>
+                            <% if(user.id == bloodtest.id){ %>
                 <tr>
                     <td><%= user.FirstName%></td>
                     <td><%= user.LastName%></td>
@@ -209,14 +210,37 @@
                     <td><%= user.email%></td>
                     <td><%= user.Gender%></td>
                     <td><%= user.Age%></td>
-                    <td><a href="Home.html"><button>View</button></a></td>
+                    <td><button id= <%= bloodtest._id %> onclick="openbloodtest(<%= JSON.stringify(bloodtest) %>)" class="openbloodtest" >View blood tests result</button></td>
                 </tr>
             <%}%>
+            <%}%>
+            <%})%>
             <%})%>
             </tbody>
         </table>
 
     </div>
+         
+    <div class="form-popup" id="mybloodForm">
+        <form action="/action_page.php" class="form-container">
+         <br> <label id="BloodTestID" type="text" ></label></br>
+         <br> <label id="Age" type="text" ></label></br>
+         <br> <label id="WBC" type="text" ></label></br>
+         <br> <label id="neut" type="text" ></label></br>
+         <br> <label id="lymph" type="text" ></label></br>
+         <br> <label id="rbc" type="text" ></label></br>
+         <br> <label id="hct" type="text"></label></br>
+         <br> <label id="urea" type="text" ></label></br>
+         <br> <label id="hb" type="text" ></label></br>
+         <br> <label id="creatine" type="text" ></label></br>
+         <br> <label id="iron" type="text" ></label></br>
+         <br> <label id="ap" type="text" ></label></br>
+         <br>
+         <br>
+          <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+        </form>
+      </div>
+        
 
 </section>
 </div>
@@ -303,6 +327,30 @@
              
             document.getElementById("PatientProfile").style.display = "block";
             document.getElementById("PatientqueueTable").style.display = "none";
+            
+          }
+          function openbloodtest(bloodtest) {
+              
+                
+              console.log(bloodtest);
+              
+             console.log(bloodtest=== null ? "novaluesent": bloodtest);
+             
+             document.getElementById("BloodTestID").textContent= "Id:" +bloodtest.id;
+             document.getElementById("Age").textContent= "Age:" +bloodtest.age;
+             document.getElementById("WBC").textContent= "WBC:" +bloodtest.wbc;
+             document.getElementById("neut").textContent= "neut:" +bloodtest.neut;
+             document.getElementById("lymph").textContent= "lymph:" +bloodtest.lymph;
+             document.getElementById("rbc").textContent= "rbc:" +bloodtest.rbc;
+             document.getElementById("hct").textContent= "hct:" +bloodtest.hct;
+             document.getElementById("urea").textContent= "urea:" +bloodtest.urea;
+             document.getElementById("hb").textContent= "hb:" +bloodtest.hb;
+             document.getElementById("creatine").textContent= "creatine:" +bloodtest.creatine;
+             document.getElementById("iron").textContent= "iron:" +bloodtest.iron;
+             document.getElementById("ap").textContent= "ap:" +bloodtest.ap;
+            document.getElementById("mybloodForm").style.display = "block";
+            document.getElementById("BloodTestTable").style.display = "none";
+            
             
           }
     
